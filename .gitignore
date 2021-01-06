@@ -1,3 +1,4 @@
 out/*
-*/resource/aws_s3
 src/main/webapp/resources/aws_s3
+.idea/*
+.idea/workspace.xml

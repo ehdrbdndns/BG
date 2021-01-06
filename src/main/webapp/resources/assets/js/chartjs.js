@@ -1,57 +1,6 @@
 $(function() {
   'use strict';
 
-  if($('#chartCategory').length) {
-    new Chart($('#chartCategory'), {
-      type: 'doughnut',
-      data: {
-        labels: ["카테고리1", "카테고리2", "카테고리3"],
-        datasets: [
-          {
-            label: "Population (millions)",
-            backgroundColor: ["#7ee5e5","#f77eb9","#4d8af0"],
-            data: [2478,4267,1334]
-          }
-        ]
-      }
-    });
-  }
-
-  if($('#chartAdvertise').length) {
-    new Chart($('#chartAdvertise'), {
-      type: 'doughnut',
-      data: {
-        labels: ["광고1", "광고2", "광고3"],
-        datasets: [
-          {
-            label: "Population (millions)",
-            backgroundColor: ["#7ee5e5","#f77eb9","#4d8af0"],
-            data: [2478,4267,1334]
-          }
-        ]
-      }
-    });
-  }
-
-  if($('#chartProposal').length) {
-    new Chart($("#chartProposal"), {
-      type: 'bar',
-      data: {
-        labels: [ "바꿔머거", "시켜먹어"],
-        datasets: [
-          {
-            label: "Population",
-            backgroundColor: ["#b1cfec","#f77eb9","#f77eb9"],
-            data: [1500, 2000, 0]
-          }
-        ]
-      },
-      options: {
-        legend: { display: false },
-      }
-    });
-  }
-
   if($('#chartArea').length) {
     new Chart($('#chartArea'), {
       type: 'line',

@@ -5,7 +5,6 @@ import org.BG.DTO.AdvertiseDto;
 import java.util.ArrayList;
 
 public interface AdvertiseMapper {
-    ArrayList<AdvertiseDto> appGetAdvertise();
     ArrayList<AdvertiseDto> appGetAdvertiseOfChat();
     ArrayList<AdvertiseDto> appGetAdvertiseOfChatRoom();
     ArrayList<AdvertiseDto> appGetAdvertiseOfMainBanner();
@@ -18,4 +17,12 @@ public interface AdvertiseMapper {
     ArrayList<AdvertiseDto> appGetAdvertiseOfReview();
     ArrayList<AdvertiseDto> appGetAdvertiseOfCommunity();
     void appClickAdvertiseOfReview(AdvertiseDto advertiseDto);
+    void appClickAdvertiseOfCommunity(AdvertiseDto advertiseDto);
+    ArrayList<AdvertiseDto> countAdvertiseOfReview();
+    ArrayList<AdvertiseDto> countAdvertiseOfCommunity();
+    void uploadAdvertise(AdvertiseDto advertiseDto);
+    void deleteAdvertise(AdvertiseDto advertiseDto);
+    void deleteAdvertiseFromNo(AdvertiseDto advertiseDto);
+    void uploadAdvertiseOfReview(AdvertiseDto advertiseDto);
+    void uploadAdvertiseOfCommunity(AdvertiseDto advertiseDto);
 }

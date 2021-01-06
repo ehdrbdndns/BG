@@ -13,17 +13,6 @@ public class AdvertiseDao {
     @Autowired
     SqlSession sqlSession;
 
-    public ArrayList<AdvertiseDto> appGetAdvertise(){
-        try{
-            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
-            ArrayList<AdvertiseDto> advertiseDtos = advertiseMapper.appGetAdvertise();
-            return advertiseDtos;
-        } catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public ArrayList<AdvertiseDto> appGetAdvertiseOfChat(){
         try{
             AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
@@ -128,6 +117,90 @@ public class AdvertiseDao {
         try{
             AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
             advertiseMapper.appClickAdvertiseOfReview(advertiseDto);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean appClickAdvertiseOfCommunity(AdvertiseDto advertiseDto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.appClickAdvertiseOfCommunity(advertiseDto);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ArrayList<AdvertiseDto> countAdvertiseOfReview(){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            return advertiseMapper.countAdvertiseOfReview();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<AdvertiseDto> countAdvertiseOfCommunity(){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            return advertiseMapper.countAdvertiseOfCommunity();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public boolean uploadAdvertise(AdvertiseDto advertiseDto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.uploadAdvertise(advertiseDto);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean uploadAdvertiseOfReview(AdvertiseDto advertiseDto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.uploadAdvertiseOfReview(advertiseDto);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean uploadAdvertiseOfCommunity(AdvertiseDto advertiseDto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.uploadAdvertiseOfCommunity(advertiseDto);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteAdvertise(AdvertiseDto advertiseDto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.deleteAdvertise(advertiseDto);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteAdvertiseFromNo(AdvertiseDto advertiseDto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.deleteAdvertiseFromNo(advertiseDto);
             return true;
         } catch (Exception e){
             e.printStackTrace();

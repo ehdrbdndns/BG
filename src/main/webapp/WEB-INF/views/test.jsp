@@ -38,6 +38,11 @@
     <input type="text" name="Board_No">
     <button>제출</button>
 </form>
+<form action="/appClickAdvertise.app">
+    <input type="text" name="Ad_Type">
+    <input type="text" name="Ad_Url">
+    <button>제출</button>
+</form>
 </body>
     <jsp:include page="/resources/include/javascript.jsp"/>
 </html>

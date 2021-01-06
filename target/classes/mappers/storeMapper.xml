@@ -23,4 +23,7 @@
         update store set Store_Ways=#{Store_Ways}, Store_Category=#{Store_Category}, Store_MainMenu=#{Store_MainMenu}, Store_Desc=#{Store_Desc}
         where User_No=${User_No}
     </update>
+    <select id="countStoreOfType" resultType="StoreDto">
+        select Store_Category, count(*) AS cnt from store GROUP BY Store_Category
+    </select>
 </mapper>

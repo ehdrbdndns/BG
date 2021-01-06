@@ -12,4 +12,5 @@ public interface StoreMapper {
     ArrayList<ProductDto> appRetrieveUserStoreVerProduct(int Store_No);
     Integer appRetrieveStoreNo(int User_No);
     void appSaveUserStoreVerStore(StoreDto storeDto);
+    ArrayList<StoreDto> countStoreOfType();
 }

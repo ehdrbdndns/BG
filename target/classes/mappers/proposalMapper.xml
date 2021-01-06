@@ -37,4 +37,11 @@
     <update id="appChangeStateOfProposal" parameterType="ProposalDto">
         update proposal set Proposal_State=#{Proposal_State} WHERE Proposal_No=${Proposal_No}
     </update>
+
+    <select id="countProposalOfChange" resultType="int">
+        select count(*) from proposal where Proposal_Ways='change'
+    </select>
+    <select id="countProposalOfCall" resultType="int">
+        select count(*) from proposal where Proposal_Ways='call'
+    </select>
 </mapper>

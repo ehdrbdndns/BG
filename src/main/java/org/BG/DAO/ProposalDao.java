@@ -77,4 +77,24 @@ public class ProposalDao {
             return null;
         }
     }
+
+    public int countProposalOfChange(){
+        try{
+            ProposalMapper proposalMapper = sqlSession.getMapper(ProposalMapper.class);
+            return proposalMapper.countProposalOfChange();
+        } catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int countProposalOfCall(){
+        try{
+            ProposalMapper proposalMapper = sqlSession.getMapper(ProposalMapper.class);
+            return proposalMapper.countProposalOfCall();
+        } catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

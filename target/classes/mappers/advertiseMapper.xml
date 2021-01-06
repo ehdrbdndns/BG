@@ -4,40 +4,64 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.BG.Mapper.AdvertiseMapper">
-    <select id="appGetAdvertise" resultType="AdvertiseDto">
-        select  * from admin_advertise;
-    </select>
     <select id="appGetAdvertiseOfChat" resultType="AdvertiseDto">
-        select Ad_ChatList from admin_advertise;
+        select  Ad_No, Ad_ChatList from admin_advertise where Ad_ChatList IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfChatRoom" resultType="AdvertiseDto">
-        select Ad_ChatRoom from admin_advertise;
+        select  Ad_No, Ad_ChatRoom from admin_advertise where Ad_ChatRoom IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfMainBanner" resultType="AdvertiseDto">
-        select Ad_MainBanner from admin_advertise;
+        select  Ad_No, Ad_MainBanner from admin_advertise where Ad_MainBanner IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfMainTop" resultType="AdvertiseDto">
-        select Ad_MainTop from admin_advertise;
+        select  Ad_No, Ad_MainTop from admin_advertise where Ad_MainTop IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfMainBottom" resultType="AdvertiseDto">
-        select Ad_MainBottom from admin_advertise;
+        select  Ad_No, Ad_MainBottom from admin_advertise where Ad_MainBottom IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfChangeEat" resultType="AdvertiseDto">
-        select Ad_Change from admin_advertise;
+        select  Ad_No, Ad_Change from admin_advertise where Ad_Change IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfOrderEat" resultType="AdvertiseDto">
-        select Ad_Request from admin_advertise;
+        select  Ad_No, Ad_Request from admin_advertise where Ad_Request IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfShop" resultType="AdvertiseDto">
-        select Ad_Shopin from admin_advertise;
+        select  Ad_No, Ad_Shopin from admin_advertise where Ad_Shopin IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfDetail" resultType="AdvertiseDto">
-        select Ad_Details from admin_advertise;
+        select Ad_No, Ad_Details from admin_advertise where Ad_Details IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfReview" resultType="AdvertiseDto">
-        select Ad_Reviews from admin_advertise;
+        select Ad_No, Ad_Reviews from admin_advertise where Ad_Reviews IS NOT NULL;
     </select>
     <select id="appGetAdvertiseOfCommunity" resultType="AdvertiseDto">
-        select Ad_Community from admin_advertise;
+        select Ad_No, Ad_Community from admin_advertise where Ad_Community IS NOT NULL;
     </select>
+    <update id="appClickAdvertiseOfReview">
+        update admin_advertise set Ad_ReviewsCon = Ad_ReviewsCon + 1 where Ad_No = ${Ad_No}
+    </update>
+    <update id="appClickAdvertiseOfCommunity">
+        update admin_advertise set Ad_CommunityCount = Ad_CommunityCount + 1 where Ad_No=${Ad_No}
+    </update>
+    <select id="countAdvertiseOfReview" resultType="AdvertiseDto">
+        select Ad_Reviews, Ad_ReviewsCon from admin_advertise WHERE Ad_Reviews IS NOT NULL
+    </select>
+    <select id="countAdvertiseOfCommunity" resultType="AdvertiseDto">
+        select Ad_Community, Ad_CommunityCount from admin_advertise WHERE Ad_Community IS NOT NULL
+    </select>
+    <insert id="uploadAdvertise">
+        insert into admin_advertise(${Ad_Type}) VALUES (#{Ad_Url})
+    </insert>
+    <insert id="uploadAdvertiseOfReview">
+        insert into admin_advertise(Ad_Reviews, Ad_ReviewsCon) VALUES (#{Ad_Reviews}, 0)
+    </insert>
+    <insert id="uploadAdvertiseOfCommunity">
+         insert into admin_advertise(Ad_Community, Ad_CommunityCount) VALUES (#{Ad_Community}, 0)
+    </insert>
+    <delete id="deleteAdvertise">
+        delete from admin_advertise where ${Ad_Type} = #{Ad_Url}
+    </delete>
+    <delete id="deleteAdvertiseFromNo">
+        delete from admin_advertise where Ad_No = ${Ad_No}
+    </delete>
 </mapper>

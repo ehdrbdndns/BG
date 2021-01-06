@@ -126,4 +126,17 @@ public class ProposalServiceImp implements ProposalService {
             return null;
         }
     }
+
+    @Override
+    public ProposalDto countProposal() {
+        try{
+            ProposalDto proposalDto = new ProposalDto();
+            proposalDto.setCallCount(proposalDao.countProposalOfCall());
+            proposalDto.setChangeCount(proposalDao.countProposalOfChange());
+            return proposalDto;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

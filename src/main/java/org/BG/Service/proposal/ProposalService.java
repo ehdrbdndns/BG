@@ -12,4 +12,6 @@ public interface ProposalService {
     JSONObject appRetrieveProposalDetailOfChangeEat(ProposalDto proposalDto);
     JSONObject appRetrieveProposalDetailOfCallEat(ProposalDto proposalDto);
     String appChangeStateOfProposal(ProposalDto proposalDto);
+
+    ProposalDto countProposal();
 }

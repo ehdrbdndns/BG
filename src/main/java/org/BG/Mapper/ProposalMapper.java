@@ -16,5 +16,6 @@ public interface ProposalMapper {
     ProductDto appRetrieveProposalDetailOfChangeEatVerYourProduct(ProposalDto proposalDto);
     UserDto appRetrieveProposalDetailOfChangeEatVerUser(ProposalDto proposalDto);
     void appChangeStateOfProposal(ProposalDto proposalDto);
-
+    int countProposalOfChange();
+    int countProposalOfCall();
 }

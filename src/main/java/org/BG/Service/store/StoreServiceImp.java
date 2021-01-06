@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Service
 public class StoreServiceImp implements StoreService {
@@ -84,6 +85,21 @@ public class StoreServiceImp implements StoreService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public JSONObject countStoreOfType() {
+        JSONObject result = new JSONObject();
+        try{
+            ArrayList<StoreDto> storeDtos = storeDao.countStoreOfType();
+            for(int i = 0; i<storeDtos.size(); i++){
+                result.put(storeDtos.get(i).getStore_Category(), storeDtos.get(i).getCnt());
+            }
+            return result;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

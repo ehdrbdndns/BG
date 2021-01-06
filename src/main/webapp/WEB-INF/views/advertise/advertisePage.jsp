@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="/resources/assets/vendors/owl.carousel/owl.carousel.min.css">
     <link rel="stylesheet" href="/resources/assets/vendors/owl.carousel/owl.theme.default.min.css">
     <link rel="stylesheet" href="/resources/assets/vendors/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/resources/assets/vendors/dropify/dist/dropify.min.css">
     <!-- end plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/resources/assets/fonts/feather-font/css/iconfont.css">
@@ -47,28 +49,31 @@
                             <!-- TODO 채팅 목록 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">채팅목록</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddChat">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="chatListContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="chatListContent chatListContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center chatListImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${chat}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_ChatList&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="chatListImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${chat}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -80,28 +85,31 @@
                             <!-- TODO 채팅 방 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">채팅방</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddChatRoom">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="chatContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="chatContent chatContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none chatImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center chatImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${chatRoom}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_ChatRoom&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="chatImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${chatRoom}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -113,28 +121,31 @@
                             <!-- TODO 메인 배너 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">메인 배너</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddMainBanner">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="bannerContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="bannerContent bannerContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none bannerImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center bannerImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${mainBanner}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_MainBanner&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="bannerImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${mainBanner}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -146,28 +157,31 @@
                             <!-- TODO 메인 상단 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">메인 상단</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddMainTop">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="topContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="topContent topContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none topImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center topImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${mainTop}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_MainTop&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="topImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${mainTop}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -179,28 +193,31 @@
                             <!-- TODO 메인 하단 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">메인 하단</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddMainBottom">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="footerContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="footerContent footerContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none footerImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center footerImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${mainBottom}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_MainBottom&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="footerImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${mainBottom}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -212,28 +229,31 @@
                             <!-- TODO 바꿔 먹어 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">바꿔먹어</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddChange">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="changeFoodContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="changeFoodContentchangeFoodrContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none changeFoodImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center changeFoodImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${changeEat}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Change&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="changeFoodImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${changeEat}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -245,28 +265,31 @@
                             <!-- TODO 시켜 먹어 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">시켜머거</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddCall">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="callFoodContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="callFoodContent callFoodContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none callFoodImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center callFoodImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${orderEat}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Request&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="callFoodImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${orderEat}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -278,28 +301,31 @@
                             <!-- TODO 샵인 샵 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">샵인샵</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddShop">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="shopContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="shopContent shopContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none shopImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center shopImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${shop}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Shopin&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="shopImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${shop}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -311,28 +337,31 @@
                             <!-- TODO 상세 페이지 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">상세페이지</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddDetail">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="detailPageContents">
                                 <!-- TODO 요소 하나 -->
-                                <div class="detailPageContent detailPageContent0 d-flex justify-content-between">
-                                    <input type="file" class="d-none detailPageImgFile0" name="dbName[0]" onchange="">
-                                    <div class="customInputForm cursor-pointer col-8" onclick="inputChatImg(0)">
-                                        <div class="d-flex align-items-center detailPageImgName0">파일을 업로드해주세요.</div>
+                                <c:forEach items="${detail}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
+                                        <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
+                                        <div class="customInputForm cursor-pointer col-8">
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Details&Ad_Url=${item}'">삭제</div>
                                     </div>
-                                    <div class="btn btn-primary">삭제</div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="detailPageImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${detail}" var="item" varStatus="i">
+                                        <div class="item">
+                                            <img src="${FilePath}${item}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -340,83 +369,99 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 grid-margin stretch-card">
+                <div class="col-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <!-- TODO 리뷰 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">리뷰</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddReview">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="reviewContents">
-                                <!-- TODO 요소 하나 -->
-                                <div class="reviewContent reviewContent0 d-flex justify-content-between">
+                                <div class="reviewContent reviewContent0 d-flex justify-content-between mb-3">
                                     <div class="d-flex col-9">
                                         <input type="file" class="d-none reviewImgFile0" name="dbName[0]" onchange="">
-                                        <input type="text" placeholder="제목" class="form-control mr-4">
-                                        <input type="text" placeholder="설명" class="form-control mr-4">
-                                        <input type="text" placeholder="이동링크" class="form-control mr-4">
-                                        <div class="form-control reviewImgName0 d-flex align-items-center cursor-pointer"
-                                             onclick="inputChatImg(0)">파일을 업로드해주세요.
-                                        </div>
+                                        <input type="text" placeholder="제목" class="form-control mr-4" disabled>
+                                        <input type="text" placeholder="설명" class="form-control mr-4" disabled>
+                                        <input type="text" placeholder="이동링크" class="form-control mr-4" disabled>
+                                        <div class="form-control reviewImgName0 d-flex align-items-center">파일 이름</div>
                                     </div>
-                                    <div class="d-flex">
-                                        <div class="btn btn-success mr-3">저장</div>
-                                        <div class="btn btn-primary">삭제</div>
-                                    </div>
+                                    <div class="btn btn-primary">삭제</div>
                                 </div>
+                                <!-- TODO 요소 하나 -->
+                                <c:forEach items="${review}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item.get('url'), '/')}" />
+                                    <div class="reviewContent reviewContent0 d-flex justify-content-between mb-3">
+                                        <div class="d-flex col-9">
+                                            <input type="file" class="d-none reviewImgFile0" name="dbName[0]" onchange="">
+                                            <input type="text" placeholder="제목" class="form-control mr-4" value="${item.get('title')}" disabled>
+                                            <input type="text" placeholder="설명" class="form-control mr-4" value="${item.get('desc')}" disabled>
+                                            <input type="text" placeholder="이동링크" class="form-control mr-4" value="${item.get('link')}" disabled>
+                                            <div class="form-control reviewImgName0 d-flex align-items-center">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertiseFromNo.do?Ad_No=${item.get("no")}&Ad_Url=${item.get('url')}'">삭제</div>
+                                    </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="reviewImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${review}" varStatus="i" var="item">
+                                        <div class="item">
+                                            <img src="${FilePath}${item.get("url")}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 grid-margin stretch-card">
+                <div class="col-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <!-- TODO 리뷰 -->
                             <div class="d-flex justify-content-between mb-3 align-items-center">
                                 <h5 class="card-title m-0">커뮤니티</h5>
-                                <div class="btn btn-outline-linkedin">광고 추가</div>
+                                <div class="btn btn-outline-linkedin" data-toggle="modal"
+                                     data-target="#AddCommunity">광고 추가</div>
                             </div>
                             <!-- TODO 요소 담는 통 -->
                             <div id="communityContents">
-                                <!-- TODO 요소 하나 -->
-                                <div class="communityContent communityContent0 d-flex justify-content-between">
+                                <div class="reviewContent reviewContent0 d-flex justify-content-between mb-3">
                                     <div class="d-flex col-9">
-                                        <input type="file" class="d-none communityImgFile0" name="dbName[0]" onchange="">
-                                        <input type="text" placeholder="제목" class="form-control mr-4">
-                                        <input type="text" placeholder="설명" class="form-control mr-4">
-                                        <input type="text" placeholder="이동링크" class="form-control mr-4">
-                                        <div class="form-control communityImgName0 d-flex align-items-center cursor-pointer"
-                                             onclick="inputChatImg(0)">파일을 업로드해주세요.
-                                        </div>
+                                        <input type="file" class="d-none reviewImgFile0" name="dbName[0]" onchange="">
+                                        <input type="text" placeholder="제목" class="form-control mr-4" disabled>
+                                        <input type="text" placeholder="설명" class="form-control mr-4" disabled>
+                                        <input type="text" placeholder="이동링크" class="form-control mr-4" disabled>
+                                        <div class="form-control reviewImgName0 d-flex align-items-center">파일 이름</div>
                                     </div>
-                                    <div class="d-flex">
-                                        <div class="btn btn-success mr-3">저장</div>
-                                        <div class="btn btn-primary">삭제</div>
-                                    </div>
+                                    <div class="btn btn-primary">삭제</div>
                                 </div>
+                                <!-- TODO 요소 하나 -->
+                                <c:forEach items="${community}" var="item" varStatus="i">
+                                    <c:set var="fileName" value="${fn:split(item.get('url'), '/')}" />
+                                    <div class="reviewContent reviewContent0 d-flex justify-content-between mb-3">
+                                        <div class="d-flex col-9">
+                                            <input type="file" class="d-none reviewImgFile0" name="dbName[0]" onchange="">
+                                            <input type="text" placeholder="제목" class="form-control mr-4" value="${item.get('title')}" disabled>
+                                            <input type="text" placeholder="설명" class="form-control mr-4" value="${item.get('desc')}" disabled>
+                                            <input type="text" placeholder="이동링크" class="form-control mr-4" value="${item.get('link')}" disabled>
+                                            <div class="form-control reviewImgName0 d-flex align-items-center">${fileName[fn:length(fileName) - 1]}</div>
+                                        </div>
+                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertiseFromNo.do?Ad_No=${item.get("no")}&Ad_Url=${item.get('url')}'">삭제</div>
+                                    </div>
+                                </c:forEach>
                             </div>
                             <!-- TODO 이미지 미리 보기 -->
                             <div class="mt-2">
                                 <div class="communityImgCarousel owl-carousel owl-theme owl-animate-css">
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
-                                    <div class="item">
-                                        <img src="http://via.placeholder.com/350x65" alt="item-image">
-                                    </div>
+                                    <c:forEach items="${community}" varStatus="i" var="item">
+                                        <div class="item">
+                                            <img src="${FilePath}${item.get("url")}" alt="item-image">
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -427,6 +472,306 @@
         <jsp:include page="/resources/include/footer.jsp"/>
     </div>
 </div>
+<!-- TODO 모델 -->
+<div class="modalBox">
+    <!-- TODO 커뮤니티 -->
+    <div class="modal fade" id="AddCommunity" tabindex="-1" role="dialog" aria-labelledby="modalCommunity"
+         aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCommunity">리뷰 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <div class="form-group">
+                            <label>광고 이미지</label>
+                            <input type="file" class="advertiseFile" name="Ad_File">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>제목</label>
+                            <input type="text"  class="form-control" name="Ad_Title">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>설명</label>
+                            <input type="text"  class="form-control" name="Ad_Desc">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>링크</label>
+                            <input type="text" class="form-control"  name="Ad_Link">
+                        </div>
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_Community">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- TODO 리뷰 -->
+    <div class="modal fade" id="AddReview" tabindex="-1" role="dialog" aria-labelledby="modalReview"
+         aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalReview">리뷰 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <div class="form-group">
+                            <label>광고 이미지</label>
+                            <input type="file" class="advertiseFile" name="Ad_File">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>제목</label>
+                            <input type="text"  class="form-control" name="Ad_Title">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>설명</label>
+                            <input type="text"  class="form-control" name="Ad_Desc">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>링크</label>
+                            <input type="text" class="form-control"  name="Ad_Link">
+                        </div>
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_Reviews">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- TODO 채팅 목록 -->
+    <div class="modal fade" id="AddChat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">채팅 목록 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_ChatList">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddChatRoom" tabindex="-1" role="dialog" aria-labelledby="1" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="1">채팅 방 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_ChatRoom">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddMainBanner" tabindex="-1" role="dialog" aria-labelledby="2" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="2">메인 배너 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*650 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_MainBanner">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddMainTop" tabindex="-1" role="dialog" aria-labelledby="3" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="3">메인 상단 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_MainTop">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddMainBottom" tabindex="-1" role="dialog" aria-labelledby="4" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="4">메인 하단 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_MainBottom">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddChange" tabindex="-1" role="dialog" aria-labelledby="5" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="5">바꿔먹어 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_Change">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddCall" tabindex="-1" role="dialog" aria-labelledby="6" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="6">시켜먹어 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_Request">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddShop" tabindex="-1" role="dialog" aria-labelledby="7" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="7">샵인 샵 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_Shopin">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="AddDetail" tabindex="-1" role="dialog" aria-labelledby="8" aria-hidden="true">
+        <form action="/uploadAdvertise.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="8">상세페이지 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <input type="file" class="advertiseFile" name="Ad_File">
+                        <input type="text" class="d-none" name="Ad_Type" value="Ad_Details">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <!-- core:js -->
 <script src="/resources/assets/vendors/core/core.js"></script>
 <!-- endinject -->
@@ -435,6 +780,7 @@
 <script src="/resources/assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
 <script src="/resources/assets/vendors/owl.carousel/owl.carousel.min.js"></script>
 <script src="/resources/assets/vendors/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="/resources/assets/vendors/dropify/dist/dropify.min.js"></script>
 <!-- end plugin js for this page -->
 <!-- inject:js -->
 <script src="/resources/assets/vendors/feather-icons/feather.min.js"></script>
@@ -446,8 +792,8 @@
 <!-- end custom js for this page -->
 </body>
 <script>
-    function inputChatImg(no) {
-        $('.chatImg' + no).click();
-    }
+    $(document).ready(function(){
+        $('.advertiseFile').dropify();
+    });
 </script>
 </html>

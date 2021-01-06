@@ -22,5 +22,8 @@ public class StoreDto {
     private Double User_Lng;
     private String User_ComNm;
 
+    //카테고리별 상점 수
+    private Integer cnt;
+
     private ArrayList<ProductDto> Product_List;
 }

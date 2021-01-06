@@ -2,6 +2,7 @@ package org.BG.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -23,4 +24,8 @@ public class AdvertiseDto {
 
     private String Ad_Url;
     private String Ad_Type;
+    private String Ad_Title;
+    private String Ad_Desc;
+    private String Ad_Link;
+    private MultipartFile Ad_File;
 }

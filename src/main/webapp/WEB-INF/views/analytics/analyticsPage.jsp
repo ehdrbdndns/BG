@@ -26,16 +26,16 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="/resources/assets/css/demo_1/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="/resources/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="/resources/assets/images/favicon.png"/>
     <!-- custom -->
-    <link rel="stylesheet" href="/resources/assets/css/custom.css" />
+    <link rel="stylesheet" href="/resources/assets/css/custom.css"/>
 </head>
 <body class="sidebar-dark">
 <div class="main-wrapper">
     <jsp:include page="/resources/include/sidebar.jsp"/>
     <div class="page-wrapper">
         <!--TODO Top NavBar-->
-        <jsp:include page="/resources/include/navbar.jsp" />
+        <jsp:include page="/resources/include/navbar.jsp"/>
         <!--TODO Top NavBar End-->
         <div class="page-content">
             <div class="row">
@@ -46,12 +46,23 @@
                             <div class="d-flex justify-content-between">
                                 <h6 class="card-title m-0">회원가입 및 방문자 수</h6>
                                 <div class="d-flex">
-                                    <div class="btn btn-primary">1일</div>
-                                    <div class="btn btn-primary ml-2">1주</div>
-                                    <div class="btn btn-primary ml-2">1달</div>
-                                    <div class="btn btn-primary ml-2">3달</div>
-                                    <div class="btn btn-primary ml-2">6달</div>
-                                    <div class="btn btn-primary ml-2">1년</div>
+                                    <div class="btn btn-secondary" onclick="location.href='/analyticsPage.do'" id="oneDay">1일
+                                    </div>
+                                    <div class="btn btn-secondary ml-2"
+                                         onclick="location.href='/analyticsPage.do?dayType=oneWeek'" id="oneWeek">1주
+                                    </div>
+                                    <div class="btn btn-secondary ml-2"
+                                         onclick="location.href='/analyticsPage.do?dayType=oneMonth'" id="oneMonth">1달
+                                    </div>
+                                    <div class="btn btn-secondary ml-2"
+                                         onclick="location.href='/analyticsPage.do?dayType=threeMonth'" id="threeMonth">3달
+                                    </div>
+                                    <div class="btn btn-secondary ml-2"
+                                         onclick="location.href='/analyticsPage.do?dayType=sixMonth'" id="sixMonth">6달
+                                    </div>
+                                    <div class="btn btn-secondary ml-2"
+                                         onclick="location.href='/analyticsPage.do?dayType=oneYear'" id="oneYear">1년
+                                    </div>
                                 </div>
                             </div>
                             <canvas id="chartViewerCount"></canvas>
@@ -121,6 +132,115 @@
 <!-- end custom js for this page -->
 </body>
 <script>
+    $(document).ready(function () {
+        var curr_url = document.URL;
+        var new_curr_url = new URL(curr_url);
 
+        var param = new_curr_url.searchParams.get("dayType");
+        if (param === null) {
+            $('#oneDay').attr("class", "btn btn-primary");
+        } else if (param === "oneWeek") {
+            $('#oneWeek').attr("class", "btn btn-primary ml-2");
+        } else if (param === "oneMonth") {
+            $('#oneMonth').attr("class", "btn btn-primary ml-2");
+        } else if (param === "threeMonth") {
+            $('#threeMonth').attr("class", "btn btn-primary ml-2");
+        } else if (param === "sixMonth") {
+            $('#sixMonth').attr("class", "btn btn-primary ml-2");
+        } else if (param === "oneYear") {
+            $('#oneYear').attr("class", "btn btn-primary ml-2");
+        }
+
+        if ($('#chartViewerCount').length) {
+            new Chart($('#chartViewerCount'), {
+                type: 'line',
+                data: {
+                    labels: ["${visitorCountOfDayType.get(18)}", "${visitorCountOfDayType.get(16)}", "${visitorCountOfDayType.get(14)}", "${visitorCountOfDayType.get(12)}", "${visitorCountOfDayType.get(10)}", "${visitorCountOfDayType.get(8)}", "${visitorCountOfDayType.get(6)}", "${visitorCountOfDayType.get(4)}", "${visitorCountOfDayType.get(2)}", "${visitorCountOfDayType.get(0)}"],
+                    datasets: [{
+                        data: ["${visitorCountOfDayType.get(19)}", "${visitorCountOfDayType.get(17)}", "${visitorCountOfDayType.get(15)}", "${visitorCountOfDayType.get(13)}", "${visitorCountOfDayType.get(11)}", "${visitorCountOfDayType.get(9)}", "${visitorCountOfDayType.get(7)}", "${visitorCountOfDayType.get(5)}", "${visitorCountOfDayType.get(3)}", "${visitorCountOfDayType.get(1)}"],
+                        label: "방문자 수",
+                        borderColor: "#7ee5e5",
+                        backgroundColor: "rgba(0,0,0,0)",
+                        fill: false
+                    }, {
+                        data: ["${registerCountOfDayType.get(19)}", "${registerCountOfDayType.get(17)}", "${registerCountOfDayType.get(15)}", "${registerCountOfDayType.get(13)}", "${registerCountOfDayType.get(11)}", "${registerCountOfDayType.get(9)}", "${registerCountOfDayType.get(7)}", "${registerCountOfDayType.get(5)}", "${registerCountOfDayType.get(3)}", "${registerCountOfDayType.get(1)}"],
+                        label: "회원가입 수",
+                        borderColor: "#f77eb9",
+                        backgroundColor: "rgba(0,0,0,0)",
+                        fill: false
+                    }
+                    ]
+                }
+            });
+        }
+
+        if ($('#chartProposal').length) {
+            new Chart($("#chartProposal"), {
+                type: 'bar',
+                data: {
+                    labels: ["바꿔머거", "시켜먹어"],
+                    datasets: [
+                        {
+                            label: "Population",
+                            backgroundColor: ["#b1cfec", "#f77eb9", "#f77eb9"],
+                            data: [${proposalInfo.changeCount}, ${proposalInfo.callCount}, 0]
+                        }
+                    ]
+                },
+                options: {
+                    legend: {display: false},
+                }
+            });
+        }
+
+        if ($('#chartCategory').length) {
+            new Chart($('#chartCategory'), {
+                type: 'doughnut',
+                data: {
+                    labels: ["치킨", "한식", "일식", "분식", "양식", "기타"],
+                    datasets: [
+                        {
+                            label: "Population (millions)",
+                            backgroundColor: ["#b1cfec", "#7ee5e5", "#fbbc06", "#66d1d1", "#f77eb9", "#4d8af0"],
+                            data: [${storeCategoryInfo.get("chicken")}, ${storeCategoryInfo.get("korea")}, ${storeCategoryInfo.get("japan")}, ${storeCategoryInfo.get("school")}, ${storeCategoryInfo.get("western")}, ${storeCategoryInfo.get("other")}]
+                        }
+                    ]
+                }
+            });
+        }
+
+        var analyticsLabel = new Array();
+        var analyticsData = new Array();
+        var analyticsColor = new Array();
+
+        <c:forEach items="${advertiseInfo}" varStatus="i" var="item">
+        <c:choose>
+        <c:when test="${i.index %2 eq 0}">
+        analyticsLabel.push("${item}");
+        </c:when>
+        <c:otherwise>
+        analyticsData.push("${item}");
+        analyticsColor.push("#" + Math.round(Math.random() * 0xffffff).toString(16));
+        </c:otherwise>
+        </c:choose>
+        </c:forEach>
+
+        if ($('#chartAdvertise').length) {
+            new Chart($('#chartAdvertise'), {
+                type: 'doughnut',
+                data: {
+                    labels: analyticsLabel,
+                    datasets: [
+                        {
+                            label: "Population (millions)",
+                            backgroundColor: analyticsColor,
+                            data: analyticsData
+                        }
+                    ]
+                }
+            });
+        }
+
+    });
 </script>
 </html>

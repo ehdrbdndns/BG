@@ -70,4 +70,14 @@ public class StoreDao {
             return null;
         }
     }
+
+    public ArrayList<StoreDto> countStoreOfType(){
+        try{
+            StoreMapper storeMapper = sqlSession.getMapper(StoreMapper.class);
+            return storeMapper.countStoreOfType();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

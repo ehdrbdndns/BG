@@ -22,4 +22,8 @@ public class ProposalDto {
     private String User_ComNm;
     private String User_Addr;
     private String Store_Img;
+
+    //제안 요청 수
+    private int changeCount;
+    private int callCount;
 }
