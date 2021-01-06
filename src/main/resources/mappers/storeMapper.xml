@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.StoreMapper">
+    <select id="appRetrieveUserStoreVerStoreOfStoreNo" parameterType="StoreDto" resultType="StoreDto">
+        select s.Store_No, s.Store_Ways, s.Store_Category, s.Store_MainMenu, s.Store_Desc, s.Store_Img, s.Store_Likes, s.User_No,
+         u.User_Details, u.User_Lat, u.User_Lng, u.User_ComNm
+        from store s, user u
+        where s.Store_No=${Store_No} AND s.User_No=u.User_No
+    </select>
+    <select id="appRetrieveUserStoreVerStore" parameterType="UserDto" resultType="StoreDto">
+        select * from store where User_No=${User_No}
+    </select>
+    <select id="appRetrieveUserStoreVerProduct" resultType="ProductDto">
+        select * from product where Store_No=${Store_No}
+    </select>
+    <select id="appRetrieveStoreNo" resultType="Integer">
+        select Store_No from store where User_No=${User_No}
+    </select>
+    <update id="appSaveUserStoreVerStore" parameterType="StoreDto">
+        update store set Store_Ways=#{Store_Ways}, Store_Category=#{Store_Category}, Store_MainMenu=#{Store_MainMenu}, Store_Desc=#{Store_Desc}
+        where User_No=${User_No}
+    </update>
+</mapper>

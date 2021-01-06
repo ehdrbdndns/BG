@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="/resources/aws_s3"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+
+    <!-- aws -->
+    <bean id="aws.accessKey" class="java.lang.String">
+        <constructor-arg value="${aws.accessKey}"/>
+    </bean>
+    <bean id="aws.secretKey" class="java.lang.String">
+        <constructor-arg value="${aws.secretKey}"/>
+    </bean>
+    <bean id="aws.bucketName" class="java.lang.String">
+        <constructor-arg value="${aws.bucketName}"/>
+    </bean>
+    <bean id="aws.filePath" class="java.lang.String">
+        <constructor-arg value="https://okiwi-bg-test.s3.ap-northeast-2.amazonaws.com/"/>
+    </bean>
+
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://127.0.0.1:3306/bg?serverTimezone=UTC"/>-->
+<!--        <property name="username" value="root"/>-->
+<!--        <property name="password" value="100400"/>-->
+<!--    </bean>-->
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://211.47.74.38/dbchangefood?characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC&amp;autoReconnect=true"/>
+        <property name="username" value="changefood"/>
+        <property name="password" value="12345qwert"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:/mappers/*.xml"/>
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+</beans>

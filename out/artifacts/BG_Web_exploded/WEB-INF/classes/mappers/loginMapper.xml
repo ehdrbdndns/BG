@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.LoginMapper">
+    <select id="appLogin" parameterType="UserDto" resultType="Integer">
+        select User_No from user where User_Email=#{User_Email} AND User_PW=#{User_PW} AND isConfirm=1
+    </select>
+    <insert id="appSendCode" parameterType="RegisterDto">
+        insert into register(Register_Code, Register_Email, Register_RegDate) VALUES(#{Register_Code}, #{Register_Email}, #{Register_RegDate})
+        <selectKey keyProperty="Register_No" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="appConfirmCodeOfRegister" parameterType="RegisterDto" resultType="Integer">
+        select Register_No from register where Register_No=${Register_No} AND Register_Code=#{Register_Code} AND Register_Email=#{Register_Email}
+    </select>
+    <delete id="appCleanRegister">
+        <![CDATA[ delete from register where Register_RegDate < #{date} ]]>
+    </delete>
+    <insert id="appRegister" parameterType="UserDto">
+        insert into user(User_Email, User_PW, User_Name, User_Phone, User_ComNo, User_ComNm, User_Addr, User_Details, User_ComImg, User_RegDate, User_Lat, User_Lng, User_Alarm1, User_Alarm2, User_Alarm3)
+        VALUES (#{User_Email}, #{User_PW}, #{User_Name}, #{User_Phone}, #{User_ComNo}, #{User_ComNm}, #{User_Addr}, #{User_Details}, #{User_ComImg}, #{User_RegDate}, ${User_Lat}, ${User_Lng}, 'off', 'off', 'off')
+        <selectKey keyProperty="User_No" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="appRegisterOfStore">
+        insert into store(User_No, Store_Img) VALUES (${User_No}, '')
+    </insert>
+    <update id="appRegisterOfComImg" parameterType="UserDto">
+        update user set User_ComImg=#{User_ComImg} where User_No=${User_No}
+    </update>
+    <select id="appSearchEmail" parameterType="UserDto" resultType="String">
+        select User_Email from user where User_ComNm=#{User_ComNm} AND User_ComNo=#{User_ComNo}
+    </select>
+    <select id="appIsExistUserEmail" parameterType="RegisterDto" resultType="Integer">
+        select User_No from user where User_Email=#{Register_Email}
+    </select>
+    <update id="appChangePwd" parameterType="UserDto">
+        update user set User_PW=#{User_PW} where User_Email=#{User_Email}
+    </update>
+
+    <select id="isUserVisitor" resultType="Integer">
+        select visitor_no from user_visitor where date=#{date}
+    </select>
+    <insert id="insertUserVisitor">
+        insert into user_visitor (count, date) value (0,#{date})
+    </insert>
+    <update id="updateUserVisitor">
+        update user_visitor set count = count + 1 where visitor_no=${visitor_no}
+    </update>
+</mapper>

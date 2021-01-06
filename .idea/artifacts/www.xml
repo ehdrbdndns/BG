@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="www">
+    <output-path>$PROJECT_DIR$/out/artifacts/www</output-path>
+    <root id="archive" name="www.war">
+      <element id="artifact" artifact-name="BG:Web exploded" />
+    </root>
+  </artifact>
+</component>

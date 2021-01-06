@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.ProposalMapper">
+    <select id="appRetrieveProposalList" parameterType="UserDto" resultType="ProposalDto">
+        select Proposal_No, User_ComNm, Store_Img, User_Addr, Proposal_Ways, Proposal_State, Proposal_RegDate
+        from proposal p, store s, user u
+        where p.User_No=${User_No} AND p.Store_No=s.Store_No AND p.User_No=u.User_No
+    </select>
+
+    <select id="appRetrieveProposalDetailOfChangeEatVerProposal" parameterType="ProposalDto" resultType="ProposalDto">
+        select Proposal_No, Proposal_State, Proposal_Ways, Proposal_Credit
+        from proposal
+        where Proposal_No=${Proposal_No}
+    </select>
+
+    <select id="appRetrieveProposalDetailOfChangeEatVerMyProduct" parameterType="ProposalDto" resultType="ProductDto">
+        select Product_Img, Product_Name, Product_Compo, Product_Price, Product_Sales
+        from product prod, proposal prop
+        where prop.Proposal_No=${Proposal_No} AND prop.Proposal_Myproduct=prod.Product_No
+    </select>
+
+    <select id="appRetrieveProposalDetailOfChangeEatVerYourProduct" parameterType="ProposalDto" resultType="ProductDto">
+        select Product_Img, Product_Name, Product_Compo, Product_Price, Product_Sales
+        from product prod, proposal prop
+        where prop.Proposal_No=${Proposal_No} AND prop.Product_No=prod.Product_No
+    </select>
+
+    <select id="appRetrieveProposalDetailOfChangeEatVerUser" parameterType="ProposalDto" resultType="UserDto">
+        select User_Addr, User_Phone, Store_No
+        from user u, store s
+        where u.User_No=${User_No} AND s.User_No=${User_No}
+    </select>
+
+    <update id="appChangeStateOfProposal" parameterType="ProposalDto">
+        update proposal set Proposal_State=#{Proposal_State} WHERE Proposal_No=${Proposal_No}
+    </update>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.FaqMapper">
+    <select id="appGetFaq" parameterType="FaqDto" resultType="FaqDto">
+        select * from admin_faq WHERE Af_Category=#{Af_Category} ORDER BY Af_No DESC
+    </select>
+    <select id="getFaqList" resultType="FaqDto">
+        select * from admin_faq ORDER BY Af_No DESC
+    </select>
+    <select id="getFaqInfo" resultType="FaqDto">
+        select * from admin_faq where Af_No=${Af_No}
+    </select>
+    <update id="modifyFaq">
+        update admin_faq set Af_Title=#{Af_Title}, Af_Contents=#{Af_Contents}, Af_Category=#{Af_Category}, Af_RegDate=#{Af_RegDate} where Af_No=${Af_No}
+    </update>
+    <delete id="deleteFaq">
+        delete from admin_faq where Af_No=${Af_No}
+    </delete>
+    <insert id="saveFaq">
+        insert into admin_faq(Af_Title, Af_Contents, Af_Category, Af_RegDate) VALUES(#{Af_Title}, #{Af_Contents}, #{Af_Category}, #{Af_RegDate})
+    </insert>
+</mapper>

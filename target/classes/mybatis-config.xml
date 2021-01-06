@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="callSettersOnNulls" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+    <typeAliases>
+        <typeAlias alias="UserDto" type="org.BG.DTO.UserDto"/>
+        <typeAlias alias="RegisterDto" type="org.BG.DTO.RegisterDto"/>
+        <typeAlias alias="AdvertiseDto" type="org.BG.DTO.AdvertiseDto"/>
+        <typeAlias alias="ProposalDto" type="org.BG.DTO.ProposalDto"/>
+        <typeAlias alias="ProductDto" type="org.BG.DTO.ProductDto"/>
+        <typeAlias alias="StoreDto" type="org.BG.DTO.StoreDto"/>
+        <typeAlias alias="ShopinDto" type="org.BG.DTO.ShopinDto"/>
+        <typeAlias alias="NoticeDto" type="org.BG.DTO.NoticeDto"/>
+        <typeAlias alias="FaqDto" type="org.BG.DTO.FaqDto"/>
+        <typeAlias alias="InquiryDto" type="org.BG.DTO.InquiryDto"/>
+        <typeAlias alias="CommunityDto" type="org.BG.DTO.CommunityDto"/>
+        <typeAlias alias="HomeDto" type="org.BG.DTO.HomeDto"/>
+        <typeAlias alias="ReplyDto" type="org.BG.DTO.ReplyDto"/>
+        <typeAlias alias="LikeDto" type="org.BG.DTO.LikeDto"/>
+    </typeAliases>
+</configuration>

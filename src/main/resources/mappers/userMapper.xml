@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.UserMapper">
+    <select id="appRetrieveUserInfo" parameterType="UserDto" resultType="UserDto">
+        select Store_Img, u.User_ComNm, u.User_Addr, u.User_Phone, u.User_Name, u.User_Details
+        from user u, store s
+        where u.User_No=${User_No} AND s.User_No = u.User_No
+    </select>
+    <update id="appModifyUserInfo">
+        update user as u, store as s
+        set u.User_Name=#{User_Name}, u.User_ComNm=#{User_ComNm}, u.User_Addr=#{User_Addr}, u.User_Details=#{User_Details},
+         u.User_Phone=#{User_Phone}, u.User_Lat=${User_Lat}, u.User_Lng=${User_Lng}, s.Store_Img=#{Store_Img}
+        where u.User_No=${User_No} AND s.User_No=${User_No}
+    </update>
+    <update id="appModifyUserAlarm" parameterType="UserDto">
+        update user set ${Category}=#{State} where User_No=${User_No}
+    </update>
+    <select id="appRetrieveUserAlarm" parameterType="UserDto" resultType="UserDto">
+        select User_Alarm1, User_Alarm2, User_Alarm3 from user where User_No=${User_No}
+    </select>
+    <select id="getUserList" resultType="UserDto">
+        select * from user ORDER BY User_No DESC
+    </select>
+    <select id="getUserInfo" resultType="UserDto">
+        select * from user where User_No=${User_No}
+    </select>
+</mapper>

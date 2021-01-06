@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.AdvertiseMapper">
+    <select id="appGetAdvertise" resultType="AdvertiseDto">
+        select  * from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfChat" resultType="AdvertiseDto">
+        select Ad_ChatList from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfChatRoom" resultType="AdvertiseDto">
+        select Ad_ChatRoom from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfMainBanner" resultType="AdvertiseDto">
+        select Ad_MainBanner from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfMainTop" resultType="AdvertiseDto">
+        select Ad_MainTop from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfMainBottom" resultType="AdvertiseDto">
+        select Ad_MainBottom from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfChangeEat" resultType="AdvertiseDto">
+        select Ad_Change from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfOrderEat" resultType="AdvertiseDto">
+        select Ad_Request from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfShop" resultType="AdvertiseDto">
+        select Ad_Shopin from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfDetail" resultType="AdvertiseDto">
+        select Ad_Details from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfReview" resultType="AdvertiseDto">
+        select Ad_Reviews from admin_advertise;
+    </select>
+    <select id="appGetAdvertiseOfCommunity" resultType="AdvertiseDto">
+        select Ad_Community from admin_advertise;
+    </select>
+</mapper>
