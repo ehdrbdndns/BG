@@ -24,8 +24,10 @@
     <select id="appRetrieveUserSISVerProduct" resultType="ProductDto">
         select * from product where Shopin_No=${Shopin_No}
     </select>
-
     <delete id="appDeleteUserSIS" parameterType="ShopinDto">
         delete from shopin where Shopin_No=${Shopin_No}
     </delete>
+    <select id="appRetrieveSISNoFromStore_No" resultType="ShopinDto">
+        select Shopin_No from shopin where Store_No=${Store_No}
+    </select>
 </mapper>

@@ -51,4 +51,7 @@
     <update id="updateUserVisitor">
         update user_visitor set count = count + 1 where visitor_no=${visitor_no}
     </update>
+    <select id="adminLogin" resultType="AdminDto">
+        select * from admin
+    </select>
 </mapper>

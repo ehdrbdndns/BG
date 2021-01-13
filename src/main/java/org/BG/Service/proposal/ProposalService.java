@@ -1,5 +1,6 @@
 package org.BG.Service.proposal;
 
+import org.BG.DTO.ProductDto;
 import org.BG.DTO.ProposalDto;
 import org.BG.DTO.UserDto;
 import org.json.simple.JSONObject;
@@ -14,4 +15,7 @@ public interface ProposalService {
     String appChangeStateOfProposal(ProposalDto proposalDto);
 
     ProposalDto countProposal();
+
+    JSONObject appRetrieveProductFromUserNo(ProposalDto proposalDto);
+    String appRegisterProposal(ProposalDto proposalDto);
 }

@@ -5,10 +5,10 @@ import org.BG.DTO.UserDto;
 import org.BG.Service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -127,5 +127,27 @@ public class LoginController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @GetMapping("/login.do")
+    public String loginPage() {
+        return "login/login";
+    }
+
+
+    @GetMapping(value = "/adminLogout.do")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/login.do";
+    }
+
+    @RequestMapping(value = "/adminLogin.do", method = RequestMethod.POST)
+    public String adminLogin(@RequestParam("id") String id, @RequestParam("pwd") String pwd, HttpSession session) throws Exception {
+        boolean isSuccess = loginService.adminLogin(id, pwd);
+        if (isSuccess) {
+            session.setAttribute("isLogin", true);
+            return "redirect:/";
+        }
+        return "login";
     }
 }

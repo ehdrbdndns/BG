@@ -1,5 +1,6 @@
 package org.BG.Mapper;
 
+import org.BG.DTO.AdminDto;
 import org.BG.DTO.RegisterDto;
 import org.BG.DTO.UserDto;
 
@@ -18,4 +19,6 @@ public interface LoginMapper {
     Integer isUserVisitor(String date);
     void insertUserVisitor(String date);
     void updateUserVisitor(Integer visitor_no);
+
+    AdminDto adminLogin();
 }

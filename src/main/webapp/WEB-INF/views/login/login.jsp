@@ -22,7 +22,7 @@
                             <div class="col-md-12 pl-md-0">
                                 <div class="auth-form-wrapper px-4 py-5">
                                     <a href="#" class="noble-ui-logo d-block mb-2">B<span>G</span></a>
-                                    <h5 class="text-muted font-weight-normal mb-4">바꿔먹어 관리자 페이지입니다.</h5>
+                                    <h5 class="text-muted font-weight-normal mb-4">바꿔먹어 관리자 페이지입니다.<br>(테스트용 아이디:root / 패스워드:1234)</h5>
                                     <form action="/adminLogin.do" class="forms-sample" method="post">
                                         <div class="form-group">
                                             <label for="id">아이디</label>

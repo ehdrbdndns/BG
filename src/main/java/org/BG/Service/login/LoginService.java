@@ -14,4 +14,5 @@ public interface LoginService {
     String appSearchEmail(UserDto userDto);
     String appSendCodeOfSearch(RegisterDto registerDto);
     String appChangePwd(UserDto userDto);
+    boolean adminLogin(String id, String pwd);
 }

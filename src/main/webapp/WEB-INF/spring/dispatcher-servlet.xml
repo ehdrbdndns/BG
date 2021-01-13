@@ -23,11 +23,15 @@
     </bean>
 
     <mvc:interceptors>
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/user**"/>-->
-<!--            <mvc:mapping path="/changeUserInfo.ajax"/>-->
-<!--            <bean class="com.PT.util.LoginCheckInterceptor"/>-->
-<!--        </mvc:interceptor>-->
+        <mvc:interceptor>
+            <mvc:mapping path="/*.do"/>
+            <mvc:mapping path="/changeUserInfo.ajax"/>
+            <mvc:exclude-mapping path="/adminLogin.do"/>
+            <mvc:exclude-mapping path="/login.do"/>
+            <mvc:exclude-mapping path="/*.app"/>
+            <mvc:exclude-mapping path="/test"/>
+            <bean class="org.BG.Controller.LoginCheckInterceptor"/>
+        </mvc:interceptor>
         <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
             <property name="cacheSeconds" value="0" />
             <property name="useExpiresHeader" value="true" />

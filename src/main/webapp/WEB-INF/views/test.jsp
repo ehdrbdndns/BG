@@ -43,6 +43,30 @@
     <input type="text" name="Ad_Url">
     <button>제출</button>
 </form>
+<form action="/appGetProposalItem.app">
+    <input type="text" name="My_No">
+    <input type="text" name="Your_No">
+    <button>제출</button>
+</form>
+<form action="/appChangeStateOfProposal.app">
+    <input type="text" name="Proposal_No">
+    <input type="text" name="Proposal_State">
+    <input type="text" name="Proposal_Room">
+    <button>제출</button>
+</form>
+<form action="/appRegisterProposal.app">
+    <input type="text" name="My_No">
+    <input type="text" name="Your_No">
+    <input type="text" name="Proposal_Room">
+    <input type="text" name="Proposal_Category">
+    <input type="text" name="Proposal_Ways">
+    <input type="text" name="My_ProductNo">
+    <input type="text" name="Your_ProductNo">
+    <input type="text" name="Proposal_Addr">
+    <input type="text" name="Proposal_State">
+    <input type="text" name="Proposal_Credit">
+    <button>제출</button>
+</form>
 </body>
     <jsp:include page="/resources/include/javascript.jsp"/>
 </html>

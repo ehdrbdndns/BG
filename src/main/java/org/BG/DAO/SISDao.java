@@ -86,4 +86,14 @@ public class SISDao {
             return null;
         }
     }
+
+    public  ArrayList<ShopinDto> appRetrieveSISNoFromStore_No(int Store_No){
+        try{
+            SISMapper sisMapper = sqlSession.getMapper(SISMapper.class);
+            return sisMapper.appRetrieveSISNoFromStore_No(Store_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

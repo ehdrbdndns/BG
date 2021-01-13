@@ -14,4 +14,9 @@ public interface ProductMapper {
     void appModifyUserSISProduct(ProductDto productDto);
     ArrayList<ProductDto> appRetrieveProductVerStore(Integer Store_No);
     ArrayList<String> appRetrieveProductNameVerShopin(Integer Shopin_No);
+
+    ArrayList<ProductDto> appRetrieveChangeProductFromUser_NoToStore_No(Integer User_No);
+    ArrayList<ProductDto> appRetrieveChangeProductFromShopin_No(Integer Shopin_No);
+    ArrayList<ProductDto> appRetrieveCallProductFromUser_NoToStore_No(Integer User_No);
+    ArrayList<ProductDto> appRetrieveCallProductFromShopin_No(Integer Shopin_No);
 }

@@ -1,5 +1,6 @@
 package org.BG.DAO;
 
+import org.BG.DTO.AdminDto;
 import org.BG.DTO.RegisterDto;
 import org.BG.DTO.UserDto;
 import org.BG.Mapper.LoginMapper;
@@ -136,6 +137,16 @@ public class LoginDao {
             LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
             loginMapper.appChangePwd(userDto);
             return "true";
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public AdminDto adminLogin(){
+        try{
+            LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
+            return loginMapper.adminLogin();
         } catch (Exception e){
             e.printStackTrace();
             return null;

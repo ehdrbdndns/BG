@@ -1,6 +1,7 @@
 package org.BG.Service.login;
 
 import org.BG.DAO.LoginDao;
+import org.BG.DTO.AdminDto;
 import org.BG.DTO.RegisterDto;
 import org.BG.DTO.UserDto;
 import org.BG.util.Aws_Cdn.Aws_Cdn_Service;
@@ -10,6 +11,7 @@ import org.BG.util.mail.Mail;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -146,6 +148,26 @@ public class LoginServiceImp implements LoginService {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @GetMapping("/login.do")
+    public String loginPage() {
+        return "login/login";
+    }
+
+    @Override
+    public boolean adminLogin(String id, String pwd) {
+        try{
+            AdminDto adminDto = loginDao.adminLogin();
+            if(adminDto.getId().equals(id) && adminDto.getPwd().equals(pwd)){
+                return true;
+            } else{
+                return false;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 

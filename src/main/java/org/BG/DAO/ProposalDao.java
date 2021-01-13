@@ -97,4 +97,15 @@ public class ProposalDao {
             return 0;
         }
     }
+
+    public String appRegisterProposal(ProposalDto proposalDto){
+        try{
+            ProposalMapper proposalMapper = sqlSession.getMapper(ProposalMapper.class);
+            proposalMapper.appRegisterProposal(proposalDto);
+            return "true";
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

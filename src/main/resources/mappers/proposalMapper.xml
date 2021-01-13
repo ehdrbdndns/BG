@@ -44,4 +44,8 @@
     <select id="countProposalOfCall" resultType="int">
         select count(*) from proposal where Proposal_Ways='call'
     </select>
+    <insert id="appRegisterProposal" parameterType="ProposalDto">
+        insert into proposal(Proposal_State, Proposal_Addr, Proposal_Ways, Proposal_Myproduct, Proposal_Category, Proposal_RegDate, User_No, Store_No, Product_No, Proposal_Credit, Proposal_Room, Proposal_Id)
+        VALUES (#{Proposal_State}, #{Proposal_Addr}, #{Proposal_Ways}, #{My_ProductNo}, #{Proposal_Category}, #{Proposal_RegDate}, #{My_No}, #{Store_No}, #{Your_ProductNo}, #{Proposal_Credit}, #{Proposal_Room}, #{Proposal_Id})
+    </insert>
 </mapper>

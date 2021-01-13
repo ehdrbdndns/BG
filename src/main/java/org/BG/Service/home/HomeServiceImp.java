@@ -214,7 +214,7 @@ public class HomeServiceImp implements HomeService {
             } else if (dayType.equals("sixMonth")) {
                 result = getMonthVisitorCount(-6, "visitor");
             } else if (dayType.equals("oneYear")) {
-                result = getYearVisitorCount(-1, "visitor");
+                result = getMonthVisitorCount(-12, "visitor");
             } else {
                 System.out.println("Warning Visitor Category: " + dayType);
                 return null;
@@ -241,7 +241,7 @@ public class HomeServiceImp implements HomeService {
             } else if (dayType.equals("sixMonth")) {
                 result = getMonthVisitorCount(-6, "register");
             } else if (dayType.equals("oneYear")) {
-                result = getYearVisitorCount(-1, "register");
+                result = getMonthVisitorCount(-12, "register");
             } else {
                 System.out.println("Warning register Category: " + dayType);
                 return null;
@@ -408,19 +408,17 @@ public class HomeServiceImp implements HomeService {
     public JSONArray getMonthVisitorCount(int dateCount, String countType) {
         JSONArray result = new JSONArray();
         Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Integer> integers = new ArrayList<Integer>();
         for (int i = 0; i < 11; i++) {
             try {
-                if (i != 0)
-                    cal.add(Calendar.DATE, cal.getMaximum(Calendar.DAY_OF_MONTH) * dateCount);
-                cal.set(Calendar.DATE, cal.getMinimum(Calendar.DAY_OF_MONTH));
-                String startDate = df.format(cal.getTime());
-                cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+                cal.setTime(new Date());
+                cal.add(Calendar.MONTH, dateCount*i);
                 String endDate = df.format(cal.getTime());
+                cal.add(Calendar.MONTH, dateCount);
+                String startDate = df.format(cal.getTime());
 
-                result.add(startDate + "~" + endDate);
+                result.add(endDate + "~" + startDate);
                 if (countType.equals("visitor")) {
                     result.add(homeDao.getAnywayVisitorCount(startDate, endDate));
                 } else {

@@ -1,5 +1,6 @@
 package org.BG.Mapper;
 
+import org.BG.DAO.ProductDao;
 import org.BG.DTO.ProductDto;
 import org.BG.DTO.ProposalDto;
 import org.BG.DTO.UserDto;
@@ -18,4 +19,5 @@ public interface ProposalMapper {
     void appChangeStateOfProposal(ProposalDto proposalDto);
     int countProposalOfChange();
     int countProposalOfCall();
+    void appRegisterProposal(ProposalDto proposalDto);
 }

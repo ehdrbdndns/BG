@@ -37,4 +37,24 @@
     <select id="appRetrieveProductNameVerShopin" resultType="String" parameterType="Integer">
         select Product_Name from product where Shopin_No=${Shopin_No}
     </select>
+    <select id="appRetrieveChangeProductFromUser_NoToStore_No" resultType="ProductDto">
+        select Product_No, Product_Name, Product_Compo, Product_Price, Product_Sales, Product_Type, Product_Img, st.Store_No
+        from product p, store st
+        where st.User_No = ${User_No} AND p.Store_No = st.Store_No AND Product_Type='change'
+    </select>
+    <select id="appRetrieveCallProductFromUser_NoToStore_No" resultType="ProductDto">
+        select Product_No, Product_Name, Product_Compo, Product_Price, Product_Sales, Product_Type, Product_Img, st.Store_No
+        from product p, store st
+        where st.User_No = ${User_No} AND p.Store_No = st.Store_No AND Product_Type='call'
+    </select>
+    <select id="appRetrieveChangeProductFromShopin_No" resultType="ProductDto">
+        select Product_No, Product_Name, Product_Compo, Product_Price, Product_Sales, Product_Type, Product_Img
+        from product p
+        where p.Shopin_No = ${Shopin_No} AND Product_Type='change'
+    </select>
+    <select id="appRetrieveCallProductFromShopin_No" resultType="ProductDto">
+        select Product_No, Product_Name, Product_Compo, Product_Price, Product_Sales, Product_Type, Product_Img
+        from product p
+        where p.Shopin_No = ${Shopin_No} AND Product_Type='call'
+    </select>
 </mapper>

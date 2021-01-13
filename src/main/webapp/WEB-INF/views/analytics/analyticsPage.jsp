@@ -193,16 +193,26 @@
             });
         }
 
+        var categoryColor = new Array();
+        for(var i = 0; i<16; i++){
+            categoryColor.push("#" + Math.round(Math.random() * 0xffffff).toString(16));
+        }
+
         if ($('#chartCategory').length) {
             new Chart($('#chartCategory'), {
                 type: 'doughnut',
                 data: {
-                    labels: ["치킨", "한식", "일식", "분식", "양식", "기타"],
+                    labels: ["치킨", "한식", "돈까스/회/일식", "분식", "아시안/양식", "피자", "카페/디저트", "중국집",
+                        "족발/보쌈", "야식", "찜/탕", "도시락", "패스트푸드", "프랜차이즈"],
                     datasets: [
                         {
                             label: "Population (millions)",
-                            backgroundColor: ["#b1cfec", "#7ee5e5", "#fbbc06", "#66d1d1", "#f77eb9", "#4d8af0"],
-                            data: [${storeCategoryInfo.get("chicken")}, ${storeCategoryInfo.get("korea")}, ${storeCategoryInfo.get("japan")}, ${storeCategoryInfo.get("school")}, ${storeCategoryInfo.get("western")}, ${storeCategoryInfo.get("other")}]
+                            backgroundColor: categoryColor,
+                            data: [${storeCategoryInfo.get("chicken")}, ${storeCategoryInfo.get("korea")}, ${storeCategoryInfo.get("japan")},
+                                ${storeCategoryInfo.get("school")}, ${storeCategoryInfo.get("western")}, ${storeCategoryInfo.get("pizza")},
+                                ${storeCategoryInfo.get("dessert")}, ${storeCategoryInfo.get("chinese")}, ${storeCategoryInfo.get("pig")},
+                                ${storeCategoryInfo.get("midnight")}, ${storeCategoryInfo.get("steam")}, ${storeCategoryInfo.get("lunchbox")},
+                                ${storeCategoryInfo.get("fast")}, ${storeCategoryInfo.get("franchise")}]
                         }
                     ]
                 }

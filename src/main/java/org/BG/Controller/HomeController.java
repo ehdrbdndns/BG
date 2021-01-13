@@ -65,11 +65,6 @@ public class HomeController {
         return "homePage";
     }
 
-    @GetMapping("/login.do")
-    public String login() {
-        return "login/login";
-    }
-
     //메인페이지 시켜먹어, 바꿔먹어, 샵인 샵 리스트 가져오기
     //Store_Ways로 call, change, shopin으로 구분
     @ResponseBody

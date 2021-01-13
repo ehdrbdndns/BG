@@ -3,6 +3,7 @@ package org.BG.DAO;
 import org.BG.DTO.HomeDto;
 import org.BG.DTO.ProductDto;
 import org.BG.Mapper.ProductMapper;
+import org.BG.Mapper.SISMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -104,6 +105,46 @@ public class ProductDao {
         try{
             ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
             return productMapper.appRetrieveProductNameVerShopin(Shopin_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<ProductDto> appRetrieveChangeProductFromUser_NoToStore_No(Integer User_No){
+        try{
+            ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+            return productMapper.appRetrieveChangeProductFromUser_NoToStore_No(User_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public  ArrayList<ProductDto> appRetrieveChangeProductFromShopin_No(Integer Shopin_No){
+        try{
+            ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+            return productMapper.appRetrieveChangeProductFromShopin_No(Shopin_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ArrayList<ProductDto> appRetrieveCallProductFromUser_NoToStore_No(Integer User_No){
+        try{
+            ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+            return productMapper.appRetrieveCallProductFromUser_NoToStore_No(User_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public  ArrayList<ProductDto> appRetrieveCallProductFromShopin_No(Integer Shopin_No){
+        try{
+            ProductMapper productMapper = sqlSession.getMapper(ProductMapper.class);
+            return productMapper.appRetrieveCallProductFromShopin_No(Shopin_No);
         } catch (Exception e){
             e.printStackTrace();
             return null;

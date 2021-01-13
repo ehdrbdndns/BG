@@ -81,4 +81,30 @@ public class ProposalController {
             return null;
         }
     }
+
+    // 제안서 요청서의 기본 데이터 요청
+    @ResponseBody
+    @RequestMapping(value = "/appGetProposalItem.app")
+    public JSONObject appGetProposalItem(@ModelAttribute ProposalDto proposalDto){
+        try{
+            System.out.println("/appGetProposalItem.app 호출");
+            return proposalService.appRetrieveProductFromUserNo(proposalDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //제안서 등록
+    @ResponseBody
+    @RequestMapping(value = "/appRegisterProposal.app")
+    public String appRegisterProposal(@ModelAttribute ProposalDto proposalDto){
+        try{
+             System.out.println("/appRegisterProposal.app 호출");
+             return proposalService.appRegisterProposal(proposalDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
