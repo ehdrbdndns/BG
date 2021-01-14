@@ -6,11 +6,13 @@ import org.BG.DTO.ProductDto;
 import org.BG.DTO.ProposalDto;
 import org.BG.DTO.ShopinDto;
 import org.BG.DTO.UserDto;
+import org.BG.util.firebase.FirebaseMessagingSnippets;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +29,8 @@ public class ProposalServiceImp implements ProposalService {
     StoreDao storeDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    FirebaseMessagingSnippets firebaseMessagingSnippets;
 
     @Override
     public ArrayList<ProposalDto> appRetrieveProposalList(UserDto userDto) {
@@ -314,6 +318,33 @@ public class ProposalServiceImp implements ProposalService {
             Integer store_no = storeDao.appRetrieveStoreNo(proposalDto.getMy_No());
             proposalDto.setStore_No(store_no);
             return proposalDao.appRegisterProposal(proposalDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean appCheckChatRoom(Integer My_No, Integer Your_No) {
+        try{
+            boolean check = proposalDao.appCheckChatRoom(My_No, Your_No);
+            if(!check){
+                proposalDao.appInsertChatRoom(My_No, Your_No);
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public String appSendChatAlarm(Integer Recipient_No, String Content, HttpServletRequest request) {
+        try{
+            String fcmToken = userDao.RetrieveUserFcm(Recipient_No);
+            firebaseMessagingSnippets.test_send_FCM(fcmToken, Content, request);
+            return "true";
         } catch (Exception e){
             e.printStackTrace();
             return null;

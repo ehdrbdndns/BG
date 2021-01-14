@@ -1420,7 +1420,7 @@
       <ColNames>Ap_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="351" parent="294" name="ChatRoom_no">
+    <column id="351" parent="294" name="CR_no">
       <Position>1</Position>
       <Comment>채팅방 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1428,21 +1428,21 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="352" parent="294" name="ChatRoom_Name">
+    <column id="352" parent="294" name="My_No">
       <Position>2</Position>
       <Comment>채팅방 네임</Comment>
-      <DataType>varchar(45)|0s</DataType>
+      <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="353" parent="294" name="ChatRoom_RegDate">
+    <column id="353" parent="294" name="Your_No">
       <Position>3</Position>
       <Comment>채팅방 생성 일자</Comment>
-      <DataType>varchar(45)|0s</DataType>
+      <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="354" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>ChatRoom_no</ColNames>
+      <ColNames>CR_no</ColNames>
       <Primary>1</Primary>
     </key>
     <column id="355" parent="295" name="Community_No">
@@ -1555,7 +1555,7 @@
     <foreign-key id="374" parent="296" name="FK_Message_ChatRoom_No_ChatRoom_ChatRoom_no">
       <ColNames>ChatRoom_No</ColNames>
       <RefTableName>chatroom</RefTableName>
-      <RefColNames>ChatRoom_no</RefColNames>
+      <RefColNames>CR_no</RefColNames>
     </foreign-key>
     <foreign-key id="375" parent="296" name="FK_Message_User_No_User_User_No">
       <ColNames>User_No</ColNames>
@@ -2171,75 +2171,85 @@
       <DataType>varchar(50)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="482" parent="304" name="PRIMARY">
+    <column id="482" parent="304" name="User_Fcm">
+      <Position>17</Position>
+      <DataType>varchar(500)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="483" parent="304" name="User_State">
+      <Position>18</Position>
+      <DataType>int|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="484" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>User_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="483" parent="305" name="Like_No">
+    <column id="485" parent="305" name="Like_No">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="484" parent="305" name="Like_Type">
+    <column id="486" parent="305" name="Like_Type">
       <Position>2</Position>
       <Comment>게시물 종류</Comment>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="485" parent="305" name="User_No">
+    <column id="487" parent="305" name="User_No">
       <Position>3</Position>
       <Comment>사용자 키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="486" parent="305" name="Community_No">
+    <column id="488" parent="305" name="Community_No">
       <Position>4</Position>
       <Comment>커뮤니티 외래 키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="487" parent="305" name="Store_No">
+    <column id="489" parent="305" name="Store_No">
       <Position>5</Position>
       <Comment>상점 외래 키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="488" parent="305" name="FK_user_Like_User_No_User_User_No">
+    <index id="490" parent="305" name="FK_user_Like_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="489" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
+    <index id="491" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
       <ColNames>Community_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="490" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
+    <index id="492" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="491" parent="305" name="PRIMARY">
+    <key id="493" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Like_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="492" parent="305" name="FK_user_Like_User_No_User_User_No">
+    <foreign-key id="494" parent="305" name="FK_user_Like_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
     </foreign-key>
-    <foreign-key id="493" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
+    <foreign-key id="495" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
       <ColNames>Community_No</ColNames>
       <RefTableName>community</RefTableName>
       <RefColNames>Community_No</RefColNames>
     </foreign-key>
-    <foreign-key id="494" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
+    <foreign-key id="496" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <RefTableName>store</RefTableName>
       <RefColNames>Store_No</RefColNames>
     </foreign-key>
-    <column id="495" parent="306" name="visitor_no">
+    <column id="497" parent="306" name="visitor_no">
       <Position>1</Position>
       <Comment>visitor_no</Comment>
       <DataType>int|0s</DataType>
@@ -2247,17 +2257,17 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="496" parent="306" name="count">
+    <column id="498" parent="306" name="count">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="497" parent="306" name="date">
+    <column id="499" parent="306" name="date">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="498" parent="306" name="PRIMARY">
+    <key id="500" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>visitor_no</ColNames>
       <Primary>1</Primary>

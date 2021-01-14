@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
@@ -102,6 +104,32 @@ public class ProposalController {
         try{
              System.out.println("/appRegisterProposal.app 호출");
              return proposalService.appRegisterProposal(proposalDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //채팅
+    @ResponseBody
+    @RequestMapping(value = "/appCheckChatRoom.app")
+    public boolean appCheckChatRoom(@RequestParam("My_No") Integer My_No, @RequestParam("Your_No") Integer Your_No){
+        try{
+            System.out.println("/appCheckChatRoom.app 호출");
+            return proposalService.appCheckChatRoom(My_No, Your_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //채팅 알림 보내기
+    @ResponseBody
+    @RequestMapping(value = "/appSendChatAlarm.app")
+    public String appSendChatAlarm(@RequestParam("Recipient_No") Integer Recipient_No, @RequestParam("Content") String Content, HttpServletRequest request){
+        try{
+            System.out.println("/appSendChatAlarm.app run");
+            return proposalService.appSendChatAlarm(Recipient_No, Content, request);
         } catch (Exception e){
             e.printStackTrace();
             return null;

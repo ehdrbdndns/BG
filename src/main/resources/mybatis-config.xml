@@ -24,5 +24,6 @@
         <typeAlias alias="ReplyDto" type="org.BG.DTO.ReplyDto"/>
         <typeAlias alias="LikeDto" type="org.BG.DTO.LikeDto"/>
         <typeAlias alias="AdminDto" type="org.BG.DTO.AdminDto"/>
+        <typeAlias alias="PushDto" type="org.BG.DTO.PushDto"/>
     </typeAliases>
 </configuration>

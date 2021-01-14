@@ -7,6 +7,7 @@ import org.BG.Service.home.HomeService;
 import org.BG.Service.inquiry.InquiryService;
 import org.BG.Service.proposal.ProposalService;
 import org.BG.Service.store.StoreService;
+import org.BG.Service.user.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class AnalyticsController {
     StoreService storeService;
     @Autowired
     AdvertiseService advertiseService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/analyticsPage.do")
     public String analyticsPage(Model model, @RequestParam(required = false) String dayType){
@@ -47,6 +50,10 @@ public class AnalyticsController {
         //광고 클릭 수
         JSONArray advertiseInfo = advertiseService.countAdvertise();
         model.addAttribute("advertiseInfo", advertiseInfo);
+
+        //지역 별 입점 수
+        JSONObject areaCount = userService.getUserAreaCount();
+        model.addAttribute("areaCount" ,areaCount);
 
         return "analytics/analyticsPage";
     }

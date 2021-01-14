@@ -22,6 +22,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="/resources/assets/fonts/feather-font/css/iconfont.css">
     <link rel="stylesheet" href="/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/resources/assets/vendors/sweetalert2/sweetalert2.min.css">
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="/resources/assets/css/demo_1/style.css">
@@ -51,21 +52,33 @@
                                         <th>푸쉬 내용</th>
                                         <th>작성 일자</th>
                                         <th>상세보기</th>
+                                        <th>삭제하기</th>
+                                        <th>전송하기</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>푸쉬 내용 입니다.</td>
-                                        <td>2020.10.01</td>
-                                        <td><div class="btn btn-outline-linkedin" onclick="location.href='/pushDetailPage.do'">이동</div></td>
-                                    </tr>
+                                    <c:forEach items="${pushInfo}" varStatus="i" var="item">
+                                        <tr>
+                                            <td>${i.index + 1}</td>
+                                            <td>${item.ap_Title}</td>
+                                            <td>${item.ap_RegDate}</td>
+                                            <td>
+                                                <div class="btn btn-outline-linkedin" onclick="location.href='/pushDetailPage.do?Ap_No=${item.ap_No}'">보기</div>
+                                            </td>
+                                            <td>
+                                                <div class="btn btn-danger" onclick="deletePush(${item.ap_No})">삭제</div>
+                                            </td>
+                                            <td>
+                                                <div class="btn btn-primary" onclick="alert('${item.ap_Title}')">전송</div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="d-flex justify-content-between mt-3">
                                 <div></div>
-                                <div class="btn btn-primary" onclick="location.href='/pushMakePage.do'">푸쉬 보내기</div>
+                                <div class="btn btn-primary" onclick="location.href='/pushMakePage.do'">푸쉬 내용 작성하기</div>
                             </div>
                         </div>
                     </div>
@@ -83,6 +96,7 @@
 <script src="/resources/assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
 <script src="/resources/assets/vendors/datatables.net/jquery.dataTables.js"></script>
 <script src="/resources/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="/resources/assets/vendors/sweetalert2/sweetalert2.min.js"></script>
 <!-- end plugin js for this page -->
 <!-- inject:js -->
 <script src="/resources/assets/vendors/feather-icons/feather.min.js"></script>
@@ -91,9 +105,123 @@
 <!-- custom js for this page -->
 <script src="/resources/assets/js/dashboard.js"></script>
 <script src="/resources/assets/js/data-table.js"></script>
+<script src="/resources/assets/js/sweet-alert.js"></script>
 <!-- end custom js for this page -->
 </body>
 <script>
+    function deletePush(no){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
 
+        swalWithBootstrapButtons.fire({
+            title: '취소하시겠습니까?',
+            text: "작성한 내용은 전부 사라집니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 실행하겠습니다.',
+            cancelButtonText: '아니요, 실행하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "실행중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none'
+                    },
+                    location.href='/deletePushInfo.do?Ap_No=' + no
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    '해당 정보는 안전합니다 :)',
+                    'error'
+                )
+            }
+        });
+    }
+
+    function alert(content){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: '푸쉬 내용을 전송하시겠습니까?',
+            text: "내용을 전송하는데 다소 시간이 걸릴 수 있습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 전송하겠습니다.',
+            cancelButtonText: '아니요, 전송하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "저장중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none',
+                    },
+                    sendPush(content)
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function sendPush(content){
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            url: "/sendPushContentToUser.ajax",
+            data: {
+                "Ap_Title":content
+            }, // serializes the form's elements.
+            dataType: "json",
+            error: function () {
+                alert("실패했습니다.");
+                location.href = "/pushPage.do";
+            },
+            success: function (data) {
+                if (data.result) {
+                    alert("성공하셨습니다.");
+                    location.href = "/pushPage.do";
+                } else {
+                    alert("실패했습니다.");
+                    location.href = "/pushPage.do";
+                }
+            }
+        });
+    }
 </script>
 </html>

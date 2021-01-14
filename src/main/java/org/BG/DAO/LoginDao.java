@@ -28,6 +28,16 @@ public class LoginDao {
         }
     }
 
+    public int appCheckUserState(UserDto userDto){
+        try{
+            LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
+            return loginMapper.appCheckUserState(userDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public String appLogin(UserDto userDto){
         try{
             LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
@@ -42,6 +52,8 @@ public class LoginDao {
                 } else{
                     loginMapper.updateUserVisitor(checkUserVisitor);
                 }
+                userDto.setUser_No(user_No);
+                loginMapper.appUpdateFcm(userDto);
                 return Integer.toString(user_No);
             }
         } catch (Exception e){

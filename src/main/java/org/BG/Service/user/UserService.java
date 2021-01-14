@@ -15,4 +15,8 @@ public interface UserService {
     JSONObject appRetrieveUserAlarm(UserDto userDto);
     ArrayList<UserDto> getUserList();
     UserDto getUserInfo(UserDto userDto);
+    JSONObject getUserAreaCount();
+    ArrayList<UserDto> getBlackList();
+    ArrayList<UserDto> getUnBlackList();
+    void modifyUserState(UserDto userDto);
 }

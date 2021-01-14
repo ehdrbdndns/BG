@@ -3,6 +3,7 @@ package org.BG.Mapper;
 import org.BG.DTO.AdminDto;
 import org.BG.DTO.RegisterDto;
 import org.BG.DTO.UserDto;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 public interface LoginMapper {
     Integer appLogin(UserDto userDto);
@@ -21,4 +22,8 @@ public interface LoginMapper {
     void updateUserVisitor(Integer visitor_no);
 
     AdminDto adminLogin();
+
+    void appUpdateFcm(UserDto userDto);
+
+    int appCheckUserState(UserDto userDto);
 }

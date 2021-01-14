@@ -4,6 +4,7 @@ import org.BG.DTO.ProductDto;
 import org.BG.DTO.ProposalDto;
 import org.BG.DTO.UserDto;
 import org.BG.Mapper.ProposalMapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -106,6 +107,24 @@ public class ProposalDao {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean appCheckChatRoom(Integer My_No, Integer Your_No){
+        try{
+            ProposalMapper proposalMapper = sqlSession.getMapper(ProposalMapper.class);
+            return proposalMapper.appCheckChatRoom(My_No, Your_No);
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public void appInsertChatRoom(Integer My_No, Integer Your_No){
+        try{
+            ProposalMapper proposalMapper = sqlSession.getMapper(ProposalMapper.class);
+            proposalMapper.appInsertChatRoom(My_No, Your_No);
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

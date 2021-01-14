@@ -4,9 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.BG.Mapper.LoginMapper">
-    <select id="appLogin" parameterType="UserDto" resultType="Integer">
-        select User_No from user where User_Email=#{User_Email} AND User_PW=#{User_PW} AND isConfirm=1
+    <select id="appCheckUserState">
+        select User_State from user where User_No=${User_No}
     </select>
+
+    <select id="appLogin" parameterType="UserDto" resultType="Integer">
+        select User_No from user where User_Email=#{User_Email} AND User_PW=#{User_PW}
+    </select>
+
+    <update id="appUpdateFcm">
+        update user set User_Fcm=#{User_Fcm} where User_No=${User_No}
+    </update>
+
     <insert id="appSendCode" parameterType="RegisterDto">
         insert into register(Register_Code, Register_Email, Register_RegDate) VALUES(#{Register_Code}, #{Register_Email}, #{Register_RegDate})
         <selectKey keyProperty="Register_No" resultType="Integer">

@@ -67,6 +67,11 @@
     <input type="text" name="Proposal_Credit">
     <button>제출</button>
 </form>
+<form action="/appCheckChatRoom.app">
+    <input type="text" name="My_No">
+    <input type="text" name="Your_No">
+    <button>제출</button>
+</form>
 </body>
     <jsp:include page="/resources/include/javascript.jsp"/>
 </html>

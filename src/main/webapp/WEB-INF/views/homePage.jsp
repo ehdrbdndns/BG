@@ -85,7 +85,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between  mb-2">
                                 <h6 class="card-title m-0">신규 회원가입</h6>
-                                <div class="btn btn-outline-linkedin">더보기</div>
+                                <div class="btn btn-outline-linkedin" onclick="location.href='/memberPage.do'">더보기</div>
                             </div>
                             <div class="table-responsive">
                                 <table id="newMemberInfo" class="table">
@@ -112,7 +112,7 @@
                                             <td>${item.user_Addr}</td>
                                             <td>${item.user_RegDate}</td>
                                             <td>
-                                                <div class="btn btn-primary">이동</div>
+                                                <div class="btn btn-primary" onclick="location.href='/memberDetailPage.do?User_No=${item.user_No}'">이동</div>
                                             </td>
                                         </c:forEach>
                                     </tr>
@@ -130,7 +130,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-2">
                                 <h6 class="card-title m-0">커뮤니티</h6>
-                                <div class="btn btn-outline-linkedin">더보기</div>
+                                <div class="btn btn-outline-linkedin" onclick="location.href='/communityPage.do'">더보기</div>
                             </div>
                             <div class="table-responsive">
                                 <table id="communityInfo" class="table">
@@ -151,7 +151,7 @@
                                             <td>${item.user_ComNm}</td>
                                             <td>${item.community_RegDate}</td>
                                             <td>
-                                                <div class="btn btn-primary">이동</div>
+                                                <div class="btn btn-primary" onclick="location.href='/communityDetailPage.do?Community_No=${item.community_No}'">이동</div>
                                             </td>
                                         </tr>
                                     </c:forEach>

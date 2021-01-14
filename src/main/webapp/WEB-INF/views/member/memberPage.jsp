@@ -79,6 +79,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">블랙리스트</h6>
+                            <div class="table-responsive">
+                                <table id="memberBlackInfo" class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>이메일</th>
+                                        <th>이름</th>
+                                        <th>상호명</th>
+                                        <th>사업자등록번호</th>
+                                        <th>주소</th>
+                                        <th>가입 일자</th>
+                                        <th>상세보기</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${blackInfoList}" var="item" varStatus="i">
+                                        <tr>
+                                            <td>${i.index + 1}</td>
+                                            <td>${item.user_Email}</td>
+                                            <td>${item.user_Name}</td>
+                                            <td>${item.user_ComNm}</td>
+                                            <td>${item.user_ComNo}</td>
+                                            <td>${item.user_Addr}</td>
+                                            <td>${item.user_RegDate}</td>
+                                            <td>
+                                                <div class="btn btn-primary" onclick="location.href='/memberDetailPage.do?User_No=${item.user_No}'">이동</div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <jsp:include page="/resources/include/footer.jsp"/>

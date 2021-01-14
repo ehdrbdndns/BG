@@ -44,14 +44,14 @@ public class UserServiceImp implements UserService {
         try {
             //위도 경도 설정
             Double[] coords = geocoder.getLatitude(userDto.getUser_Addr());
-            if(coords == null){
+            if (coords == null) {
                 return "geocoder_Err";
             }
             userDto.setUser_Lat(coords[0]);
             userDto.setUser_Lng(coords[1]);
 
             String store_Img = "";
-            if (userDto.getStore_Img_File().isEmpty()){
+            if (!userDto.getStore_Img_File().isEmpty()) {
                 aws_cdn_service.FileDelete("user/" + userDto.getUser_No() + "/store/storeImg");
                 store_Img = aws_cdn_service.FileUpload("user/" + userDto.getUser_No() + "/store/storeImg/", userDto.getStore_Img_File());
             } else {
@@ -92,10 +92,10 @@ public class UserServiceImp implements UserService {
         }
     }
 
-    public ArrayList<UserDto> getUserList(){
-        try{
+    public ArrayList<UserDto> getUserList() {
+        try {
             return userDao.getUserList();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -103,11 +103,46 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDto getUserInfo(UserDto userDto) {
-        try{
+        try {
             return userDao.getUserInfo(userDto);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public JSONObject getUserAreaCount() {
+        JSONObject result = new JSONObject();
+        try {
+            result.put("경기도", userDao.getUserAreaCount("%경기도%"));
+            result.put("강원도", userDao.getUserAreaCount("%강원도%"));
+            result.put("충청북도", userDao.getUserAreaCount("%충청북도%"));
+            result.put("충청남도", userDao.getUserAreaCount("%충청남도%"));
+            result.put("경상북도", userDao.getUserAreaCount("%경상북도%"));
+            result.put("경상남도", userDao.getUserAreaCount("%경상남도%"));
+            result.put("전라북도", userDao.getUserAreaCount("%전라북도%"));
+            result.put("전라남도", userDao.getUserAreaCount("%전라남도%"));
+            result.put("제주도", userDao.getUserAreaCount("%제주도%"));
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<UserDto> getBlackList() {
+        return userDao.getBlackList();
+    }
+
+    @Override
+    public ArrayList<UserDto> getUnBlackList() {
+        return userDao.getUnBlackList();
+    }
+
+    @Override
+    public void modifyUserState(UserDto userDto) {
+        userDao.modifyUserState(userDto);
     }
 }

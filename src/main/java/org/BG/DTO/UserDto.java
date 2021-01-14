@@ -25,6 +25,8 @@ public class UserDto {
     private String User_Alarm1;
     private String User_Alarm2;
     private String User_Alarm3;
+    private String User_Fcm;
+    private int User_State;
 
     //유저 알람 상태
     private String Category;

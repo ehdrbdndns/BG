@@ -16,6 +16,18 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    //회원 벤 상태 체크(0: 벤, 1: 노벤)
+    @ResponseBody
+    @RequestMapping(value = "/appCheckUserState.app")
+    public String appCheckUserState(@ModelAttribute UserDto userDto){
+        try{
+            return loginService.appCheckUserState(userDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //로그인
     @ResponseBody
     @RequestMapping(value = "/appLogin.app")

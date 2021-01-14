@@ -171,6 +171,21 @@ public class LoginServiceImp implements LoginService {
         }
     }
 
+    @Override
+    public String appCheckUserState(UserDto userDto) {
+        try{
+            //0: 벤, 1: 노벤
+            int check = loginDao.appCheckUserState(userDto);
+            if(check == 1)
+                return "true";
+            else
+                return "false";
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public String makeEmailCode() {
         StringBuffer ConfirmCode = new StringBuffer();
         Random rnd = new Random();

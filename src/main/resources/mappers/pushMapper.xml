@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.BG.Mapper.PushMapper">
+    <select id="getPushInfo" resultType="PushDto">
+        select * from admin_push
+    </select>
+    <select id="retrievePushInfo" resultType="PushDto">
+        select * from admin_push where Ap_No = ${Ap_No}
+    </select>
+    <insert id="registerPushInfo">
+        insert into admin_push(Ap_Title, Ap_RegDate) VALUES(#{Ap_Title}, #{Ap_RegDate})
+    </insert>
+    <delete id="deletePushInfo">
+        delete from admin_push where Ap_No=${Ap_No}
+    </delete>
+    <update id="modifyPushInfo">
+        update admin_push set Ap_Title=#{Ap_Title} where Ap_No=${Ap_No}
+    </update>
+</mapper>

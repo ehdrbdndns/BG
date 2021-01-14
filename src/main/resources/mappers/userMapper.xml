@@ -27,4 +27,22 @@
     <select id="getUserInfo" resultType="UserDto">
         select * from user where User_No=${User_No}
     </select>
+    <select id="RetrieveUserFcm" resultType="String">
+        select User_Fcm from user where User_No=${user_No}
+    </select>
+    <select id="getUserFcm" resultType="String">
+        select User_Fcm from user where User_Alarm1='off'
+    </select>
+    <select id="getUserAreaCount" resultType="int">
+        select count(User_No) from user where User_Addr LIKE #{area}
+    </select>
+    <select id="getBlackList" resultType="UserDto">
+        select * from user where User_State=0
+    </select>
+    <select id="getUnBlackList" resultType="UserDto">
+        select * from user where User_State=1
+    </select>
+    <update id="modifyUserState">
+        update user set User_State=${User_State} where User_No=${User_No}
+    </update>
 </mapper>

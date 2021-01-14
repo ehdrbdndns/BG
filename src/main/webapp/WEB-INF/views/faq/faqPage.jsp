@@ -18,6 +18,7 @@
     <!-- endinject -->
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="/resources/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="/resources/assets/vendors/sweetalert2/sweetalert2.min.css">
     <!-- end plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/resources/assets/fonts/feather-font/css/iconfont.css">
@@ -79,7 +80,7 @@
                                             </c:choose>
                                             <td>${item.af_RegDate}</td>
                                             <td>
-                                                <div class="btn btn-danger" onclick="location.href='/deleteFaq.do?Af_No=${item.af_No}'">
+                                                <div class="btn btn-danger" onclick="deleteFaq(${item.af_No})">
                                                     삭제
                                                 </div>
                                             </td>
@@ -113,6 +114,7 @@
 <script src="/resources/assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
 <script src="/resources/assets/vendors/datatables.net/jquery.dataTables.js"></script>
 <script src="/resources/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+<script src="/resources/assets/vendors/sweetalert2/sweetalert2.min.js"></script>
 <!-- end plugin js for this page -->
 <!-- inject:js -->
 <script src="/resources/assets/vendors/feather-icons/feather.min.js"></script>
@@ -124,6 +126,48 @@
 <!-- end custom js for this page -->
 </body>
 <script>
+        function deleteFaq(no){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger mr-2'
+                },
+                buttonsStyling: false,
+            });
 
+            swalWithBootstrapButtons.fire({
+                title: '삭제하시겠습니까?',
+                text: "삭제한 내용은 되돌릴 수 없습니다.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonClass: 'mr-2',
+                confirmButtonText: '네, 실행하겠습니다.',
+                cancelButtonText: '아니요, 실행하지 않겠습니다.',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    swalWithBootstrapButtons.fire({
+                            html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                                '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                                '  <span class="sr-only"></span>\n' +
+                                '</div>',
+                            title: "실행중입니다!",
+                            icon: "success",
+                            confirmButtonClass: 'd-none'
+                        },
+                        location.href='/deleteFaq.do?Af_No=' + no
+                    )
+                } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        '취소되었습니다.',
+                        '해당 정보는 안전합니다 :)',
+                        'error'
+                    )
+                }
+            });
+        }
 </script>
 </html>

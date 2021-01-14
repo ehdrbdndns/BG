@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -75,6 +76,64 @@ public class UserDao {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public String RetrieveUserFcm(int user_No){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.RetrieveUserFcm(user_No);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<String> getUserFcm(){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.getUserFcm();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int getUserAreaCount(String area){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.getUserAreaCount(area);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public ArrayList<UserDto> getBlackList(){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.getBlackList();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public ArrayList<UserDto> getUnBlackList(){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.getUnBlackList();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void modifyUserState(UserDto userDto){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.modifyUserState(userDto);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

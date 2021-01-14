@@ -28,8 +28,13 @@ public class MemberController {
     public String memberPage(Model model){
         try{
             //유저 정보 리스트
-            ArrayList<UserDto> userDtos = userService.getUserList();
+            ArrayList<UserDto> userDtos = userService.getUnBlackList();
             model.addAttribute("userInfoList", userDtos);
+
+            //블랙 리스트
+            ArrayList<UserDto> blackInfoList = userService.getBlackList();
+            model.addAttribute("blackInfoList", blackInfoList);
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -42,6 +47,7 @@ public class MemberController {
             //유저 정보 가져오기
             UserDto userInfo = userService.getUserInfo(userDto);
             model.addAttribute("userInfo", userInfo);
+
             //유저에 대한 기업 정보 가져오기
             StoreDto storeInfo = storeService.getStoreInfo(userDto);
             model.addAttribute("storeInfo", storeInfo);
@@ -51,5 +57,15 @@ public class MemberController {
             e.printStackTrace();
         }
         return "member/memberDetailPage";
+    }
+
+    @GetMapping(value = "/modifyUserState.do")
+    public String modifyUserState(@ModelAttribute UserDto userDto){
+        try{
+            userService.modifyUserState(userDto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/memberPage.do";
     }
 }

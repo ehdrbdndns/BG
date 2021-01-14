@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/resources/assets/vendors/owl.carousel/owl.theme.default.min.css">
     <link rel="stylesheet" href="/resources/assets/vendors/animate.css/animate.min.css">
     <link rel="stylesheet" href="/resources/assets/vendors/dropify/dist/dropify.min.css">
+    <link rel="stylesheet" href="/resources/assets/vendors/sweetalert2/sweetalert2.min.css">
     <!-- end plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/resources/assets/fonts/feather-font/css/iconfont.css">
@@ -56,13 +57,14 @@
                             <div id="chatListContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${chat}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 14, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_ChatList&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_ChatList', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -92,13 +94,14 @@
                             <div id="chatContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${chatRoom}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 15, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_ChatRoom&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_ChatRoom', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -128,13 +131,14 @@
                             <div id="bannerContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${mainBanner}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 14, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_MainBanner&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_MainBanner', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -164,13 +168,14 @@
                             <div id="topContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${mainTop}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 15, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_MainTop&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_MainTop', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -200,13 +205,14 @@
                             <div id="footerContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${mainBottom}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 15, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_MainBottom&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_MainBottom', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -236,13 +242,14 @@
                             <div id="changeFoodContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${changeEat}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 14, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Change&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_Change', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -272,13 +279,14 @@
                             <div id="callFoodContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${orderEat}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 14, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Request&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_Request', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -308,13 +316,14 @@
                             <div id="shopContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${shop}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 13, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Shopin&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_Shopin', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -344,13 +353,14 @@
                             <div id="detailPageContents">
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${detail}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item, '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item, '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 13, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="chatListContent chatListContent0 d-flex justify-content-between mb-3">
                                         <input type="file" class="d-none chatListImgFile0" name="dbName[0]" onchange="">
                                         <div class="customInputForm cursor-pointer col-8">
-                                            <div class="d-flex align-items-center chatListImgName0">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="d-flex align-items-center chatListImgName0">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertise.do?Ad_Type=Ad_Details&Ad_Url=${item}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="removeAdvertise('${fileName}', 'Ad_Details', '${item}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -392,16 +402,17 @@
                                 </div>
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${review}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item.get('url'), '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item.get('url'), '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 14, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="reviewContent reviewContent0 d-flex justify-content-between mb-3">
                                         <div class="d-flex col-9">
                                             <input type="file" class="d-none reviewImgFile0" name="dbName[0]" onchange="">
                                             <input type="text" placeholder="제목" class="form-control mr-4" value="${item.get('title')}" disabled>
                                             <input type="text" placeholder="설명" class="form-control mr-4" value="${item.get('desc')}" disabled>
                                             <input type="text" placeholder="이동링크" class="form-control mr-4" value="${item.get('link')}" disabled>
-                                            <div class="form-control reviewImgName0 d-flex align-items-center">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="form-control reviewImgName0 d-flex align-items-center">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertiseFromNo.do?Ad_No=${item.get("no")}&Ad_Url=${item.get('url')}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="deleteAdvertiseFromNo('${fileName}', ${item.get("no")}, '${item.get('url')}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -441,16 +452,17 @@
                                 </div>
                                 <!-- TODO 요소 하나 -->
                                 <c:forEach items="${community}" var="item" varStatus="i">
-                                    <c:set var="fileName" value="${fn:split(item.get('url'), '/')}" />
+                                    <c:set var="filePath" value="${fn:split(item.get('url'), '/')}" />
+                                    <c:set var="fileName" value="${fn:substring(filePath[fn:length(filePath) - 1], 14, filePath[fn:length(filePath) - 1].length())}" />
                                     <div class="reviewContent reviewContent0 d-flex justify-content-between mb-3">
                                         <div class="d-flex col-9">
                                             <input type="file" class="d-none reviewImgFile0" name="dbName[0]" onchange="">
                                             <input type="text" placeholder="제목" class="form-control mr-4" value="${item.get('title')}" disabled>
                                             <input type="text" placeholder="설명" class="form-control mr-4" value="${item.get('desc')}" disabled>
                                             <input type="text" placeholder="이동링크" class="form-control mr-4" value="${item.get('link')}" disabled>
-                                            <div class="form-control reviewImgName0 d-flex align-items-center">${fileName[fn:length(fileName) - 1]}</div>
+                                            <div class="form-control reviewImgName0 d-flex align-items-center">${fileName}</div>
                                         </div>
-                                        <div class="btn btn-primary" onclick="location.href='/deleteAdvertiseFromNo.do?Ad_No=${item.get("no")}&Ad_Url=${item.get('url')}'">삭제</div>
+                                        <div class="btn btn-primary" onclick="deleteAdvertiseFromNo('${fileName}', ${item.get("no")}, '${item.get('url')}')">삭제</div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -781,6 +793,7 @@
 <script src="/resources/assets/vendors/owl.carousel/owl.carousel.min.js"></script>
 <script src="/resources/assets/vendors/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="/resources/assets/vendors/dropify/dist/dropify.min.js"></script>
+<script src="/resources/assets/vendors/sweetalert2/sweetalert2.min.js"></script>
 <!-- end plugin js for this page -->
 <!-- inject:js -->
 <script src="/resources/assets/vendors/feather-icons/feather.min.js"></script>
@@ -795,5 +808,93 @@
     $(document).ready(function(){
         $('.advertiseFile').dropify();
     });
+
+    function deleteAdvertiseFromNo(name, no, path){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: name + '의 광고를 삭제하시겠습니까?',
+            text: "삭제한 광고는 되돌릴 수 없습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 실행하겠습니다.',
+            cancelButtonText: '아니요, 실행하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "실행중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none',
+                    },
+                    location.href='/deleteAdvertiseFromNo.do?Ad_No='+ no +'&Ad_Url=' + path
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    '해당 정보는 안전합니다 :)',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function removeAdvertise(name, type, path){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: name + '의 광고를 삭제하시겠습니까?',
+            text: "삭제한 광고는 되돌릴 수 없습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 실행하겠습니다.',
+            cancelButtonText: '아니요, 실행하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "실행중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none',
+                    },
+                    location.href='/deleteAdvertise.do?Ad_Type='+ type +'&Ad_Url=' + path
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    '해당 정보는 안전합니다 :)',
+                    'error'
+                )
+            }
+        })
+    }
 </script>
 </html>

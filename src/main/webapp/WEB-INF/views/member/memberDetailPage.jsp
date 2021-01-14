@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/resources/assets/vendors/core/core.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
-
+    <link rel="stylesheet" href="/resources/assets/vendors/sweetalert2/sweetalert2.min.css">
     <!-- end plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/resources/assets/fonts/feather-font/css/iconfont.css">
@@ -87,10 +87,23 @@
                                             <i data-feather="upload"></i>
                                         </div>
                                     </div>
-                                    <div class="btn btn-danger position-absolute" style="right: 0; bottom: 1rem">회원정지
-                                    </div>
+                                    <c:choose>
+                                        <c:when test="${userInfo.user_State eq 1}">
+                                            <div class="btn btn-danger position-absolute" style="right: 0; bottom: 1rem"
+                                                 onclick="black(${userInfo.user_No})">
+                                                회원 정지
+                                            </div>
+                                        </c:when>
+                                        <c:when test="${userInfo.user_State eq 0}">
+                                            <div class="btn btn-danger position-absolute" style="right: 0; bottom: 1rem"
+                                                 onclick="unBlack(${userInfo.user_No})">
+                                                회원 정지 해제
+                                            </div>
+                                        </c:when>
+                                    </c:choose>
                                 </div>
                             </div>
+                            <hr>
                             <!-- TODO 기업 정보 -->
                             <h5 class="card-title">기업 정보</h5>
                             <div class="d-flex">
@@ -150,6 +163,7 @@
 <!-- plugin js for this page -->
 <script src="/resources/assets/vendors/jquery.flot/jquery.flot.js"></script>
 <script src="/resources/assets/vendors/jquery.flot/jquery.flot.resize.js"></script>
+<script src="/resources/assets/vendors/sweetalert2/sweetalert2.min.js"></script>
 <!-- end plugin js for this page -->
 <!-- inject:js -->
 <script src="/resources/assets/vendors/feather-icons/feather.min.js"></script>
@@ -162,6 +176,94 @@
 <script>
     function moveUrl(url) {
         window.open(url);
+    }
+
+    function unBlack(user_No){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: '정말 회원 정지를 해제 하시겠습니까?',
+            text: "해당 회원은 다시 앱에 원활하게 접속할 수 있습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 실행하겠습니다.',
+            cancelButtonText: '아니요, 실행하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "실행중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none',
+                    },
+                    location.href='/modifyUserState.do?User_No='+ user_No +'&User_State=1'
+            )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    '회원의 정보는 안전합니다 :)',
+                    'error'
+                )
+            }
+        })
+    }
+
+    function black(user_No) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: '정말 회원 정지를 하시겠습니까?',
+            text: "해당 회원에 대한 데이터는 유지되지만, 해당 회원은 앱에 접속할 수 없습니다.(블랙리스트 테이블에서 회원 정지를 취소시킬 수 있습니다.)",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 실행하겠습니다.',
+            cancelButtonText: '아니요, 실행하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "실행중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none',
+                    },
+                    location.href='/modifyUserState.do?User_No='+ user_No +'&User_State=0'
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    '회원의 정보는 안전합니다 :)',
+                    'error'
+                )
+            }
+        })
     }
 </script>
 </html>

@@ -105,7 +105,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">지역 별 입점 수</h6>
-                            <canvas id="chartArea"></canvas>
+                            <canvas id="chartjsPie"></canvas>
                         </div>
                     </div>
                 </div>
@@ -149,6 +149,27 @@
             $('#sixMonth').attr("class", "btn btn-primary ml-2");
         } else if (param === "oneYear") {
             $('#oneYear').attr("class", "btn btn-primary ml-2");
+        }
+
+        var areaColor = new Array();
+        for(var i = 0; i<9; i++){
+            areaColor.push("#" + Math.round(Math.random() * 0xffffff).toString(16));
+        }
+
+        if($('#chartjsPie').length) {
+            new Chart($('#chartjsPie'), {
+                type: 'pie',
+                data: {
+                    labels: ["경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"],
+                    datasets: [{
+                        label: "Population (millions)",
+                        backgroundColor: areaColor,
+                        data: [${areaCount.get("경기도")}, ${areaCount.get("강원도")}, ${areaCount.get("충청북도")},
+                            ${areaCount.get("충청남도")}, ${areaCount.get("전라북도")}, ${areaCount.get("전라남도")}, ${areaCount.get("경상북도")},
+                            ${areaCount.get("경상남도")},${areaCount.get("제주도")}]
+                    }]
+                }
+            });
         }
 
         if ($('#chartViewerCount').length) {

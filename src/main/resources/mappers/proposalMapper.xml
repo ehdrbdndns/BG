@@ -35,7 +35,7 @@
     </select>
 
     <update id="appChangeStateOfProposal" parameterType="ProposalDto">
-        update proposal set Proposal_State=#{Proposal_State} WHERE Proposal_No=${Proposal_No}
+        update proposal set Proposal_State=#{Proposal_State}, Proposal_Room=#{Proposal_Room} WHERE Proposal_Id=#{Proposal_Id}
     </update>
 
     <select id="countProposalOfChange" resultType="int">
@@ -47,5 +47,11 @@
     <insert id="appRegisterProposal" parameterType="ProposalDto">
         insert into proposal(Proposal_State, Proposal_Addr, Proposal_Ways, Proposal_Myproduct, Proposal_Category, Proposal_RegDate, User_No, Store_No, Product_No, Proposal_Credit, Proposal_Room, Proposal_Id)
         VALUES (#{Proposal_State}, #{Proposal_Addr}, #{Proposal_Ways}, #{My_ProductNo}, #{Proposal_Category}, #{Proposal_RegDate}, #{My_No}, #{Store_No}, #{Your_ProductNo}, #{Proposal_Credit}, #{Proposal_Room}, #{Proposal_Id})
+    </insert>
+    <select id="appCheckChatRoom" resultType="boolean">
+        select EXISTS(select * from chatroom where My_No=${My_No} AND Your_No=${Your_No})
+    </select>
+    <insert id="appInsertChatRoom">
+        insert into chatroom(My_No, Your_No) VALUES(${My_No}, ${Your_No})
     </insert>
 </mapper>
