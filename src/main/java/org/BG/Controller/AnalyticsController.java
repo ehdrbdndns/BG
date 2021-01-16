@@ -48,7 +48,8 @@ public class AnalyticsController {
         model.addAttribute("storeCategoryInfo", storeCategoryInfo);
 
         //광고 클릭 수
-        JSONArray advertiseInfo = advertiseService.countAdvertise();
+        JSONArray advertiseInfo = advertiseService.countAdvertiseV2();
+//        JSONArray advertiseInfo = advertiseService.countAdvertise();
         model.addAttribute("advertiseInfo", advertiseInfo);
 
         //지역 별 입점 수

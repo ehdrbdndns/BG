@@ -15,6 +15,15 @@ public class CommunityDao {
     @Autowired
     SqlSession sqlSession;
 
+    public void increaseCommunityView(CommunityDto communityDto){
+        try{
+            CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);
+            communityMapper.increaseCommunityView(communityDto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<CommunityDto> appRetrieveCommunityListOfMy(UserDto userDto){
         try{
             CommunityMapper communityMapper = sqlSession.getMapper(CommunityMapper.class);

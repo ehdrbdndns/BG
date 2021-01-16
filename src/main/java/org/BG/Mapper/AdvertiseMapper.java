@@ -1,6 +1,7 @@
 package org.BG.Mapper;
 
 import org.BG.DTO.AdvertiseDto;
+import org.BG.DTO.AdvertiseV2Dto;
 
 import java.util.ArrayList;
 
@@ -25,4 +26,9 @@ public interface AdvertiseMapper {
     void deleteAdvertiseFromNo(AdvertiseDto advertiseDto);
     void uploadAdvertiseOfReview(AdvertiseDto advertiseDto);
     void uploadAdvertiseOfCommunity(AdvertiseDto advertiseDto);
+
+    ArrayList<AdvertiseV2Dto> getAdvertiseV2();
+    void uploadAdvertiseV2(AdvertiseV2Dto advertiseV2Dto);
+    void deleteAdvertiseV2(AdvertiseV2Dto advertiseV2Dto);
+    void appClickAdvertiseV2(AdvertiseV2Dto advertiseV2Dto);
 }

@@ -22,6 +22,7 @@ public class SISController {
     public JSONArray appRetrieveUserSISList(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appRetrieveUserSISList.app");
+            System.out.println("user_no: " + userDto.getUser_No());
             return sisService.appRetrieveUserSISList(userDto);
         } catch (Exception e){
             e.printStackTrace();

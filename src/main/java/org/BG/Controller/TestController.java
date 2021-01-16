@@ -1,11 +1,13 @@
 package org.BG.Controller;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import jdk.nashorn.internal.parser.JSONParser;
 import net.sf.json.JSON;
 import org.BG.DTO.TestDto;
 import org.BG.Service.test.TestService;
 //import org.BG.util.CGPlacesAPI;
 import org.BG.util.ScrapingTaxTypeFromNts;
+import org.BG.util.firebase.FirebaseMessagingSnippets;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,8 @@ public class TestController {
     TestService testService;
     @Autowired
     ScrapingTaxTypeFromNts scrapingTaxTypeFromNts;
+    @Autowired
+    FirebaseMessagingSnippets firebaseMessagingSnippets;
 //    @Autowired
 //    CGPlacesAPI cgPlacesAPI;
 
@@ -118,6 +123,18 @@ public class TestController {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/testSendNotification.do", method = RequestMethod.GET)
+    public boolean testSendNotification(@RequestParam(value = "fcm") String token, HttpServletRequest request){
+        try{
+            firebaseMessagingSnippets.test_send_FCM(token, "잘 가나용?", request);
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 }

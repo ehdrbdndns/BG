@@ -21,6 +21,7 @@ public class StoreController {
     public JSONObject appRetrieveUserStore(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appRetrieveUserStore.app 호출");
+            System.out.println("userno: " + userDto.getUser_No());
             //jsonArray 반환
             return storeService.appRetrieveUserStore(userDto);
         } catch (Exception e){

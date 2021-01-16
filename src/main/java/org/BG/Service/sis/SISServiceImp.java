@@ -61,7 +61,7 @@ public class SISServiceImp implements SISService {
                 }
             } else {
                 //샵인 샵 정보 수정
-                if (!shopinDto.getShopin_Img_File().isEmpty()) {
+                if (shopinDto.getShopin_Img_File() != null) {
                     String basicImgPath = sisDao.appRetrieveUserSISOfImg(shopinDto).getShopin_Img();
                     aws_cdn_service.FileDelete("user/" + shopinDto.getUser_No() + "/shopin/shopinImg/"+basicImgPath);
                     String shopin_Img = aws_cdn_service.FileUpload("user/" + shopinDto.getUser_No() + "/shopin/shopinImg/", shopinDto.getShopin_Img_File());

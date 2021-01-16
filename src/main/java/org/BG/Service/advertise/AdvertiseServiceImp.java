@@ -2,6 +2,7 @@ package org.BG.Service.advertise;
 
 import org.BG.DAO.AdvertiseDao;
 import org.BG.DTO.AdvertiseDto;
+import org.BG.DTO.AdvertiseV2Dto;
 import org.BG.util.Aws_Cdn.Aws_Cdn_Service;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,6 +18,167 @@ public class AdvertiseServiceImp implements AdvertiseService {
     AdvertiseDao advertiseDao;
     @Autowired
     Aws_Cdn_Service aws_cdn_service;
+
+    @Override
+    public JSONObject getAdvertiseV2() {
+        JSONObject result = new JSONObject();
+        JSONArray chatList = new JSONArray();
+        JSONArray chatRoomList = new JSONArray();
+        JSONArray mainBannerList = new JSONArray();
+        JSONArray mainTopList = new JSONArray();
+        JSONArray mainBottomList = new JSONArray();
+        JSONArray changeEatList = new JSONArray();
+        JSONArray orderEatList = new JSONArray();
+        JSONArray shopList = new JSONArray();
+        JSONArray detailList = new JSONArray();
+        JSONArray reviewList = new JSONArray();
+        JSONArray communityList = new JSONArray();
+
+        try {
+            ArrayList<AdvertiseV2Dto> advertiseInfo = advertiseDao.getAdvertiseV2();
+            for (int i = 0; i < advertiseInfo.size(); i++) {
+                if (advertiseInfo.get(i).getAd_Type().equals("chat")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    chatList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("chatRoom")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    chatRoomList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("mainBanner")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    mainBannerList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("mainTop")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    mainTopList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("mainBottom")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    mainBottomList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("changeEat")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    changeEatList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("orderEat")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    orderEatList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("shop")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    shopList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("detail")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    detailList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("review")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("desc", advertiseInfo.get(i).getAd_Desc());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    reviewList.add(object);
+                } else if (advertiseInfo.get(i).getAd_Type().equals("community")) {
+                    JSONObject object = new JSONObject();
+                    object.put("no", advertiseInfo.get(i).getAd_No());
+                    object.put("title", advertiseInfo.get(i).getAd_Title());
+                    object.put("link", advertiseInfo.get(i).getAd_MoveLink());
+                    object.put("desc", advertiseInfo.get(i).getAd_Desc());
+                    object.put("url", advertiseInfo.get(i).getAd_URL());
+                    communityList.add(object);
+                }
+                result.put("chat", chatList);
+                result.put("chatRoom", chatRoomList);
+                result.put("mainBanner", mainBannerList);
+                result.put("mainTop", mainTopList);
+                result.put("mainBottom", mainBottomList);
+                result.put("changeEat", changeEatList);
+                result.put("orderEat", orderEatList);
+                result.put("shop", shopList);
+                result.put("detail", detailList);
+                result.put("review", reviewList);
+                result.put("community", communityList);
+            }
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public void uploadAdvertiseV2(AdvertiseV2Dto advertiseDto) {
+        try {
+            advertiseDto.setAd_URL(aws_cdn_service.FileUpload("advertise/" + advertiseDto.getAd_Type() + "/", advertiseDto.getAd_File()));
+            advertiseDao.uploadAdvertiseV2(advertiseDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteAdvertiseV2(AdvertiseV2Dto advertiseV2Dto) {
+        try {
+            aws_cdn_service.FileDelete(advertiseV2Dto.getAd_URL());
+            advertiseDao.deleteAdvertiseV2(advertiseV2Dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void appClickAdvertiseV2(AdvertiseV2Dto advertiseV2Dto) {
+        advertiseDao.appClickAdvertiseV2(advertiseV2Dto);
+    }
+
+    @Override
+    public JSONArray countAdvertiseV2() {
+        JSONArray result = new JSONArray();
+        try {
+            ArrayList<AdvertiseV2Dto> advertiseInfo = advertiseDao.getAdvertiseV2();
+
+            //커뮤니티 광고
+            for (int i = 0; i < advertiseInfo.size(); i++) {
+                result.add(advertiseInfo.get(i).getAd_Title());
+                result.add(advertiseInfo.get(i).getAd_ClickCount());
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public JSONObject appGetAdvertise() {
@@ -230,7 +392,7 @@ public class AdvertiseServiceImp implements AdvertiseService {
                 ArrayList<AdvertiseDto> advertiseDtoArrayList = advertiseDao.appGetAdvertiseOfReview();
                 for (int i = 0; i < advertiseDtoArrayList.size(); i++) {
                     JSONObject jsonObject = (JSONObject) parser.parse(advertiseDtoArrayList.get(i).getAd_Reviews());
-                    if(jsonObject.get("url").equals(advertiseDto.getAd_Url())){
+                    if (jsonObject.get("url").equals(advertiseDto.getAd_Url())) {
                         advertiseDto.setAd_No(advertiseDtoArrayList.get(i).getAd_No());
                         return advertiseDao.appClickAdvertiseOfReview(advertiseDto);
                     } else {
@@ -244,7 +406,7 @@ public class AdvertiseServiceImp implements AdvertiseService {
                 ArrayList<AdvertiseDto> advertiseDtoArrayList = advertiseDao.appGetAdvertiseOfCommunity();
                 for (int i = 0; i < advertiseDtoArrayList.size(); i++) {
                     JSONObject jsonObject = (JSONObject) parser.parse(advertiseDtoArrayList.get(i).getAd_Community());
-                    if(jsonObject.get("url").equals(advertiseDto.getAd_Url())){
+                    if (jsonObject.get("url").equals(advertiseDto.getAd_Url())) {
                         advertiseDto.setAd_No(advertiseDtoArrayList.get(i).getAd_No());
                         return advertiseDao.appClickAdvertiseOfCommunity(advertiseDto);
                     } else {
@@ -267,26 +429,26 @@ public class AdvertiseServiceImp implements AdvertiseService {
     public JSONArray countAdvertise() {
         JSONArray result = new JSONArray();
         JSONParser parser = new JSONParser();
-        try{
+        try {
             ArrayList<AdvertiseDto> reviewDto = advertiseDao.countAdvertiseOfReview();
             ArrayList<AdvertiseDto> communityDto = advertiseDao.countAdvertiseOfCommunity();
 
             //리뷰 광고
-            for(int i = 0; i < reviewDto.size(); i++){
+            for (int i = 0; i < reviewDto.size(); i++) {
                 JSONObject reviewJSON = (JSONObject) parser.parse(reviewDto.get(i).getAd_Reviews());
                 result.add(reviewJSON.get("title"));
                 result.add(reviewDto.get(i).getAd_ReviewsCon());
             }
 
             //커뮤니티 광고
-            for(int i = 0; i < communityDto.size(); i++){
+            for (int i = 0; i < communityDto.size(); i++) {
                 JSONObject communityJSON = (JSONObject) parser.parse(communityDto.get(i).getAd_Community());
                 result.add(communityJSON.get("title"));
                 result.add(communityDto.get(i).getAd_CommunityCount());
             }
 
             return result;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -295,47 +457,47 @@ public class AdvertiseServiceImp implements AdvertiseService {
     @Override
     public void uploadAdvertise(AdvertiseDto advertiseDto) {
         JSONObject object = new JSONObject();
-        try{
-            if(advertiseDto.getAd_Type().equals("Ad_Reviews")){
+        try {
+            if (advertiseDto.getAd_Type().equals("Ad_Reviews")) {
                 object.put("title", advertiseDto.getAd_Title());
                 object.put("desc", advertiseDto.getAd_Desc());
                 object.put("link", advertiseDto.getAd_Link());
-                object.put("url", aws_cdn_service.FileUpload("advertise/"+advertiseDto.getAd_Type()+"/", advertiseDto.getAd_File()));
+                object.put("url", aws_cdn_service.FileUpload("advertise/" + advertiseDto.getAd_Type() + "/", advertiseDto.getAd_File()));
                 advertiseDto.setAd_Reviews(object.toJSONString());
                 advertiseDao.uploadAdvertiseOfReview(advertiseDto);
             } else if (advertiseDto.getAd_Type().equals("Ad_Community")) {
                 object.put("title", advertiseDto.getAd_Title());
                 object.put("desc", advertiseDto.getAd_Desc());
                 object.put("link", advertiseDto.getAd_Link());
-                object.put("url", aws_cdn_service.FileUpload("advertise/"+advertiseDto.getAd_Type()+"/", advertiseDto.getAd_File()));
+                object.put("url", aws_cdn_service.FileUpload("advertise/" + advertiseDto.getAd_Type() + "/", advertiseDto.getAd_File()));
                 advertiseDto.setAd_Community(object.toJSONString());
                 advertiseDao.uploadAdvertiseOfCommunity(advertiseDto);
-            } else{
-                String Ad_Url = aws_cdn_service.FileUpload("advertise/"+advertiseDto.getAd_Type()+"/", advertiseDto.getAd_File());
+            } else {
+                String Ad_Url = aws_cdn_service.FileUpload("advertise/" + advertiseDto.getAd_Type() + "/", advertiseDto.getAd_File());
                 advertiseDto.setAd_Url(Ad_Url);
                 advertiseDao.uploadAdvertise(advertiseDto);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void deleteAdvertise(AdvertiseDto advertiseDto) {
-        try{
+        try {
             aws_cdn_service.FileDelete(advertiseDto.getAd_Url());
             advertiseDao.deleteAdvertise(advertiseDto);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void deleteAdvertiseFromNo(AdvertiseDto advertiseDto) {
-        try{
+        try {
             aws_cdn_service.FileDelete(advertiseDto.getAd_Url());
             advertiseDao.deleteAdvertiseFromNo(advertiseDto);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

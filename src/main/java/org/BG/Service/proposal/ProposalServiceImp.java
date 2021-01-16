@@ -317,6 +317,11 @@ public class ProposalServiceImp implements ProposalService {
             proposalDto.setProposal_RegDate(getToday());
             Integer store_no = storeDao.appRetrieveStoreNo(proposalDto.getMy_No());
             proposalDto.setStore_No(store_no);
+            if (proposalDto.getProposal_Ways().equals("call"))
+                proposalDto.setMy_ProductNo(0);
+            if(proposalDto.getProposal_Ways().equals("change")){
+                proposalDto.setProposal_Credit(null);
+            }
             return proposalDao.appRegisterProposal(proposalDto);
         } catch (Exception e){
             e.printStackTrace();

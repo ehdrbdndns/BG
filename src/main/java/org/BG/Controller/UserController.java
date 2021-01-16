@@ -22,6 +22,7 @@ public class UserController {
     public JSONObject appRetrieveUserInfo(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appRetrieveUserInfo.app 호출");
+            System.out.println("호출 User_No: " + userDto.getUser_No());
             return userService.appRetrieveUserInfo(userDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -35,6 +36,7 @@ public class UserController {
     public String appModifyUserInfo(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appModifyUserInfo.app 호출");
+            System.out.println("user_no: " + userDto.getUser_No());
             if(userDto.getUser_No() == null){
                 //변경사항 없음
                 return "true";
@@ -59,6 +61,7 @@ public class UserController {
     public String appModifyUserAlarm(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appModifyUserAlarm.app 호출");
+            System.out.println("user_no: " + userDto.getUser_No());
             return userService.appModifyUserAlarm(userDto);
         } catch (Exception e){
             e.printStackTrace();

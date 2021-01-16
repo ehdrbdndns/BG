@@ -1,6 +1,7 @@
 package org.BG.Controller;
 
 import org.BG.DTO.AdvertiseDto;
+import org.BG.DTO.AdvertiseV2Dto;
 import org.BG.Service.advertise.AdvertiseService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,12 @@ public class AdvertiseController {
     @GetMapping("/advertisePage.do")
     public String advertisePage(Model model) {
         JSONObject advertiseInfo = new JSONObject();
-        advertiseInfo = advertiseService.getAdvertise();
+
+        //신식
+        advertiseInfo = advertiseService.getAdvertiseV2();
+
+        //구식
+//        advertiseInfo = advertiseService.getAdvertise();
 
         //채팅 목록
         model.addAttribute("chat", advertiseInfo.get("chat"));
@@ -56,15 +62,56 @@ public class AdvertiseController {
         model.addAttribute("community", advertiseInfo.get("community"));
 
         model.addAttribute("FilePath", FILEPATH);
-        return "advertise/advertisePage";
+
+        //신식
+        return "advertise/advertisePageV2";
+        //구식
+        //return "advertise/advertisePage";
     }
 
-    //모든 광고 가져오기!
+    //관리자에서 광고 삭제(신식)
+    @GetMapping(value = "/deleteAdvertiseV2.do")
+    public String deleteAdvertiseV2(@ModelAttribute AdvertiseV2Dto advertiseV2Dto){
+        try{
+            advertiseService.deleteAdvertiseV2(advertiseV2Dto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return "redirect:/advertisePage.do";
+    }
+
+    //모든 광고 가져오기!(신식)
+    @ResponseBody
+    @RequestMapping(value = "/appGetAdvertiseV2.app")
+    public JSONObject appGetAdvertiseV2(){
+        try{
+            return advertiseService.getAdvertiseV2();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //모든 광고 가져오기!(구식)
     @ResponseBody
     @RequestMapping(value = "/appGetAdvertise.app")
     public JSONObject appGetAdvertise(){
         try{
             return advertiseService.appGetAdvertise();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //광고 클릭 추가(신식)
+    @ResponseBody
+    @RequestMapping(value = "/appClickAdvertiseV2.app")
+    public String appClickAdvertiseV2(@ModelAttribute AdvertiseV2Dto advertiseDto){
+        try{
+            advertiseService.appClickAdvertiseV2(advertiseDto);
+            return "true";
         } catch (Exception e){
             e.printStackTrace();
             return null;
@@ -87,11 +134,23 @@ public class AdvertiseController {
         }
     }
 
-    //관리자에서 광고 추가
+    //관리자에서 광고 추가 구식
     @RequestMapping(value = "/uploadAdvertise.do", method = RequestMethod.POST)
     public String uploadAdvertise(@ModelAttribute AdvertiseDto advertiseDto){
         try{
             advertiseService.uploadAdvertise(advertiseDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return "redirect:/advertisePage.do";
+    }
+
+    //관리자에서 광고 추가 신식
+    @RequestMapping(value = "/uploadAdvertiseV2.do", method = RequestMethod.POST)
+    public String uploadAdvertiseV2(@ModelAttribute AdvertiseV2Dto advertiseDto){
+        try{
+            advertiseService.uploadAdvertiseV2(advertiseDto);
         } catch (Exception e){
             e.printStackTrace();
             return null;

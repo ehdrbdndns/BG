@@ -34,8 +34,11 @@ public class LoginController {
     public String appLogin(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appLogin.app 호출");
+            System.out.println("email: " + userDto.getUser_Email() + ", " + "pwd: " + userDto.getUser_PW());
             //User_No or err 반환
-            return loginService.appLogin(userDto);
+            String User_No = loginService.appLogin(userDto);
+            System.out.println("/appLogin.app 리턴 값: " + User_No);
+            return User_No;
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -49,7 +52,9 @@ public class LoginController {
         try{
             System.out.println("/appSendCodeOfRegister.app 호출");
             //User_No or err 반환
-            return loginService.appSendCodeOfRegister(registerDto);
+            String registerNo = loginService.appSendCodeOfRegister(registerDto);
+            System.out.println("registerNo: " + registerNo);
+            return registerNo;
         } catch (Exception e){
             e.printStackTrace();
             return null;

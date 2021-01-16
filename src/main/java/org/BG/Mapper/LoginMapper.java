@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 public interface LoginMapper {
     Integer appLogin(UserDto userDto);
-    Integer appSendCode(RegisterDto registerDto);
+    void appSendCode(RegisterDto registerDto);
     Integer appConfirmCodeOfRegister(RegisterDto registerDto);
     void appCleanRegister(String date);
-    Integer appRegister(UserDto userDto);
+    void appRegister(UserDto userDto);
     void appRegisterOfComImg(UserDto userDto);
     void appRegisterOfStore(UserDto userDto);
     String appSearchEmail(UserDto userDto);

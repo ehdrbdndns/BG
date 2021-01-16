@@ -80,7 +80,8 @@ public class SISDao {
     public String appDeleteUserSIS(ShopinDto shopinDto){
         try{
             SISMapper sisMapper = sqlSession.getMapper(SISMapper.class);
-            return sisMapper.appDeleteUserSIS(shopinDto);
+            sisMapper.appDeleteUserSIS(shopinDto);
+            return "true";
         } catch (Exception e){
             e.printStackTrace();
             return null;

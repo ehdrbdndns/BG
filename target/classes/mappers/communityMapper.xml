@@ -63,4 +63,8 @@
     <delete id="deleteCommunity" parameterType="CommunityDto">
         delete from community where Community_No=${Community_No}
     </delete>
+
+    <update id="increaseCommunityView">
+        update community set Community_View = (Community_View + 1) where Community_No=${Community_No}
+    </update>
 </mapper>

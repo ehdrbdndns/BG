@@ -50,7 +50,7 @@ public class ProductServiceImp implements ProductService {
     public String appModifyUserStoreProduct(ProductDto productDto) {
         try {
             String basicProduct = productDao.appRetrieveStoreProduct(productDto).getProduct_Img();
-            if (!productDto.getProduct_Img_File().isEmpty()) {
+            if (productDto.getProduct_Img_File() != null) {
                 String Product_Img = aws_cdn_service.FileUpload("user/" + productDto.getUser_No() + "/store/productImg/", productDto.getProduct_Img_File());
                 productDto.setProduct_Img(Product_Img);
                 aws_cdn_service.FileDelete(basicProduct);
@@ -90,7 +90,7 @@ public class ProductServiceImp implements ProductService {
     @Override
     public String appModifyUserSISProduct(ProductDto productDto) {
         try{
-            if(!productDto.getProduct_Img_File().isEmpty()){
+            if(productDto.getProduct_Img_File() != null){
                 aws_cdn_service.FileDelete("user/" + productDto.getUser_No() + "/shopin/" + productDto.getShopin_No() + "/shopinImg");
                 String Product_Img = aws_cdn_service.FileUpload("user/" + productDto.getUser_No() + "/shopin/" + productDto.getShopin_No() + "/shopinImg/", productDto.getProduct_Img_File());
                 productDto.setProduct_Img(Product_Img);

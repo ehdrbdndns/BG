@@ -1,6 +1,7 @@
 package org.BG.DAO;
 
 import org.BG.DTO.AdvertiseDto;
+import org.BG.DTO.AdvertiseV2Dto;
 import org.BG.Mapper.AdvertiseMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,43 @@ public class AdvertiseDao {
     @Autowired
     SqlSession sqlSession;
 
+    //광고 두번째 버전
+    public ArrayList<AdvertiseV2Dto> getAdvertiseV2(){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            return advertiseMapper.getAdvertiseV2();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public void uploadAdvertiseV2(AdvertiseV2Dto advertiseV2Dto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.uploadAdvertiseV2(advertiseV2Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void deleteAdvertiseV2(AdvertiseV2Dto advertiseV2Dto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.deleteAdvertiseV2(advertiseV2Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void appClickAdvertiseV2(AdvertiseV2Dto advertiseV2Dto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.appClickAdvertiseV2(advertiseV2Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    // 광고 첫번째 버번
     public ArrayList<AdvertiseDto> appGetAdvertiseOfChat(){
         try{
             AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);

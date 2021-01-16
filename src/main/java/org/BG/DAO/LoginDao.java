@@ -31,6 +31,13 @@ public class LoginDao {
     public int appCheckUserState(UserDto userDto){
         try{
             LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
+            String date = getToday();
+            Integer checkUserVisitor = loginMapper.isUserVisitor(date);
+            if(checkUserVisitor == null || checkUserVisitor == 0){
+                loginMapper.insertUserVisitor(date);
+            } else{
+                loginMapper.updateUserVisitor(checkUserVisitor);
+            }
             return loginMapper.appCheckUserState(userDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -45,13 +52,6 @@ public class LoginDao {
             if(user_No == null || user_No == 0){
                 return "false";
             } else{
-                String date = getToday();
-                Integer checkUserVisitor = loginMapper.isUserVisitor(date);
-                if(checkUserVisitor == 0){
-                    loginMapper.insertUserVisitor(date);
-                } else{
-                    loginMapper.updateUserVisitor(checkUserVisitor);
-                }
                 userDto.setUser_No(user_No);
                 loginMapper.appUpdateFcm(userDto);
                 return Integer.toString(user_No);
@@ -65,7 +65,9 @@ public class LoginDao {
     public String appSendCodeOfRegister(RegisterDto registerDto){
         try{
             LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
-            return Integer.toString(loginMapper.appSendCode(registerDto));
+            loginMapper.appSendCode(registerDto);
+            Integer registerNo = registerDto.getRegister_No();
+            return Integer.toString(registerNo);
         } catch (Exception e){
             e.printStackTrace();
             return null;
@@ -88,7 +90,8 @@ public class LoginDao {
     public String appRegister(UserDto userDto){
         try{
          LoginMapper loginMapper = sqlSession.getMapper(LoginMapper.class);
-         return Integer.toString(loginMapper.appRegister(userDto));
+         loginMapper.appRegister(userDto);
+         return Integer.toString(userDto.getUser_No());
         } catch (Exception e){
             e.printStackTrace();
             return null;
@@ -129,7 +132,9 @@ public class LoginDao {
             if(user_No == null || user_No == 0){
                 return "false";
             } else{
-                return Integer.toString(loginMapper.appSendCode(registerDto));
+                loginMapper.appSendCode(registerDto);
+                Integer registerNo = registerDto.getRegister_No();
+                return Integer.toString(registerNo);
             }
         } catch (Exception e){
             e.printStackTrace();

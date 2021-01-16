@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface ReplyMapper {
     //커뮤니티
     ArrayList<ReplyDto> appRetrieveReply(ReplyDto replyDto);
-    Integer appUploadParentReply(ReplyDto replyDto);
+    void appUploadParentReply(ReplyDto replyDto);
     void appUploadParentReplyOfGroupNum(Integer Reply_No);
     void appUploadChildReply(ReplyDto replyDto);
     ReplyDto appRetrieveReplyOfReply(ReplyDto replyDto);
@@ -16,7 +16,7 @@ public interface ReplyMapper {
     //스토어
     ArrayList<ReplyDto> appRetrieveReviews(ReplyDto replyDto);
     ReplyDto appRetrieveReviewsOfReviews(ReplyDto replyDto);
-    Integer appUploadParentReviews(ReplyDto replyDto);
+    void appUploadParentReviews(ReplyDto replyDto);
     void appUploadParentReviewsOfGroupNum(Integer Reviews_No);
     void appUploadChildReviews(ReplyDto replyDto);
 }

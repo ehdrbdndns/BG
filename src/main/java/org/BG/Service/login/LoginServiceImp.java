@@ -49,7 +49,7 @@ public class LoginServiceImp implements LoginService {
 
             //인증코드 전송
             //mail.mailSender(송신자의 아이디, 송신자의 비밀번호, 수신자 이메일, 메일 내용, 인증코드)
-            mail.MailSender("ehdrbdndns@naver.com", "kangnam1234@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
+            mail.MailSender("ehdrbdndns@naver.com", "100400sw@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
 
             //현재 날짜 셋팅
             registerDto.setRegister_RegDate(getToday());

@@ -18,4 +18,5 @@ public interface CommunityMapper {
     int countCommunityReply(CommunityDto communityDto);
     CommunityDto getCommunityInfo(CommunityDto communityDto);
     void deleteCommunity(CommunityDto communityDto);
+    void increaseCommunityView(CommunityDto communityDto);
 }

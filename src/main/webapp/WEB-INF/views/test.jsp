@@ -14,6 +14,23 @@
 </head>
 <body>
 <h2>잘 나오는 것이여</h2>
+<form action="/appLogin.app">
+    <input type="text" name="User_Email">
+    <input type="text" name="User_PW">
+    <button>제출</button>
+</form>
+<form action="/appRetrieveUserInfo.app" method="post">
+    <input type="text" name="User_No">
+    <button>제출</button>
+</form>
+<form action="/appSendCodeOfRegister.app" method="post">
+    <input type="text" name="Register_Email">
+    <button>제출</button>
+</form>
+<form action="/appRetrieveProposalList.app" method="post">
+    <input type="text" name="User_No">
+    <button>제출</button>
+</form>
 <form action="/appRetrieveShopList.app" enctype="multipart/form-data" method="post">
     <input type="text" name="Location">
     <input type="text" name="Location_Range">
@@ -70,6 +87,13 @@
 <form action="/appCheckChatRoom.app">
     <input type="text" name="My_No">
     <input type="text" name="Your_No">
+    <button>제출</button>
+</form>
+<form action="/testSendNotification.do">
+    <div>원석형 여기 notification 입니다!(true or false, 에러뜨면 false)</div>
+    <div class="form-group">
+        <input type="text" name="fcm" placeholder="fcm토큰을 입력해주세요.">
+    </div>
     <button>제출</button>
 </form>
 </body>

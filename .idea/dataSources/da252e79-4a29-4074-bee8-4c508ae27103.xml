@@ -1137,14 +1137,14 @@
     </collation>
     <table id="287" parent="2" name="admin"/>
     <table id="288" parent="2" name="admin_advertise"/>
-    <table id="289" parent="2" name="admin_analytics"/>
-    <table id="290" parent="2" name="admin_announce"/>
-    <table id="291" parent="2" name="admin_faq"/>
-    <table id="292" parent="2" name="admin_inquiry"/>
-    <table id="293" parent="2" name="admin_push"/>
-    <table id="294" parent="2" name="chatroom"/>
-    <table id="295" parent="2" name="community"/>
-    <table id="296" parent="2" name="message"/>
+    <table id="289" parent="2" name="admin_advertisev2"/>
+    <table id="290" parent="2" name="admin_analytics"/>
+    <table id="291" parent="2" name="admin_announce"/>
+    <table id="292" parent="2" name="admin_faq"/>
+    <table id="293" parent="2" name="admin_inquiry"/>
+    <table id="294" parent="2" name="admin_push"/>
+    <table id="295" parent="2" name="chatroom"/>
+    <table id="296" parent="2" name="community"/>
     <table id="297" parent="2" name="product"/>
     <table id="298" parent="2" name="proposal"/>
     <table id="299" parent="2" name="register"/>
@@ -1256,7 +1256,56 @@
       <ColNames>Ad_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="324" parent="289" name="At_No">
+    <column id="324" parent="289" name="Ad_No">
+      <Position>1</Position>
+      <Comment>광고 번호</Comment>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="325" parent="289" name="Ad_Title">
+      <Position>2</Position>
+      <Comment>광고 제목</Comment>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="326" parent="289" name="Ad_MoveLink">
+      <Position>3</Position>
+      <Comment>광고 이동 링크</Comment>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="327" parent="289" name="Ad_URL">
+      <Position>4</Position>
+      <Comment>광고 url</Comment>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="328" parent="289" name="Ad_ClickCount">
+      <Position>5</Position>
+      <Comment>광고 클릭 수</Comment>
+      <DataType>int|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="329" parent="289" name="Ad_Type">
+      <Position>6</Position>
+      <Comment>광고 타입</Comment>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="330" parent="289" name="Ad_Desc">
+      <Position>7</Position>
+      <Comment>광고 상세 설명</Comment>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="331" parent="289" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Ad_No</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="332" parent="290" name="At_No">
       <Position>1</Position>
       <Comment>통계 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1264,18 +1313,18 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="325" parent="289" name="At_VisitDate">
+    <column id="333" parent="290" name="At_VisitDate">
       <Position>2</Position>
       <Comment>통계 방문 일자</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="326" parent="289" name="PRIMARY">
+    <key id="334" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>At_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="327" parent="290" name="An_No">
+    <column id="335" parent="291" name="An_No">
       <Position>1</Position>
       <Comment>공지 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1283,30 +1332,30 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="328" parent="290" name="An_Title">
+    <column id="336" parent="291" name="An_Title">
       <Position>2</Position>
       <Comment>공지 제목</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="329" parent="290" name="An_Contents">
+    <column id="337" parent="291" name="An_Contents">
       <Position>3</Position>
       <Comment>공지 내용 및 이미지</Comment>
       <DataType>varchar(500)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="330" parent="290" name="An_RegDate">
+    <column id="338" parent="291" name="An_RegDate">
       <Position>4</Position>
       <Comment>공지 생성 일자</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="331" parent="290" name="PRIMARY">
+    <key id="339" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>An_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="332" parent="291" name="Af_No">
+    <column id="340" parent="292" name="Af_No">
       <Position>1</Position>
       <Comment>FAQ 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1314,36 +1363,36 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="333" parent="291" name="Af_Title">
+    <column id="341" parent="292" name="Af_Title">
       <Position>2</Position>
       <Comment>FAQ 제목</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="334" parent="291" name="Af_Contents">
+    <column id="342" parent="292" name="Af_Contents">
       <Position>3</Position>
       <Comment>FAQ 내용</Comment>
       <DataType>varchar(500)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="335" parent="291" name="Af_Category">
+    <column id="343" parent="292" name="Af_Category">
       <Position>4</Position>
       <Comment>FAQ 카테고리</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="336" parent="291" name="Af_RegDate">
+    <column id="344" parent="292" name="Af_RegDate">
       <Position>5</Position>
       <Comment>FAQ 생성 일자</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="337" parent="291" name="PRIMARY">
+    <key id="345" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Af_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="338" parent="292" name="Inquiry_No">
+    <column id="346" parent="293" name="Inquiry_No">
       <Position>1</Position>
       <Comment>문의 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1351,51 +1400,52 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="339" parent="292" name="Inquiry_Title">
+    <column id="347" parent="293" name="Inquiry_Title">
       <Position>2</Position>
       <Comment>문의 제목</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="340" parent="292" name="Inquiry_Answer">
+    <column id="348" parent="293" name="Inquiry_Answer">
       <Position>3</Position>
       <Comment>문의 답변</Comment>
       <DataType>varchar(500)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="341" parent="292" name="Inquiry_Category">
+    <column id="349" parent="293" name="Inquiry_Category">
       <Position>4</Position>
       <Comment>문의 카테고리</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="342" parent="292" name="Inquiry_RegDate">
+    <column id="350" parent="293" name="Inquiry_RegDate">
       <Position>5</Position>
       <Comment>문의 생성 일자</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="343" parent="292" name="User_No">
+    <column id="351" parent="293" name="User_No">
       <Position>6</Position>
       <Comment>사용자 외래키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="344" parent="292" name="FK_Admin_Inquiry_User_No_User_User_No">
+    <index id="352" parent="293" name="FK_Admin_Inquiry_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="345" parent="292" name="PRIMARY">
+    <key id="353" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Inquiry_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="346" parent="292" name="FK_Admin_Inquiry_User_No_User_User_No">
+    <foreign-key id="354" parent="293" name="FK_Admin_Inquiry_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="347" parent="293" name="Ap_No">
+    <column id="355" parent="294" name="Ap_No">
       <Position>1</Position>
       <Comment>푸쉬 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1403,24 +1453,24 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="348" parent="293" name="Ap_Title">
+    <column id="356" parent="294" name="Ap_Title">
       <Position>2</Position>
       <Comment>푸쉬 제목</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="349" parent="293" name="Ap_RegDate">
+    <column id="357" parent="294" name="Ap_RegDate">
       <Position>3</Position>
       <Comment>푸쉬 생성 일자</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="350" parent="293" name="PRIMARY">
+    <key id="358" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Ap_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="351" parent="294" name="CR_no">
+    <column id="359" parent="295" name="CR_no">
       <Position>1</Position>
       <Comment>채팅방 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1428,24 +1478,24 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="352" parent="294" name="My_No">
+    <column id="360" parent="295" name="My_No">
       <Position>2</Position>
-      <Comment>채팅방 네임</Comment>
+      <Comment>송신자</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="353" parent="294" name="Your_No">
+    <column id="361" parent="295" name="Your_No">
       <Position>3</Position>
-      <Comment>채팅방 생성 일자</Comment>
+      <Comment>수신자</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="354" parent="294" name="PRIMARY">
+    <key id="362" parent="295" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>CR_no</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="355" parent="295" name="Community_No">
+    <column id="363" parent="296" name="Community_No">
       <Position>1</Position>
       <Comment>커뮤니티 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1453,116 +1503,64 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="356" parent="295" name="Community_Title">
+    <column id="364" parent="296" name="Community_Title">
       <Position>2</Position>
       <Comment>커뮤니티 제목</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="357" parent="295" name="Community_Contents">
+    <column id="365" parent="296" name="Community_Contents">
       <Position>3</Position>
       <Comment>커뮤니티 상세 설명</Comment>
       <DataType>varchar(500)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="358" parent="295" name="Community_Img">
+    <column id="366" parent="296" name="Community_Img">
       <Position>4</Position>
       <Comment>커뮤니티 이미지</Comment>
-      <DataType>varchar(5000)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="359" parent="295" name="Community_Likes">
+    <column id="367" parent="296" name="Community_Likes">
       <Position>5</Position>
       <Comment>커뮤니티 좋아요</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="360" parent="295" name="User_No">
+    <column id="368" parent="296" name="User_No">
       <Position>6</Position>
       <Comment>사용자 외래키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="361" parent="295" name="Community_RegDate">
+    <column id="369" parent="296" name="Community_RegDate">
       <Position>7</Position>
+      <Comment>커뮤니티 생성 날짜</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="362" parent="295" name="Community_View">
+    <column id="370" parent="296" name="Community_View">
       <Position>8</Position>
+      <Comment>커뮤니티 조회수</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="363" parent="295" name="FK_Community_User_No_User_User_No">
+    <index id="371" parent="296" name="FK_Community_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="364" parent="295" name="PRIMARY">
+    <key id="372" parent="296" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Community_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="365" parent="295" name="FK_Community_User_No_User_User_No">
+    <foreign-key id="373" parent="296" name="FK_Community_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="366" parent="296" name="Message_No">
-      <Position>1</Position>
-      <Comment>메시지 번호</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="367" parent="296" name="Message_Message">
-      <Position>2</Position>
-      <Comment>메시지</Comment>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="368" parent="296" name="Message_RegDate">
-      <Position>3</Position>
-      <Comment>메시지 생성 일자</Comment>
-      <DataType>date|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="369" parent="296" name="ChatRoom_No">
-      <Position>4</Position>
-      <Comment>채팅방 외래키</Comment>
-      <DataType>int|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="370" parent="296" name="User_No">
-      <Position>5</Position>
-      <Comment>사용자 외래키</Comment>
-      <DataType>int|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="371" parent="296" name="FK_Message_ChatRoom_No_ChatRoom_ChatRoom_no">
-      <ColNames>ChatRoom_No</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="372" parent="296" name="FK_Message_User_No_User_User_No">
-      <ColNames>User_No</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="373" parent="296" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>Message_No</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="374" parent="296" name="FK_Message_ChatRoom_No_ChatRoom_ChatRoom_no">
-      <ColNames>ChatRoom_No</ColNames>
-      <RefTableName>chatroom</RefTableName>
-      <RefColNames>CR_no</RefColNames>
-    </foreign-key>
-    <foreign-key id="375" parent="296" name="FK_Message_User_No_User_User_No">
-      <ColNames>User_No</ColNames>
-      <RefTableName>user</RefTableName>
-      <RefColNames>User_No</RefColNames>
-    </foreign-key>
-    <column id="376" parent="297" name="Product_No">
+    <column id="374" parent="297" name="Product_No">
       <Position>1</Position>
       <Comment>상품 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1570,200 +1568,208 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="377" parent="297" name="Product_Name">
+    <column id="375" parent="297" name="Product_Name">
       <Position>2</Position>
       <Comment>상품 이름</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="378" parent="297" name="Product_Compo">
+    <column id="376" parent="297" name="Product_Compo">
       <Position>3</Position>
       <Comment>상품 구성</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="379" parent="297" name="Product_Price">
+    <column id="377" parent="297" name="Product_Price">
       <Position>4</Position>
       <Comment>상품 가격</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="380" parent="297" name="Product_Sales">
+    <column id="378" parent="297" name="Product_Sales">
       <Position>5</Position>
       <Comment>상품 할인율</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="381" parent="297" name="Product_Type">
+    <column id="379" parent="297" name="Product_Type">
       <Position>6</Position>
       <Comment>상품 거래 유형</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="382" parent="297" name="Product_Img">
+    <column id="380" parent="297" name="Product_Img">
       <Position>7</Position>
       <Comment>상품 이미지</Comment>
-      <DataType>varchar(5000)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="383" parent="297" name="Shopin_No">
+    <column id="381" parent="297" name="Shopin_No">
       <Position>8</Position>
       <Comment>샵인샵 외래키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="384" parent="297" name="Store_No">
+    <column id="382" parent="297" name="Store_No">
       <Position>9</Position>
       <Comment>상점 외래키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="385" parent="297" name="FK_Product_Shopin_No_Shopin_Shopin_No">
+    <index id="383" parent="297" name="FK_Product_Shopin_No_Shopin_Shopin_No">
       <ColNames>Shopin_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="386" parent="297" name="FK_Product_Store_No_Store_Store_No">
+    <index id="384" parent="297" name="FK_Product_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="387" parent="297" name="PRIMARY">
+    <key id="385" parent="297" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Product_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="388" parent="297" name="FK_Product_Shopin_No_Shopin_Shopin_No">
+    <foreign-key id="386" parent="297" name="FK_Product_Shopin_No_Shopin_Shopin_No">
       <ColNames>Shopin_No</ColNames>
       <RefTableName>shopin</RefTableName>
       <RefColNames>Shopin_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="389" parent="297" name="FK_Product_Store_No_Store_Store_No">
+    <foreign-key id="387" parent="297" name="FK_Product_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <RefTableName>store</RefTableName>
       <RefColNames>Store_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="390" parent="298" name="Proposal_No">
+    <column id="388" parent="298" name="Proposal_Credit">
       <Position>1</Position>
+      <Comment>제안 결제 방식</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="389" parent="298" name="Proposal_State">
+      <Position>2</Position>
+      <Comment>제안 상태(취소/대기/완료)</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="390" parent="298" name="Proposal_Addr">
+      <Position>3</Position>
+      <Comment>제안 주소</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="391" parent="298" name="Proposal_Ways">
+      <Position>4</Position>
+      <Comment>제안 거래 방법(시켜/바꿔)</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="392" parent="298" name="Proposal_Myproduct">
+      <Position>5</Position>
+      <Comment>제안 내 상품</Comment>
+      <DataType>int|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="393" parent="298" name="Proposal_Category">
+      <Position>6</Position>
+      <Comment>제안 카테고리(consult 등)</Comment>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="394" parent="298" name="Proposal_RegDate">
+      <Position>7</Position>
+      <Comment>제안 생성일자</Comment>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="395" parent="298" name="User_No">
+      <Position>8</Position>
+      <Comment>수신자 사용자 외래키</Comment>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="396" parent="298" name="Store_No">
+      <Position>9</Position>
+      <Comment>송신자 상점 외래키</Comment>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="397" parent="298" name="Product_No">
+      <Position>10</Position>
+      <Comment>수신자 상품 외래키</Comment>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="398" parent="298" name="Proposal_No">
+      <Position>11</Position>
       <Comment>제안 번호</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="391" parent="298" name="Proposal_State">
-      <Position>2</Position>
-      <Comment>제안 상태(취소/대기/완료)</Comment>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="392" parent="298" name="Proposal_Addr">
-      <Position>3</Position>
-      <Comment>제안 주소</Comment>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="393" parent="298" name="Proposal_Ways">
-      <Position>4</Position>
-      <Comment>제안 거래 방법</Comment>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="394" parent="298" name="Proposal_Myproduct">
-      <Position>5</Position>
-      <Comment>제안 내 상품</Comment>
-      <DataType>int|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="395" parent="298" name="Proposal_Category">
-      <Position>6</Position>
-      <Comment>제안 카테고리(시켜/바꿔)</Comment>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="396" parent="298" name="Proposal_RegDate">
-      <Position>7</Position>
-      <Comment>제안 생성일자</Comment>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="397" parent="298" name="User_No">
-      <Position>8</Position>
-      <Comment>사용자 외래키</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="398" parent="298" name="Store_No">
-      <Position>9</Position>
-      <Comment>상점 외래키</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="399" parent="298" name="Product_No">
-      <Position>10</Position>
-      <Comment>상품 외래키</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="400" parent="298" name="Proposal_Credit">
-      <Position>11</Position>
-      <Comment>제안 결제 방식</Comment>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="401" parent="298" name="Proposal_Room">
+    <column id="399" parent="298" name="Proposal_Room">
       <Position>12</Position>
+      <Comment>채팅방 ID</Comment>
       <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="402" parent="298" name="Proposal_Id">
+    <column id="400" parent="298" name="Proposal_Id">
       <Position>13</Position>
-      <DataType>varchar(500)|0s</DataType>
+      <Comment>채팅 제안서 ID</Comment>
+      <DataType>varchar(200)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="403" parent="298" name="FK_Proposal_Proposal_Myproduct_Product_Product_No">
+    <index id="401" parent="298" name="FK_Proposal_Proposal_Myproduct_Product_Product_No">
       <ColNames>Proposal_Myproduct</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="404" parent="298" name="FK_Proposal_User_No_User_User_No">
+    <index id="402" parent="298" name="FK_Proposal_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="405" parent="298" name="FK_Proposal_Store_No_Store_Store_No">
+    <index id="403" parent="298" name="FK_Proposal_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="406" parent="298" name="FK_Proposal_Product_No_Product_Product_No">
+    <index id="404" parent="298" name="FK_Proposal_Product_No_Product_Product_No">
       <ColNames>Product_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="407" parent="298" name="PRIMARY">
+    <key id="405" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Proposal_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="408" parent="298" name="FK_Proposal_Proposal_Myproduct_Product_Product_No">
+    <foreign-key id="406" parent="298" name="FK_Proposal_Proposal_Myproduct_Product_Product_No">
       <ColNames>Proposal_Myproduct</ColNames>
       <RefTableName>product</RefTableName>
       <RefColNames>Product_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="409" parent="298" name="FK_Proposal_User_No_User_User_No">
+    <foreign-key id="407" parent="298" name="FK_Proposal_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="410" parent="298" name="FK_Proposal_Store_No_Store_Store_No">
+    <foreign-key id="408" parent="298" name="FK_Proposal_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <RefTableName>store</RefTableName>
       <RefColNames>Store_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="411" parent="298" name="FK_Proposal_Product_No_Product_Product_No">
+    <foreign-key id="409" parent="298" name="FK_Proposal_Product_No_Product_Product_No">
       <ColNames>Product_No</ColNames>
       <RefTableName>product</RefTableName>
       <RefColNames>Product_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="412" parent="299" name="Register_No">
+    <column id="410" parent="299" name="Register_No">
       <Position>1</Position>
       <Comment>고유 값</Comment>
       <DataType>int|0s</DataType>
@@ -1771,180 +1777,184 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="413" parent="299" name="Register_Code">
+    <column id="411" parent="299" name="Register_Code">
       <Position>2</Position>
       <Comment>코드번호</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="414" parent="299" name="Register_Email">
+    <column id="412" parent="299" name="Register_Email">
       <Position>3</Position>
       <Comment>사용자 이메일</Comment>
       <DataType>varchar(400)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="415" parent="299" name="Register_RegDate">
+    <column id="413" parent="299" name="Register_RegDate">
       <Position>4</Position>
       <Comment>발행 날짜</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="416" parent="299" name="PRIMARY">
+    <key id="414" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Register_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="417" parent="300" name="Reply_No">
+    <column id="415" parent="300" name="Reply_Comments">
       <Position>1</Position>
-      <Comment>고유 번호</Comment>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
+      <Comment>리뷰 작성</Comment>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="418" parent="300" name="Reply_RegDate">
+    <column id="416" parent="300" name="Reply_RegDate">
       <Position>2</Position>
       <Comment>리뷰 생성 일자</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="419" parent="300" name="Community_No">
+    <column id="417" parent="300" name="Community_No">
       <Position>3</Position>
       <Comment>커뮤니티 외래키</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="420" parent="300" name="User_No">
+    <column id="418" parent="300" name="User_No">
       <Position>4</Position>
       <Comment>사용자 외래키</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="421" parent="300" name="Reply_Group">
+    <column id="419" parent="300" name="Reply_Group">
       <Position>5</Position>
       <Comment>리뷰 그룹</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="422" parent="300" name="Reply_Class">
+    <column id="420" parent="300" name="Reply_Class">
       <Position>6</Position>
       <Comment>리뷰 계층</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="423" parent="300" name="Reply_Order">
+    <column id="421" parent="300" name="Reply_Order">
       <Position>7</Position>
       <Comment>리뷰 순서</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="424" parent="300" name="Reply_Comments">
+    <column id="422" parent="300" name="Reply_No">
       <Position>8</Position>
-      <Comment>리뷰 작성</Comment>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="425" parent="300" name="FK_Reply_Community_No_Community_Community_No">
-      <ColNames>Community_No</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="426" parent="300" name="FK_Reply_User_No_User_User_No">
-      <ColNames>User_No</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="427" parent="300" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>Reply_No</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="428" parent="300" name="FK_Reply_Community_No_Community_Community_No">
-      <ColNames>Community_No</ColNames>
-      <RefTableName>community</RefTableName>
-      <RefColNames>Community_No</RefColNames>
-    </foreign-key>
-    <foreign-key id="429" parent="300" name="FK_Reply_User_No_User_User_No">
-      <ColNames>User_No</ColNames>
-      <RefTableName>user</RefTableName>
-      <RefColNames>User_No</RefColNames>
-    </foreign-key>
-    <column id="430" parent="301" name="Reviews_No">
-      <Position>1</Position>
-      <Comment>리뷰 고유 번호</Comment>
+      <Comment>고유 번호</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="431" parent="301" name="Reviews_RegDate">
+    <index id="423" parent="300" name="FK_Reply_Community_No_Community_Community_No">
+      <ColNames>Community_No</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="424" parent="300" name="FK_Reply_User_No_User_User_No">
+      <ColNames>User_No</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="425" parent="300" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Reply_No</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="426" parent="300" name="FK_Reply_Community_No_Community_Community_No">
+      <ColNames>Community_No</ColNames>
+      <RefTableName>community</RefTableName>
+      <RefColNames>Community_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="427" parent="300" name="FK_Reply_User_No_User_User_No">
+      <ColNames>User_No</ColNames>
+      <RefTableName>user</RefTableName>
+      <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="428" parent="301" name="Reviews_Comments">
+      <Position>1</Position>
+      <Comment>리뷰 코멘트</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="429" parent="301" name="Reviews_RegDate">
       <Position>2</Position>
       <Comment>리뷰 생성일자</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="432" parent="301" name="Store_No">
+    <column id="430" parent="301" name="Store_No">
       <Position>3</Position>
       <Comment>상점 외래키</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="433" parent="301" name="User_No">
+    <column id="431" parent="301" name="User_No">
       <Position>4</Position>
       <Comment>사용자 외래키</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="434" parent="301" name="Reviews_Group">
+    <column id="432" parent="301" name="Reviews_Group">
       <Position>5</Position>
       <Comment>리뷰 그룹</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="435" parent="301" name="Reviews_Class">
+    <column id="433" parent="301" name="Reviews_Class">
       <Position>6</Position>
       <Comment>리뷰 계층</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="436" parent="301" name="Reviews_Order">
+    <column id="434" parent="301" name="Reviews_Order">
       <Position>7</Position>
       <Comment>리뷰 순서</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="437" parent="301" name="Reviews_Comments">
+    <column id="435" parent="301" name="Reviews_No">
       <Position>8</Position>
-      <Comment>리뷰 코멘트</Comment>
-      <DataType>varchar(255)|0s</DataType>
+      <Comment>리뷰 고유 번호</Comment>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="438" parent="301" name="FK_Reviews_Store_No_Store_Store_No">
+    <index id="436" parent="301" name="FK_Reviews_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="439" parent="301" name="FK_Reviews_User_No_User_User_No">
+    <index id="437" parent="301" name="FK_Reviews_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="440" parent="301" name="PRIMARY">
+    <key id="438" parent="301" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Reviews_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="441" parent="301" name="FK_Reviews_Store_No_Store_Store_No">
+    <foreign-key id="439" parent="301" name="FK_Reviews_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <RefTableName>store</RefTableName>
       <RefColNames>Store_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="442" parent="301" name="FK_Reviews_User_No_User_User_No">
+    <foreign-key id="440" parent="301" name="FK_Reviews_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="443" parent="302" name="Shopin_No">
+    <column id="441" parent="302" name="Shopin_No">
       <Position>1</Position>
       <Comment>샵인샵 번호</Comment>
       <DataType>int|0s</DataType>
@@ -1952,69 +1962,70 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="444" parent="302" name="Shopin_Ways">
+    <column id="442" parent="302" name="Shopin_Ways">
       <Position>2</Position>
       <Comment>샵인샵 거래 방식</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="445" parent="302" name="Shopin_Category">
+    <column id="443" parent="302" name="Shopin_Category">
       <Position>3</Position>
       <Comment>샵인샵 카테고리</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="446" parent="302" name="Shopin_MainMenu">
+    <column id="444" parent="302" name="Shopin_MainMenu">
       <Position>4</Position>
       <Comment>샵인샵 메인 메뉴</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="447" parent="302" name="Shopin_Desc">
+    <column id="445" parent="302" name="Shopin_Desc">
       <Position>5</Position>
       <Comment>샵인샵 설명</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="448" parent="302" name="Shopin_Likes">
+    <column id="446" parent="302" name="Shopin_Likes">
       <Position>6</Position>
       <Comment>샵인샵 좋아요</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="449" parent="302" name="Shopin_Img">
+    <column id="447" parent="302" name="Shopin_Img">
       <Position>7</Position>
       <Comment>샵인샵 이미지</Comment>
-      <DataType>varchar(5000)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="450" parent="302" name="Shopin_Name">
+    <column id="448" parent="302" name="Shopin_Name">
       <Position>8</Position>
       <Comment>샵인샵 상호</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="451" parent="302" name="Store_No">
+    <column id="449" parent="302" name="Store_No">
       <Position>9</Position>
       <Comment>상점 외래키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="452" parent="302" name="FK_Shopin_Store_No_Store_Store_No">
+    <index id="450" parent="302" name="FK_Shopin_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="453" parent="302" name="PRIMARY">
+    <key id="451" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Shopin_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="454" parent="302" name="FK_Shopin_Store_No_Store_Store_No">
+    <foreign-key id="452" parent="302" name="FK_Shopin_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <RefTableName>store</RefTableName>
       <RefColNames>Store_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="455" parent="303" name="Store_No">
+    <column id="453" parent="303" name="Store_No">
       <Position>1</Position>
       <Comment>상점 번호</Comment>
       <DataType>int|0s</DataType>
@@ -2022,63 +2033,64 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="456" parent="303" name="Store_Ways">
+    <column id="454" parent="303" name="Store_Ways">
       <Position>2</Position>
       <Comment>상점 거래 방법</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="457" parent="303" name="Store_Category">
+    <column id="455" parent="303" name="Store_Category">
       <Position>3</Position>
       <Comment>상점 카테고리</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="458" parent="303" name="Store_MainMenu">
+    <column id="456" parent="303" name="Store_MainMenu">
       <Position>4</Position>
       <Comment>상점 메인 메뉴</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="459" parent="303" name="Store_Desc">
+    <column id="457" parent="303" name="Store_Desc">
       <Position>5</Position>
       <Comment>상점 설명</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="460" parent="303" name="Store_Img">
+    <column id="458" parent="303" name="Store_Img">
       <Position>6</Position>
       <Comment>상점 메인 이미지</Comment>
-      <DataType>varchar(5000)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="461" parent="303" name="Store_Likes">
+    <column id="459" parent="303" name="Store_Likes">
       <Position>7</Position>
       <Comment>상점 좋아요</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="462" parent="303" name="User_No">
+    <column id="460" parent="303" name="User_No">
       <Position>8</Position>
       <Comment>사용자 외래키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="463" parent="303" name="FK_Store_User_No_User_User_No">
+    <index id="461" parent="303" name="FK_Store_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="464" parent="303" name="PRIMARY">
+    <key id="462" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Store_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="465" parent="303" name="FK_Store_User_No_User_User_No">
+    <foreign-key id="463" parent="303" name="FK_Store_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="466" parent="304" name="User_No">
+    <column id="464" parent="304" name="User_No">
       <Position>1</Position>
       <Comment>사용자 번호</Comment>
       <DataType>int|0s</DataType>
@@ -2086,170 +2098,179 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="467" parent="304" name="User_Email">
+    <column id="465" parent="304" name="User_Email">
       <Position>2</Position>
       <Comment>사용자 이메일</Comment>
       <DataType>varchar(500)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="468" parent="304" name="User_PW">
+    <column id="466" parent="304" name="User_PW">
       <Position>3</Position>
       <Comment>사용자 패스워드</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="469" parent="304" name="User_Name">
+    <column id="467" parent="304" name="User_Name">
       <Position>4</Position>
       <Comment>사용자 이름</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="470" parent="304" name="User_Phone">
+    <column id="468" parent="304" name="User_Phone">
       <Position>5</Position>
       <Comment>사용자 연락처</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="471" parent="304" name="User_ComNo">
+    <column id="469" parent="304" name="User_ComNo">
       <Position>6</Position>
       <Comment>사용자 사업자 번호</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="472" parent="304" name="User_ComNm">
+    <column id="470" parent="304" name="User_ComNm">
       <Position>7</Position>
       <Comment>사용자 상호명</Comment>
       <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="473" parent="304" name="User_Addr">
+    <column id="471" parent="304" name="User_Addr">
       <Position>8</Position>
       <Comment>사용자 주소</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="474" parent="304" name="User_Details">
+    <column id="472" parent="304" name="User_Details">
       <Position>9</Position>
       <Comment>사용자 상세주소</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="475" parent="304" name="User_ComImg">
+    <column id="473" parent="304" name="User_ComImg">
       <Position>10</Position>
       <Comment>사용자 사업자 등록증</Comment>
-      <DataType>varchar(5000)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="476" parent="304" name="User_RegDate">
+    <column id="474" parent="304" name="User_RegDate">
       <Position>11</Position>
       <Comment>사용자 생성일자</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="477" parent="304" name="User_Lat">
+    <column id="475" parent="304" name="User_Lat">
       <Position>12</Position>
-      <DataType>decimal(10,7 digit)|0s</DataType>
+      <Comment>사용자 주소의 위도</Comment>
+      <DataType>float|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="478" parent="304" name="User_Lng">
+    <column id="476" parent="304" name="User_Lng">
       <Position>13</Position>
-      <DataType>decimal(11,7 digit)|0s</DataType>
+      <Comment>사용자 주소의 경도</Comment>
+      <DataType>float|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="479" parent="304" name="User_Alarm1">
+    <column id="477" parent="304" name="User_Alarm1">
       <Position>14</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <Comment>푸쉬 알람</Comment>
+      <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="480" parent="304" name="User_Alarm2">
+    <column id="478" parent="304" name="User_Alarm2">
       <Position>15</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <Comment>추가 예정</Comment>
+      <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="481" parent="304" name="User_Alarm3">
+    <column id="479" parent="304" name="User_Alarm3">
       <Position>16</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <Comment>추가 예정</Comment>
+      <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="482" parent="304" name="User_Fcm">
+    <column id="480" parent="304" name="User_Fcm">
       <Position>17</Position>
-      <DataType>varchar(500)|0s</DataType>
+      <DataType>varchar(300)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="483" parent="304" name="User_State">
+    <column id="481" parent="304" name="User_State">
       <Position>18</Position>
+      <Comment>사용자 상태</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="484" parent="304" name="PRIMARY">
+    <key id="482" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>User_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="485" parent="305" name="Like_No">
+    <column id="483" parent="305" name="Like_No">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="486" parent="305" name="Like_Type">
+    <column id="484" parent="305" name="Like_Type">
       <Position>2</Position>
       <Comment>게시물 종류</Comment>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="487" parent="305" name="User_No">
+    <column id="485" parent="305" name="User_No">
       <Position>3</Position>
       <Comment>사용자 키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="488" parent="305" name="Community_No">
+    <column id="486" parent="305" name="Community_No">
       <Position>4</Position>
       <Comment>커뮤니티 외래 키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="489" parent="305" name="Store_No">
+    <column id="487" parent="305" name="Store_No">
       <Position>5</Position>
       <Comment>상점 외래 키</Comment>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="490" parent="305" name="FK_user_Like_User_No_User_User_No">
+    <index id="488" parent="305" name="FK_user_Like_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="491" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
+    <index id="489" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
       <ColNames>Community_No</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="492" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
+    <index id="490" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="493" parent="305" name="PRIMARY">
+    <key id="491" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Like_No</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="494" parent="305" name="FK_user_Like_User_No_User_User_No">
+    <foreign-key id="492" parent="305" name="FK_user_Like_User_No_User_User_No">
       <ColNames>User_No</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>User_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="495" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
+    <foreign-key id="493" parent="305" name="FK_user_Like_Community_No_Community_Community_No">
       <ColNames>Community_No</ColNames>
       <RefTableName>community</RefTableName>
       <RefColNames>Community_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="496" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
+    <foreign-key id="494" parent="305" name="FK_user_Like_Store_No_Store_Store_No">
       <ColNames>Store_No</ColNames>
       <RefTableName>store</RefTableName>
       <RefColNames>Store_No</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="497" parent="306" name="visitor_no">
+    <column id="495" parent="306" name="visitor_no">
       <Position>1</Position>
       <Comment>visitor_no</Comment>
       <DataType>int|0s</DataType>
@@ -2257,17 +2278,17 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="498" parent="306" name="count">
+    <column id="496" parent="306" name="count">
       <Position>2</Position>
       <DataType>int|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="499" parent="306" name="date">
+    <column id="497" parent="306" name="date">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="500" parent="306" name="PRIMARY">
+    <key id="498" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>visitor_no</ColNames>
       <Primary>1</Primary>

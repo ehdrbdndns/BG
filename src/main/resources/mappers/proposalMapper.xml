@@ -7,13 +7,13 @@
     <select id="appRetrieveProposalList" parameterType="UserDto" resultType="ProposalDto">
         select Proposal_No, User_ComNm, Store_Img, User_Addr, Proposal_Ways, Proposal_State, Proposal_RegDate
         from proposal p, store s, user u
-        where p.User_No=${User_No} AND p.Store_No=s.Store_No AND p.User_No=u.User_No
+        where p.User_No=${User_No} AND p.Store_No=s.Store_No AND s.User_No=u.User_No
     </select>
 
     <select id="appRetrieveProposalDetailOfChangeEatVerProposal" parameterType="ProposalDto" resultType="ProposalDto">
         select Proposal_No, Proposal_State, Proposal_Ways, Proposal_Credit
         from proposal
-        where Proposal_No=${Proposal_No}
+        where Proposal_No=${Proposal_No};
     </select>
 
     <select id="appRetrieveProposalDetailOfChangeEatVerMyProduct" parameterType="ProposalDto" resultType="ProductDto">
@@ -30,8 +30,8 @@
 
     <select id="appRetrieveProposalDetailOfChangeEatVerUser" parameterType="ProposalDto" resultType="UserDto">
         select User_Addr, User_Phone, Store_No
-        from user u, store s
-        where u.User_No=${User_No} AND s.User_No=${User_No}
+        from user u, store s, proposal p
+        where p.Proposal_No=${Proposal_No} AND p.Store_No=s.Store_No AND u.User_No=s.User_No
     </select>
 
     <update id="appChangeStateOfProposal" parameterType="ProposalDto">
@@ -46,7 +46,7 @@
     </select>
     <insert id="appRegisterProposal" parameterType="ProposalDto">
         insert into proposal(Proposal_State, Proposal_Addr, Proposal_Ways, Proposal_Myproduct, Proposal_Category, Proposal_RegDate, User_No, Store_No, Product_No, Proposal_Credit, Proposal_Room, Proposal_Id)
-        VALUES (#{Proposal_State}, #{Proposal_Addr}, #{Proposal_Ways}, #{My_ProductNo}, #{Proposal_Category}, #{Proposal_RegDate}, #{My_No}, #{Store_No}, #{Your_ProductNo}, #{Proposal_Credit}, #{Proposal_Room}, #{Proposal_Id})
+        VALUES (#{Proposal_State}, #{Proposal_Addr}, #{Proposal_Ways}, #{My_ProductNo}, #{Proposal_Category}, #{Proposal_RegDate}, #{Your_No}, #{Store_No}, #{Your_ProductNo}, #{Proposal_Credit}, #{Proposal_Room}, #{Proposal_Id})
     </insert>
     <select id="appCheckChatRoom" resultType="boolean">
         select EXISTS(select * from chatroom where My_No=${My_No} AND Your_No=${Your_No})

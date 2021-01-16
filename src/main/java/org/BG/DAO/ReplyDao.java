@@ -36,8 +36,8 @@ public class ReplyDao {
     public String appUploadParentReply(ReplyDto replyDto){
         try{
             ReplyMapper replyMapper = sqlSession.getMapper(ReplyMapper.class);
-            Integer Reply_No = replyMapper.appUploadParentReply(replyDto);
-            replyMapper.appUploadParentReplyOfGroupNum(Reply_No);
+            replyMapper.appUploadParentReply(replyDto);
+            replyMapper.appUploadParentReplyOfGroupNum(replyDto.getReply_No());
             return "true";
         } catch (Exception e){
             e.printStackTrace();
@@ -69,8 +69,8 @@ public class ReplyDao {
     public String appUploadParentReviews(ReplyDto replyDto){
         try{
             ReplyMapper replyMapper = sqlSession.getMapper(ReplyMapper.class);
-            Integer Reply_No = replyMapper.appUploadParentReviews(replyDto);
-            replyMapper.appUploadParentReviewsOfGroupNum(Reply_No);
+            replyMapper.appUploadParentReviews(replyDto);
+            replyMapper.appUploadParentReviewsOfGroupNum(replyDto.getReviews_No());
             return "true";
         } catch (Exception e){
             e.printStackTrace();

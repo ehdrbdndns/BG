@@ -64,4 +64,18 @@
     <delete id="deleteAdvertiseFromNo">
         delete from admin_advertise where Ad_No = ${Ad_No}
     </delete>
+
+    <select id="getAdvertiseV2" resultType="AdvertiseV2Dto">
+        select * from admin_advertisev2
+    </select>
+    <insert id="uploadAdvertiseV2">
+        insert into admin_advertisev2(Ad_Title, Ad_MoveLink, Ad_URL, Ad_ClickCount, Ad_Type, Ad_Desc)
+        VALUES (#{Ad_Title}, #{Ad_MoveLink}, #{Ad_URL}, 0, #{Ad_Type}, #{Ad_Desc})
+    </insert>
+    <delete id="deleteAdvertiseV2">
+        delete from admin_advertisev2 where Ad_No=${Ad_No}
+    </delete>
+    <update id="appClickAdvertiseV2">
+        update admin_advertisev2 set Ad_ClickCount = Ad_ClickCount+1
+    </update>
 </mapper>

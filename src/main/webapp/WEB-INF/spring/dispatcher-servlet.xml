@@ -29,6 +29,7 @@
             <mvc:exclude-mapping path="/adminLogin.do"/>
             <mvc:exclude-mapping path="/login.do"/>
             <mvc:exclude-mapping path="/*.app"/>
+            <mvc:exclude-mapping path="/testSendNotification.do"/>
             <mvc:exclude-mapping path="/test"/>
             <bean class="org.BG.Controller.LoginCheckInterceptor"/>
         </mvc:interceptor>

@@ -26,6 +26,10 @@ public class UserServiceImp implements UserService {
         JSONObject result = new JSONObject();
         try {
             UserDto userDto1 = userDao.appRetrieveUserInfo(userDto);
+            System.out.println("ㅋㅋ: " + userDto1.getUser_ComNm());
+            if(userDto1.getStore_Img().equals("")){
+                userDto1.setStore_Img("default");
+            }
             result.put("profileImg", userDto1.getStore_Img());
             result.put("storeName", userDto1.getUser_ComNm());
             result.put("address", userDto1.getUser_Addr());
@@ -50,8 +54,8 @@ public class UserServiceImp implements UserService {
             userDto.setUser_Lat(coords[0]);
             userDto.setUser_Lng(coords[1]);
 
-            String store_Img = "";
-            if (!userDto.getStore_Img_File().isEmpty()) {
+            String store_Img;
+            if (userDto.getStore_Img_File() != null) {
                 aws_cdn_service.FileDelete("user/" + userDto.getUser_No() + "/store/storeImg");
                 store_Img = aws_cdn_service.FileUpload("user/" + userDto.getUser_No() + "/store/storeImg/", userDto.getStore_Img_File());
             } else {

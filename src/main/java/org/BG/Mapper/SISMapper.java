@@ -12,6 +12,6 @@ public interface SISMapper {
     void appSaveUserSISOfModify(ShopinDto shopinDto);
     ShopinDto appRetrieveUserSISVerShopin(ShopinDto shopinDto);
     ArrayList<ProductDto> appRetrieveUserSISVerProduct(int Shopin_No);
-    String appDeleteUserSIS(ShopinDto shopinDto);
+    void appDeleteUserSIS(ShopinDto shopinDto);
     ArrayList<ShopinDto> appRetrieveSISNoFromStore_No(int Store_No);
 }

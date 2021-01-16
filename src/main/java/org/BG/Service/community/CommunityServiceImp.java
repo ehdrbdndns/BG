@@ -114,10 +114,10 @@ public class CommunityServiceImp implements CommunityService {
             //기존 이미지
             basicCommunity = (JSONArray) jsonParser.parse(community.getCommunity_Img());
 
-            if (!communityDto.getCommunity_Img_File().isEmpty()) {
+            if (communityDto.getCommunity_Img_File() != null) {
                 System.out.println("Community size: " + communityDto.getCommunity_Img_File().size());
                 for (int i = 0; i < communityDto.getCommunity_Img_File().size(); i++) {
-                    if (!communityDto.getCommunity_Img_File().get(i).isEmpty()) {
+                    if (communityDto.getCommunity_Img_File().get(i) != null) {
                         //이미지가 수정이 되었을 경우
                         if (i <= basicCommunity.size() - 1) {
                             //수정된 img
@@ -134,10 +134,13 @@ public class CommunityServiceImp implements CommunityService {
                 communityDto.setCommunity_Img(newCommunity.toJSONString());
             } else {
                 System.out.println("null Community_Img_FileList");
+                System.out.println(basicCommunity.toJSONString());
                 communityDto.setCommunity_Img(basicCommunity.toJSONString());
             }
 
-            return communityDao.appModifyCommunityOfMy(communityDto);
+            String check = communityDao.appModifyCommunityOfMy(communityDto);
+            System.out.println("return 값: " + check);
+            return check;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -197,6 +200,9 @@ public class CommunityServiceImp implements CommunityService {
     public JSONArray appRetrieveCommunityDetailOfMain(CommunityDto communityDto) {
         JSONArray result = new JSONArray();
         try {
+            //조회수 증가
+            communityDao.increaseCommunityView(communityDto);
+
             CommunityDto communityInfo = communityDao.appRetrieveCommunityOfMy(communityDto);
             result.add(communityInfo.getCommunity_Likes());
 
