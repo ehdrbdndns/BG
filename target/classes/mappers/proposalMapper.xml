@@ -4,6 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.BG.Mapper.ProposalMapper">
+    <select id="getDistance" resultType="Double">
+        SELECT
+
+        (6371*acos(cos(radians(${User_Lat}))*cos(radians(User_Lat))*cos(radians(User_Lng)
+
+        -radians(${User_Lng}))+sin(radians(${User_Lat}))*sin(radians(User_Lat))))
+
+        AS distance
+
+        FROM user
+
+        where User_No=${Your_No}
+    </select>
+
     <select id="appRetrieveProposalList" parameterType="UserDto" resultType="ProposalDto">
         select Proposal_No, User_ComNm, Store_Img, User_Addr, Proposal_Ways, Proposal_State, Proposal_RegDate
         from proposal p, store s, user u
@@ -11,7 +25,7 @@
     </select>
 
     <select id="appRetrieveProposalDetailOfChangeEatVerProposal" parameterType="ProposalDto" resultType="ProposalDto">
-        select Proposal_No, Proposal_State, Proposal_Ways, Proposal_Credit
+        select *
         from proposal
         where Proposal_No=${Proposal_No};
     </select>
@@ -29,7 +43,8 @@
     </select>
 
     <select id="appRetrieveProposalDetailOfChangeEatVerUser" parameterType="ProposalDto" resultType="UserDto">
-        select User_Addr, User_Phone, Store_No
+        select u.User_No AS My_No, p.User_No AS Your_No, User_Details, User_Phone, s.Store_No,
+         Store_Img, User_ComNm, Store_MainMenu, User_Addr, Store_Category, User_RegDate, User_Lat, User_Lng
         from user u, store s, proposal p
         where p.Proposal_No=${Proposal_No} AND p.Store_No=s.Store_No AND u.User_No=s.User_No
     </select>

@@ -78,4 +78,18 @@
     <update id="appClickAdvertiseV2">
         update admin_advertisev2 set Ad_ClickCount = Ad_ClickCount+1
     </update>
+
+    <select id="getAdvertiseV3" resultType="AdvertiseV3Dto">
+        select * from admin_advertisev3
+    </select>
+    <insert id="uploadAdvertiseV3">
+        insert into admin_advertisev3(Ad_Title, Ad_MoveLink, Ad_MainURL, Ad_SubURL)
+        VALUES(#{Ad_Title}, #{Ad_MoveLink}, #{Ad_MainURL}, #{Ad_SubURL})
+    </insert>
+    <delete id="deleteAdvertiseV3">
+        delete from admin_advertisev3 where Ad_No=${Ad_No}
+    </delete>
+    <select id="retrieveAdvertiseV3" resultType="AdvertiseV3Dto">
+        select * from admin_advertisev3 where Ad_No=${Ad_No}
+    </select>
 </mapper>

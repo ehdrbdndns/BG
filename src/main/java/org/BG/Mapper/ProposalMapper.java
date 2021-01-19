@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public interface ProposalMapper {
     ArrayList<ProposalDto> appRetrieveProposalList(UserDto userDto);
+    Double getDistance(UserDto userDto);
 
     //appRetrieveProposalDetailOfChangeEat
     ProposalDto appRetrieveProposalDetailOfChangeEatVerProposal(ProposalDto proposalDto);

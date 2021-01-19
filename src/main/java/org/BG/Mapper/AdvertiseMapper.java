@@ -2,6 +2,7 @@ package org.BG.Mapper;
 
 import org.BG.DTO.AdvertiseDto;
 import org.BG.DTO.AdvertiseV2Dto;
+import org.BG.DTO.AdvertiseV3Dto;
 
 import java.util.ArrayList;
 
@@ -31,4 +32,9 @@ public interface AdvertiseMapper {
     void uploadAdvertiseV2(AdvertiseV2Dto advertiseV2Dto);
     void deleteAdvertiseV2(AdvertiseV2Dto advertiseV2Dto);
     void appClickAdvertiseV2(AdvertiseV2Dto advertiseV2Dto);
+
+    ArrayList<AdvertiseV3Dto> getAdvertiseV3();
+    void uploadAdvertiseV3(AdvertiseV3Dto advertiseV3Dto);
+    void deleteAdvertiseV3(AdvertiseV3Dto advertiseV3Dto);
+    AdvertiseV3Dto retrieveAdvertiseV3(AdvertiseV3Dto advertiseV3Dto);
 }

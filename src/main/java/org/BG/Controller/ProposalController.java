@@ -1,8 +1,11 @@
 package org.BG.Controller;
 
+import org.BG.DTO.HomeDto;
 import org.BG.DTO.ProposalDto;
 import org.BG.DTO.UserDto;
+import org.BG.Service.home.HomeService;
 import org.BG.Service.proposal.ProposalService;
+import org.BG.Service.user.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,10 @@ import java.util.ArrayList;
 public class ProposalController {
     @Autowired
     ProposalService proposalService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    HomeService homeService;
 
     //제안 요청 리스트 요청
     @ResponseBody
@@ -51,7 +58,8 @@ public class ProposalController {
     public JSONObject appRetrieveProposalDetailOfChangeEat(@ModelAttribute ProposalDto proposalDto){
         try{
             System.out.println("/appRetrieveProposalDetailOfChangeEat.app 호출");
-            return proposalService.appRetrieveProposalDetailOfChangeEat(proposalDto);
+            JSONObject result = proposalService.appRetrieveProposalDetailOfChangeEat(proposalDto);
+            return result;
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -113,13 +121,27 @@ public class ProposalController {
     //채팅
     @ResponseBody
     @RequestMapping(value = "/appCheckChatRoom.app")
-    public boolean appCheckChatRoom(@RequestParam("My_No") Integer My_No, @RequestParam("Your_No") Integer Your_No){
+    public JSONObject appCheckChatRoom(@RequestParam("My_No") Integer My_No, @RequestParam("Your_No") Integer Your_No){
+        JSONObject result = new JSONObject();
         try{
             System.out.println("/appCheckChatRoom.app 호출");
-            return proposalService.appCheckChatRoom(My_No, Your_No);
+            result.put("state", proposalService.appCheckChatRoom(My_No, Your_No));
+
+            UserDto myDto = new UserDto();
+            myDto.setUser_No(My_No);
+            JSONObject myInfo = userService.appRetrieveUserInfo(myDto);
+            result.put("myInfo", myInfo);
+
+            UserDto yourDto = new UserDto();
+            yourDto.setUser_No(Your_No);
+            JSONObject yourInfo = userService.appRetrieveUserInfo(yourDto);
+            result.put("yourInfo", yourInfo);
+
+            return result;
         } catch (Exception e){
             e.printStackTrace();
-            return false;
+            result.put("state", false);
+            return result;
         }
     }
 

@@ -3,7 +3,9 @@ package org.BG.Service.advertise;
 import org.BG.DAO.AdvertiseDao;
 import org.BG.DTO.AdvertiseDto;
 import org.BG.DTO.AdvertiseV2Dto;
+import org.BG.DTO.AdvertiseV3Dto;
 import org.BG.util.Aws_Cdn.Aws_Cdn_Service;
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,6 +20,39 @@ public class AdvertiseServiceImp implements AdvertiseService {
     AdvertiseDao advertiseDao;
     @Autowired
     Aws_Cdn_Service aws_cdn_service;
+
+    @Override
+    public ArrayList<AdvertiseV3Dto> getAdvertiseV3() {
+        return advertiseDao.getAdvertiseV3();
+    }
+
+    @Override
+    public void uploadAdvertiseV3(AdvertiseV3Dto advertiseV3Dto) {
+        try{
+            advertiseV3Dto.setAd_MainURL(aws_cdn_service.FileUpload("advertise/admin/", advertiseV3Dto.getAd_MainFile()));
+            advertiseV3Dto.setAd_SubURL(aws_cdn_service.FileUpload("advertise/admin/", advertiseV3Dto.getAd_SubFile()));
+            advertiseDao.uploadAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteAdvertiseV3(AdvertiseV3Dto advertiseV3Dto) {
+        try{
+            AdvertiseV3Dto deleteAdvertiseInfo = advertiseDao.retrieveAdvertiseV3(advertiseV3Dto);
+            aws_cdn_service.FileDelete(deleteAdvertiseInfo.getAd_MainURL());
+            aws_cdn_service.FileDelete(deleteAdvertiseInfo.getAd_SubURL());
+            advertiseDao.deleteAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public AdvertiseV3Dto retrieveAdvertiseV3(AdvertiseV3Dto advertiseV3Dto) {
+        return advertiseDao.retrieveAdvertiseV3(advertiseV3Dto);
+    }
 
     @Override
     public JSONObject getAdvertiseV2() {

@@ -14,6 +14,20 @@
 </head>
 <body>
 <h2>잘 나오는 것이여</h2>
+<form action="/appRetrieveProposalDetailOfChangeEat.app">
+    <input type="text" name="User_No">
+    <input type="text" name="Proposal_No">
+    <button>제출</button>
+</form>
+<form action="/appMakeUserStoreProduct.app">
+    <input type="text" name="User_No">
+    <input type="text" name="Product_Name">
+    <input type="text" name="Product_Compo">
+    <input type="text" name="Product_Price">
+    <input type="text" name="Product_Sales">
+    <input type="file" name="Product_Type">
+    <input type="file" name="Product_Img_File">
+</form>
 <form action="/appLogin.app">
     <input type="text" name="User_Email">
     <input type="text" name="User_PW">

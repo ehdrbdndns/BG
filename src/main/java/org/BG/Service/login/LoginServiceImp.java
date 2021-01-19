@@ -186,6 +186,11 @@ public class LoginServiceImp implements LoginService {
         }
     }
 
+    @Override
+    public int isExistComNo(UserDto userDto) {
+        return loginDao.isExistComNo(userDto);
+    }
+
     public String makeEmailCode() {
         StringBuffer ConfirmCode = new StringBuffer();
         Random rnd = new Random();

@@ -34,7 +34,6 @@ public class LoginController {
     public String appLogin(@ModelAttribute UserDto userDto){
         try{
             System.out.println("/appLogin.app 호출");
-            System.out.println("email: " + userDto.getUser_Email() + ", " + "pwd: " + userDto.getUser_PW());
             //User_No or err 반환
             String User_No = loginService.appLogin(userDto);
             System.out.println("/appLogin.app 리턴 값: " + User_No);
@@ -82,10 +81,16 @@ public class LoginController {
         try{
             System.out.println("/appConfirmBusinessNumberOfRegister.app 호출");
             String result = loginService.appConfirmBusinessNumberOfRegister(userDto);
+            //사업자 등록번호 유효성
             if(result.equals("사업을 하지 않고 있습니다.")){
                 return "false";
             } else {
-                return "true";
+                //사업자 등록번호 중첩 여부 체크
+                if(loginService.isExistComNo(userDto) == 1){
+                    return "true";
+                } else{
+                    return "false";
+                }
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -165,6 +170,6 @@ public class LoginController {
             session.setAttribute("isLogin", true);
             return "redirect:/";
         }
-        return "login";
+        return "redirect:/";
     }
 }

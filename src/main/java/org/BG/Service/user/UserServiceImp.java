@@ -26,7 +26,6 @@ public class UserServiceImp implements UserService {
         JSONObject result = new JSONObject();
         try {
             UserDto userDto1 = userDao.appRetrieveUserInfo(userDto);
-            System.out.println("ㅋㅋ: " + userDto1.getUser_ComNm());
             if(userDto1.getStore_Img().equals("")){
                 userDto1.setStore_Img("default");
             }
@@ -36,6 +35,7 @@ public class UserServiceImp implements UserService {
             result.put("phone", userDto1.getUser_Phone());
             result.put("detailAddress", userDto1.getUser_Details());
             result.put("userName", userDto1.getUser_Name());
+
             return result;
         } catch (Exception e) {
             e.printStackTrace();

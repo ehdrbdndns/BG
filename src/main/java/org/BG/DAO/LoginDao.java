@@ -4,6 +4,7 @@ import org.BG.DTO.AdminDto;
 import org.BG.DTO.RegisterDto;
 import org.BG.DTO.UserDto;
 import org.BG.Mapper.LoginMapper;
+import org.BG.Mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -167,6 +168,16 @@ public class LoginDao {
         } catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int isExistComNo(UserDto userDto){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.isExistComNo(userDto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
         }
     }
 

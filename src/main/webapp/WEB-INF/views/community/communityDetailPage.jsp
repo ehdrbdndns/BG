@@ -71,9 +71,9 @@
                             </div>
                             <div class="form-group">
                                 <label>이미지</label>
-                                <div class="d-flex">
+                                <div class="row">
                                     <c:forEach var="item" varStatus="i" items="${communityInfo.community_Img_Array}">
-                                        <img src="${filePath}${item}" alt="" class="mr-4">
+                                        <img src="${filePath}${item}" alt="" class="mr-4 col-md-4 col-6">
                                     </c:forEach>
                                 </div>
                             </div>

@@ -12,7 +12,7 @@ public class VersionCheckController {
     public String appCheckVersion(@RequestParam("version") String userVersion){
         try{
             /* 현재 앱 버전 */
-            String version = "1.0.0";
+            String version = "0.0.1";
             if(version.equals(userVersion)){
                 return "true";
             } else{

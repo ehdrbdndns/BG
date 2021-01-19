@@ -2,6 +2,7 @@ package org.BG.Controller;
 
 import org.BG.DTO.AdvertiseDto;
 import org.BG.DTO.AdvertiseV2Dto;
+import org.BG.DTO.AdvertiseV3Dto;
 import org.BG.Service.advertise.AdvertiseService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +11,54 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 @Controller
 public class AdvertiseController {
     @Autowired
     AdvertiseService advertiseService;
+
     @Resource(name = "aws.filePath")
     String FILEPATH;
+
+    @ResponseBody
+    @RequestMapping("/appGetAdminAdvertise.app")
+    public ArrayList<AdvertiseV3Dto> appGetAdminAdvertise(){
+        try{
+            return advertiseService.getAdvertiseV3();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping("/deleteAdvertiseV3.do")
+    public String deleteAdvertiseV3(@ModelAttribute AdvertiseV3Dto advertiseV3Dto){
+        try{
+            advertiseService.deleteAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/advertisePage.do";
+    }
+
+    @RequestMapping("/uploadAdvertiseV3.do")
+    public String uploadAdvertiseV3(@ModelAttribute AdvertiseV3Dto advertiseV3Dto){
+        try{
+            advertiseService.uploadAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/advertisePage.do";
+    }
 
     @GetMapping("/advertisePage.do")
     public String advertisePage(Model model) {
         JSONObject advertiseInfo = new JSONObject();
+
+        //어드민 광고
+        ArrayList<AdvertiseV3Dto> advertiseV3Info = advertiseService.getAdvertiseV3();
+        model.addAttribute("advertiseV3Info", advertiseV3Info);
 
         //신식
         advertiseInfo = advertiseService.getAdvertiseV2();

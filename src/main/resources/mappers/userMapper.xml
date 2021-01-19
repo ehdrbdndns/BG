@@ -45,4 +45,7 @@
     <update id="modifyUserState">
         update user set User_State=${User_State} where User_No=${User_No}
     </update>
+    <select id="isExistComNo" resultType="int">
+        select count(*) from user where User_ComNo=#{User_ComNo}
+    </select>
 </mapper>

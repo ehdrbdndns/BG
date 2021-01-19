@@ -2,6 +2,7 @@ package org.BG.DAO;
 
 import org.BG.DTO.AdvertiseDto;
 import org.BG.DTO.AdvertiseV2Dto;
+import org.BG.DTO.AdvertiseV3Dto;
 import org.BG.Mapper.AdvertiseMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,6 +244,41 @@ public class AdvertiseDao {
         } catch (Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public ArrayList<AdvertiseV3Dto> getAdvertiseV3(){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            return advertiseMapper.getAdvertiseV3();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public void uploadAdvertiseV3(AdvertiseV3Dto advertiseV3Dto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.uploadAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void deleteAdvertiseV3(AdvertiseV3Dto advertiseV3Dto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            advertiseMapper.deleteAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public AdvertiseV3Dto retrieveAdvertiseV3(AdvertiseV3Dto advertiseV3Dto){
+        try{
+            AdvertiseMapper advertiseMapper = sqlSession.getMapper(AdvertiseMapper.class);
+            return advertiseMapper.retrieveAdvertiseV3(advertiseV3Dto);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

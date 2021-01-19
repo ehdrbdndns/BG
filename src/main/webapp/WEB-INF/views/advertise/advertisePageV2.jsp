@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/resources/assets/vendors/animate.css/animate.min.css">
     <link rel="stylesheet" href="/resources/assets/vendors/dropify/dist/dropify.min.css">
     <link rel="stylesheet" href="/resources/assets/vendors/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="/resources/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <!-- end plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/resources/assets/fonts/feather-font/css/iconfont.css">
@@ -548,8 +549,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
@@ -668,6 +667,51 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">어드민 광고</h6>
+                            <div class="d-flex justify-content-between">
+                                <div></div>
+                                <div class="btn btn-primary" data-toggle="modal"
+                                     data-target="#AddAdmin">광고 추가하기
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="memberBlackInfo" class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>번호</th>
+                                        <th>광고 이름</th>
+                                        <th>이동 링크</th>
+                                        <th>이미지 보기</th>
+                                        <th>삭제</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${advertiseV3Info}" var="item" varStatus="i">
+                                        <tr>
+                                            <td>${i.index + 1}</td>
+                                            <td>${item.ad_Title}</td>
+                                            <td>${item.ad_MoveLink}</td>
+                                            <td>
+                                                <div class="btn btn-primary" data-toggle="modal"
+                                                     data-target="#ShowAdmin${i.index + 1}">보기
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="btn btn-danger"
+                                                     onclick="deleteAdvertiseV3('${item.ad_Title}', ${item.ad_No})">삭제
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <jsp:include page="/resources/include/footer.jsp"/>
@@ -675,6 +719,73 @@
 </div>
 <!-- TODO 모델 -->
 <div class="modalBox">
+    <!-- TODO 어드민 이미지 미리보기 -->
+    <c:forEach items="${advertiseV3Info}" varStatus="i" var="item">
+        <div class="modal fade" id="ShowAdmin${i.index + 1}" tabindex="-1" role="dialog"
+             aria-labelledby="modalShowAdmin"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalShowAdmin">어드민 광고 이미지</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>메인 이미지</h5>
+                        <img src="${FilePath}${item.ad_MainURL}" alt="" class="mb-4 w-100">
+                        <h5>서브 이미지</h5>
+                        <img src="${FilePath}${item.ad_SubURL}" alt="" class="w-100">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+    <!-- TODO 어드민 페이지 광고 -->
+    <div class="modal fade" id="AddAdmin" tabindex="-1" role="dialog" aria-labelledby="modalAdmin"
+         aria-hidden="true">
+        <form action="/uploadAdvertiseV3.do" enctype="multipart/form-data" method="post">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalAdmin">어드민 광고 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <div class="form-group">
+                            <label>메인 광고 이미지</label>
+                            <input type="file" class="advertiseFile" name="Ad_MainFile">
+                        </div>
+                        <h5>*주의* 권장 이미지 사이즈는 ?*? 입니다.</h5>
+                        <div class="form-group mb-3">
+                            <label>서브 광고 이미지</label>
+                            <input type="file" class="advertiseFile" name="Ad_SubFile">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>제목</label>
+                            <input type="text" class="form-control" name="Ad_Title">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>링크</label>
+                            <input type="text" class="form-control" name="Ad_MoveLink">
+                        </div>
+                        <input type="text" class="d-none" name="Ad_Type" value="community">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                        <button type="submit" class="btn btn-primary">광고 추가하기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <!-- TODO 커뮤니티 -->
     <div class="modal fade" id="AddCommunity" tabindex="-1" role="dialog" aria-labelledby="modalCommunity"
          aria-hidden="true">
@@ -1082,6 +1193,7 @@
 <script src="/resources/assets/vendors/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="/resources/assets/vendors/dropify/dist/dropify.min.js"></script>
 <script src="/resources/assets/vendors/sweetalert2/sweetalert2.min.js"></script>
+<script src="/resources/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
 <!-- end plugin js for this page -->
 <!-- inject:js -->
 <script src="/resources/assets/vendors/feather-icons/feather.min.js"></script>
@@ -1090,12 +1202,57 @@
 <!-- custom js for this page -->
 <script src="/resources/assets/js/dashboard.js"></script>
 <script src="/resources/assets/js/carousel.js"></script>
+<script src="/resources/assets/js/data-table.js"></script>
 <!-- end custom js for this page -->
 </body>
 <script>
     $(document).ready(function () {
         $('.advertiseFile').dropify();
     });
+
+    function deleteAdvertiseV3(name, no) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger mr-2'
+            },
+            buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: name + '의 광고를 삭제하시겠습니까?',
+            text: "삭제한 광고는 되돌릴 수 없습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'mr-2',
+            confirmButtonText: '네, 실행하겠습니다.',
+            cancelButtonText: '아니요, 실행하지 않겠습니다.',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire({
+                        html: '<div id="swal2-content" class="swal2-html-container" style="display: block">갑작스러운 종료는 위험할 수 있습니다.</div> ' +
+                            '<div class="spinner-border text-primary mt-2" role="status">\n' +
+                            '  <span class="sr-only"></span>\n' +
+                            '</div>',
+                        title: "실행중입니다!",
+                        icon: "success",
+                        confirmButtonClass: 'd-none',
+                    },
+                    location.href = '/deleteAdvertiseV3.do?Ad_No=' + no
+                )
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '취소되었습니다.',
+                    '해당 정보는 안전합니다 :)',
+                    'error'
+                )
+            }
+        })
+    }
 
     function deleteAdvertiseFromNo(name, no, path) {
         const swalWithBootstrapButtons = Swal.mixin({

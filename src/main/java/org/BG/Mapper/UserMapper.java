@@ -18,4 +18,5 @@ public interface UserMapper {
     ArrayList<UserDto> getBlackList();
     ArrayList<UserDto> getUnBlackList();
     void modifyUserState(UserDto userDto);
+    int isExistComNo(UserDto userDto);
 }

@@ -82,7 +82,7 @@
                                         <label for="businessLicence">사업자 등록증</label>
                                         <div id="businessLicence"
                                              class="form-control cursor-pointer d-flex justify-content-between align-items-center"
-                                             onclick="moveUrl('${userInfo.user_ComImg}')">
+                                             onclick="moveUrl('${filePath}${userInfo.user_ComImg}')">
                                             <a>파일 다운로드</a>
                                             <i data-feather="upload"></i>
                                         </div>

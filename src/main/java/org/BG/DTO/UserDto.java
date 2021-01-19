@@ -28,6 +28,9 @@ public class UserDto {
     private String User_Fcm;
     private int User_State;
 
+    private Integer My_No;
+    private Integer Your_No;
+
     //유저 알람 상태
     private String Category;
     private String State;
@@ -39,5 +42,7 @@ public class UserDto {
 
     //마이페이지에서 사용 됨
     private String Store_Img;
+    private String Store_MainMenu;
+    private String Store_Category;
     private MultipartFile Store_Img_File;
 }

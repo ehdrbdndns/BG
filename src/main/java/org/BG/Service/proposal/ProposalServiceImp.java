@@ -49,6 +49,7 @@ public class ProposalServiceImp implements ProposalService {
         JSONObject jsonProposalInfo = new JSONObject();
         JSONObject jsonMyProduct = new JSONObject();
         JSONObject jsonYourProduct = new JSONObject();
+        JSONObject jsonStoreInfo = new JSONObject();
         try {
             ProposalDto proposalInfo = proposalDao.appRetrieveProposalDetailOfChangeEatVerProposal(proposalDto);
             ProductDto myProduct = proposalDao.appRetrieveProposalDetailOfChangeEatVerMyProduct(proposalDto);
@@ -61,11 +62,12 @@ public class ProposalServiceImp implements ProposalService {
             jsonProposalInfo.put("way", proposalInfo.getProposal_Ways());
             jsonProposalInfo.put("credit", proposalInfo.getProposal_Credit());
             jsonProposalInfo.put("chatRoom", proposalInfo.getProposal_Room());
+            jsonProposalInfo.put("proposalId", proposalInfo.getProposal_Id());
             //채팅방 로직이 끝난 후 추후 진행
             //jsonProposalInfo.put("chatRoom", proposalInfo.getProposal_ChatRoom);
 
             //요청자 정보
-            jsonMyProduct.put("myAddress", myInfo.getUser_Addr());
+            jsonMyProduct.put("myAddress", myInfo.getUser_Details());
             jsonMyProduct.put("myPhone", myInfo.getUser_Phone());
             jsonMyProduct.put("myStore", myInfo.getStore_No());
             jsonMyProduct.put("productImg", myProduct.getProduct_Img());
@@ -81,11 +83,23 @@ public class ProposalServiceImp implements ProposalService {
             jsonYourProduct.put("productPrice", yourProduct.getProduct_Price());
             jsonYourProduct.put("productSales", yourProduct.getProduct_Sales());
 
+            //상점 정보
+            jsonStoreInfo.put("key", myInfo.getStore_No());
+            jsonStoreInfo.put("img", myInfo.getStore_Img());
+            jsonStoreInfo.put("name", myInfo.getUser_ComNm());
+            jsonStoreInfo.put("mainMenu", myInfo.getStore_MainMenu());
+            jsonStoreInfo.put("address", myInfo.getUser_Addr());
+            jsonStoreInfo.put("foodCategory", myInfo.getStore_Category());
+            jsonStoreInfo.put("regDate", myInfo.getUser_RegDate());
+            jsonStoreInfo.put("distance", proposalDao.getDistance(myInfo));
+
             result.put("proposalInfo", jsonProposalInfo);
             //other는 요청자 혹은 송신자
             result.put("other", jsonMyProduct);
             //my는 수신자
             result.put("my", jsonYourProduct);
+            //상점 정보
+            result.put("store", jsonStoreInfo);
 
             return result;
         } catch (Exception e) {
@@ -100,6 +114,7 @@ public class ProposalServiceImp implements ProposalService {
         JSONObject jsonProposalInfo = new JSONObject();
         JSONObject jsonMyProduct = new JSONObject();
         JSONObject jsonYourProduct = new JSONObject();
+        JSONObject jsonStoreInfo = new JSONObject();
         try {
             ProposalDto proposalInfo = proposalDao.appRetrieveProposalDetailOfChangeEatVerProposal(proposalDto);
             ProductDto yourProduct = proposalDao.appRetrieveProposalDetailOfChangeEatVerYourProduct(proposalDto);
@@ -115,7 +130,7 @@ public class ProposalServiceImp implements ProposalService {
             //jsonProposalInfo.put("chatRoom", proposalInfo.getProposal_ChatRoom);
 
             //요청자 정보
-            jsonMyProduct.put("myAddress", myInfo.getUser_Addr());
+            jsonMyProduct.put("myAddress", myInfo.getUser_Details());
             jsonMyProduct.put("myPhone", myInfo.getUser_Phone());
             jsonMyProduct.put("myStore", myInfo.getStore_No());
 
@@ -126,11 +141,23 @@ public class ProposalServiceImp implements ProposalService {
             jsonYourProduct.put("productPrice", yourProduct.getProduct_Price());
             jsonYourProduct.put("productSales", yourProduct.getProduct_Sales());
 
+            //상점 정보
+            jsonStoreInfo.put("key", myInfo.getStore_No());
+            jsonStoreInfo.put("img", myInfo.getStore_Img());
+            jsonStoreInfo.put("name", myInfo.getUser_ComNm());
+            jsonStoreInfo.put("mainMenu", myInfo.getStore_MainMenu());
+            jsonStoreInfo.put("address", myInfo.getUser_Addr());
+            jsonStoreInfo.put("foodCategory", myInfo.getStore_Category());
+            jsonStoreInfo.put("regDate", myInfo.getUser_RegDate());
+            jsonStoreInfo.put("distance", proposalDao.getDistance(myInfo));
+
             result.put("proposalInfo", jsonProposalInfo);
             //other는 요청자 혹은 송신자
             result.put("other", jsonMyProduct);
             //my는 수신자
             result.put("my", jsonYourProduct);
+            //상점 정보
+            result.put("store", jsonStoreInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }

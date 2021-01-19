@@ -16,4 +16,5 @@ public interface LoginService {
     String appChangePwd(UserDto userDto);
     boolean adminLogin(String id, String pwd);
     String appCheckUserState(UserDto userDto);
+    int isExistComNo(UserDto userDto);
 }
