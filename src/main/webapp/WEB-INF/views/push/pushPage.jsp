@@ -199,10 +199,7 @@
     function sendPush(content){
         $.ajax({
             type: "POST",
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            cache: false,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             url: "/sendPushContentToUser.ajax",
             data: {
                 "Ap_Title":content

@@ -51,7 +51,4 @@
     <select id="appCheckVersion" resultType="String">
         select version from version
     </select>
-    <update id="updateVersion">
-        update version set version=#{version}
-    </update>
 </mapper>

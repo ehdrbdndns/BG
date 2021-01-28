@@ -799,7 +799,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <h5>*주의* 권장 이미지 사이즈는 153*128 입니다.</h5>
                         <div class="form-group">
                             <label>광고 이미지</label>
                             <input type="file" class="advertiseFile" name="Ad_File">
@@ -839,7 +839,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5>*주의* 권장 이미지 사이즈는 1024*256 입니다.</h5>
+                        <h5>*주의* 권장 이미지 사이즈는 153*128 입니다.</h5>
                         <div class="form-group">
                             <label>광고 이미지</label>
                             <input type="file" class="advertiseFile" name="Ad_File">

@@ -7,6 +7,7 @@ import org.BG.DTO.UserDto;
 import org.BG.Service.community.CommunityService;
 import org.BG.Service.home.HomeService;
 import org.BG.Service.inquiry.InquiryService;
+import org.BG.Service.user.UserService;
 import org.BG.util.geocoder.Geocoder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,6 +28,8 @@ public class HomeController {
     InquiryService inquiryService;
     @Autowired
     CommunityService communityService;
+    @Autowired
+    UserService userService;
     @Autowired
     Geocoder geocoder;
 
@@ -61,6 +64,10 @@ public class HomeController {
         //커뮤니티 DTO
         ArrayList<CommunityDto> communityDtos = communityService.getCommunityList();
         model.addAttribute("communityInfoList", communityDtos);
+
+        //버전 체크
+        String version = userService.appCheckVersion();
+        model.addAttribute("version", version);
 
         return "homePage";
     }

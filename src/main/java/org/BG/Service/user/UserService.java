@@ -19,4 +19,6 @@ public interface UserService {
     ArrayList<UserDto> getBlackList();
     ArrayList<UserDto> getUnBlackList();
     void modifyUserState(UserDto userDto);
+    String appCheckVersion();
+    void updateVersion(String version);
 }

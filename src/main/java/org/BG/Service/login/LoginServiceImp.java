@@ -44,18 +44,24 @@ public class LoginServiceImp implements LoginService {
     @Override
     public String appSendCodeOfRegister(RegisterDto registerDto) {
         try {
-            //인증코드 생성
-            registerDto.setRegister_Code(makeEmailCode());
 
-            //인증코드 전송
-            //mail.mailSender(송신자의 아이디, 송신자의 비밀번호, 수신자 이메일, 메일 내용, 인증코드)
-            mail.MailSender("ehdrbdndns@naver.com", "100400sw@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
+            Integer check = loginDao.appIsExistUserEmail(registerDto);
+            if(check == null || check == 0){
+                //인증코드 생성
+                registerDto.setRegister_Code(makeEmailCode());
 
-            //현재 날짜 셋팅
-            registerDto.setRegister_RegDate(getToday());
+                //인증코드 전송
+                //mail.mailSender(송신자의 아이디, 송신자의 비밀번호, 수신자 이메일, 메일 내용, 인증코드)
+                mail.MailSender("ehdrbdndns@naver.com", "100400sw@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
 
-            //User_No or err 반환
-            return loginDao.appSendCodeOfRegister(registerDto);
+                //현재 날짜 셋팅
+                registerDto.setRegister_RegDate(getToday());
+
+                //User_No or err 반환
+                return loginDao.appSendCodeOfRegister(registerDto);
+            } else{
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -134,6 +140,16 @@ public class LoginServiceImp implements LoginService {
     @Override
     public String appSendCodeOfSearch(RegisterDto registerDto) {
         try{
+            //인증코드 생성
+            registerDto.setRegister_Code(makeEmailCode());
+
+            //인증코드 전송
+            //mail.mailSender(송신자의 아이디, 송신자의 비밀번호, 수신자 이메일, 메일 내용, 인증코드)
+            mail.MailSender("ehdrbdndns@naver.com", "100400sw@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
+
+            //현재 날짜 셋팅
+            registerDto.setRegister_RegDate(getToday());
+
             return loginDao.appSendCodeOfSearch(registerDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -192,26 +208,7 @@ public class LoginServiceImp implements LoginService {
     }
 
     public String makeEmailCode() {
-        StringBuffer ConfirmCode = new StringBuffer();
-        Random rnd = new Random();
-        for (int i = 0; i < 10; i++) {
-            int rIndex = rnd.nextInt(3);
-            switch (rIndex) {
-                case 0:
-                    // a-z
-                    ConfirmCode.append((char) ((int) (rnd.nextInt(26)) + 97));
-                    break;
-                case 1:
-                    // A-Z
-                    ConfirmCode.append((char) ((int) (rnd.nextInt(26)) + 65));
-                    break;
-                case 2:
-                    // 0-9
-                    ConfirmCode.append((rnd.nextInt(10)));
-                    break;
-            }
-        }
-        return ConfirmCode.toString();
+        return Integer.toString((int) (Math.random()*999999) + 100000);
     }
 
     //사업자 등록 번호 유효성 체크

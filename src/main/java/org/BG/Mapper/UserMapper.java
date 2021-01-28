@@ -19,4 +19,6 @@ public interface UserMapper {
     ArrayList<UserDto> getUnBlackList();
     void modifyUserState(UserDto userDto);
     int isExistComNo(UserDto userDto);
+    String appCheckVersion();
+    void updateVersion(String version);
 }

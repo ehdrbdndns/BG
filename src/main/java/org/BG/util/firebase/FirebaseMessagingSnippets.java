@@ -39,6 +39,13 @@ public class FirebaseMessagingSnippets {
 
             String topic = "push";
 
+            System.out.println("content: " + content);
+
+//            for(int i = 0; i<tokenId.size(); i++){
+//                test_send_FCM(tokenId.get(i), "바꿔먹어", content, request);
+//                System.out.println("tokenId: " + tokenId.get(i));
+//            }
+
             TopicManagementResponse response = FirebaseMessaging.getInstance().subscribeToTopic(tokenId, topic);
             System.out.println(response.getSuccessCount() + " tokens were subscribed successfully");
 
@@ -60,9 +67,9 @@ public class FirebaseMessagingSnippets {
         }
     }
 
-    public void test_send_FCM(String tokenId, String content, HttpServletRequest request){
+    public void test_send_FCM(String tokenId, String title, String content, HttpServletRequest request){
         try{
-            Notification notification = new Notification("바꿔먹어", content);
+            Notification notification = new Notification(title, content);
             initFirebase(request);
 
             //안드로이드 토큰 입력

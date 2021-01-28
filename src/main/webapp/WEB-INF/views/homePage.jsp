@@ -112,7 +112,10 @@
                                             <td>${item.user_Addr}</td>
                                             <td>${item.user_RegDate}</td>
                                             <td>
-                                                <div class="btn btn-primary" onclick="location.href='/memberDetailPage.do?User_No=${item.user_No}'">이동</div>
+                                                <div class="btn btn-primary"
+                                                     onclick="location.href='/memberDetailPage.do?User_No=${item.user_No}'">
+                                                    이동
+                                                </div>
                                             </td>
                                         </c:forEach>
                                     </tr>
@@ -130,7 +133,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-2">
                                 <h6 class="card-title m-0">커뮤니티</h6>
-                                <div class="btn btn-outline-linkedin" onclick="location.href='/communityPage.do'">더보기</div>
+                                <div class="btn btn-outline-linkedin" onclick="location.href='/communityPage.do'">더보기
+                                </div>
                             </div>
                             <div class="table-responsive">
                                 <table id="communityInfo" class="table">
@@ -151,10 +155,46 @@
                                             <td>${item.user_ComNm}</td>
                                             <td>${item.community_RegDate}</td>
                                             <td>
-                                                <div class="btn btn-primary" onclick="location.href='/communityDetailPage.do?Community_No=${item.community_No}'">이동</div>
+                                                <div class="btn btn-primary"
+                                                     onclick="location.href='/communityDetailPage.do?Community_No=${item.community_No}'">
+                                                    이동
+                                                </div>
                                             </td>
                                         </tr>
                                     </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TODO 버전 관리 테이블 -->
+            <div class="row">
+                <div class="col-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">버전 관리</h6>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>버전</th>
+                                        <th>변경</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <form action="/updateVersion.app" method="post">
+                                        <tr>
+                                            <td><input type="text" name="version" value="${version}"
+                                                       class="form-control"/></td>
+                                            <td>
+                                                <button class="btn btn-primary">
+                                                    변경
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </form>
                                     </tbody>
                                 </table>
                             </div>

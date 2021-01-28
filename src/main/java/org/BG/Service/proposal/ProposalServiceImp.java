@@ -56,6 +56,10 @@ public class ProposalServiceImp implements ProposalService {
             ProductDto yourProduct = proposalDao.appRetrieveProposalDetailOfChangeEatVerYourProduct(proposalDto);
             UserDto myInfo = proposalDao.appRetrieveProposalDetailOfChangeEatVerUser(proposalDto);
 
+            UserDto userDto = new UserDto();
+            userDto.setUser_No(yourProduct.getUser_No());
+            UserDto YourInfo = userDao.appRetrieveUserInfo(userDto);
+
             //proposalInfo
             jsonProposalInfo.put("key", proposalInfo.getProposal_No());
             jsonProposalInfo.put("state", proposalInfo.getProposal_State());
@@ -67,6 +71,7 @@ public class ProposalServiceImp implements ProposalService {
             //jsonProposalInfo.put("chatRoom", proposalInfo.getProposal_ChatRoom);
 
             //요청자 정보
+            jsonMyProduct.put("myNo", myInfo.getMy_No());
             jsonMyProduct.put("myAddress", myInfo.getUser_Details());
             jsonMyProduct.put("myPhone", myInfo.getUser_Phone());
             jsonMyProduct.put("myStore", myInfo.getStore_No());
@@ -77,6 +82,7 @@ public class ProposalServiceImp implements ProposalService {
             jsonMyProduct.put("productSales", myProduct.getProduct_Sales());
 
             //수신자 정보
+            jsonYourProduct.put("name", YourInfo.getUser_ComNm());
             jsonYourProduct.put("productImg", yourProduct.getProduct_Img());
             jsonYourProduct.put("productName", yourProduct.getProduct_Name());
             jsonYourProduct.put("productComponent", yourProduct.getProduct_Compo());
@@ -120,21 +126,28 @@ public class ProposalServiceImp implements ProposalService {
             ProductDto yourProduct = proposalDao.appRetrieveProposalDetailOfChangeEatVerYourProduct(proposalDto);
             UserDto myInfo = proposalDao.appRetrieveProposalDetailOfChangeEatVerUser(proposalDto);
 
+            UserDto userDto = new UserDto();
+            userDto.setUser_No(yourProduct.getUser_No());
+            UserDto YourInfo = userDao.appRetrieveUserInfo(userDto);
+
             //proposalInfo
             jsonProposalInfo.put("key", proposalInfo.getProposal_No());
             jsonProposalInfo.put("state", proposalInfo.getProposal_State());
             jsonProposalInfo.put("way", proposalInfo.getProposal_Ways());
             jsonProposalInfo.put("credit", proposalInfo.getProposal_Credit());
             jsonProposalInfo.put("chatRoom", proposalInfo.getProposal_Room());
+            jsonProposalInfo.put("proposalId", proposalInfo.getProposal_Id());
             //채팅방 로직이 끝난 후 추후 진행
             //jsonProposalInfo.put("chatRoom", proposalInfo.getProposal_ChatRoom);
 
             //요청자 정보
+            jsonMyProduct.put("myNo", myInfo.getMy_No());
             jsonMyProduct.put("myAddress", myInfo.getUser_Details());
             jsonMyProduct.put("myPhone", myInfo.getUser_Phone());
             jsonMyProduct.put("myStore", myInfo.getStore_No());
 
             //수신자 정보
+            jsonYourProduct.put("name", YourInfo.getUser_ComNm());
             jsonYourProduct.put("productImg", yourProduct.getProduct_Img());
             jsonYourProduct.put("productName", yourProduct.getProduct_Name());
             jsonYourProduct.put("productComponent", yourProduct.getProduct_Compo());
@@ -192,6 +205,7 @@ public class ProposalServiceImp implements ProposalService {
         try {
             UserDto userDto = new UserDto();
             userDto.setUser_No(proposalDto.getMy_No());
+
             //송신자 정보
             UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
             JSONObject userInfoJson = new JSONObject();
@@ -372,10 +386,10 @@ public class ProposalServiceImp implements ProposalService {
     }
 
     @Override
-    public String appSendChatAlarm(Integer Recipient_No, String Content, HttpServletRequest request) {
+    public String appSendChatAlarm(Integer Recipient_No, String title, String Content, HttpServletRequest request) {
         try{
             String fcmToken = userDao.RetrieveUserFcm(Recipient_No);
-            firebaseMessagingSnippets.test_send_FCM(fcmToken, Content, request);
+            firebaseMessagingSnippets.test_send_FCM(fcmToken, title, Content, request);
             return "true";
         } catch (Exception e){
             e.printStackTrace();

@@ -31,7 +31,7 @@
         select User_Fcm from user where User_No=${user_No}
     </select>
     <select id="getUserFcm" resultType="String">
-        select User_Fcm from user where User_Alarm1='off'
+        select User_Fcm from user where User_Alarm1='on'
     </select>
     <select id="getUserAreaCount" resultType="int">
         select count(User_No) from user where User_Addr LIKE #{area}
@@ -48,4 +48,10 @@
     <select id="isExistComNo" resultType="int">
         select count(*) from user where User_ComNo=#{User_ComNo}
     </select>
+    <select id="appCheckVersion" resultType="String">
+        select version from version
+    </select>
+    <update id="updateVersion">
+        update version set version=#{version}
+    </update>
 </mapper>

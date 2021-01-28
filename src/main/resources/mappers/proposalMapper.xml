@@ -37,7 +37,7 @@
     </select>
 
     <select id="appRetrieveProposalDetailOfChangeEatVerYourProduct" parameterType="ProposalDto" resultType="ProductDto">
-        select Product_Img, Product_Name, Product_Compo, Product_Price, Product_Sales
+        select Product_Img, Product_Name, Product_Compo, Product_Price, Product_Sales, User_No
         from product prod, proposal prop
         where prop.Proposal_No=${Proposal_No} AND prop.Product_No=prod.Product_No
     </select>

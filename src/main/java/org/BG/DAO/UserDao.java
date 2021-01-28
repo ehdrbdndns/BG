@@ -17,6 +17,25 @@ public class UserDao {
     @Autowired
     SqlSession sqlSession;
 
+    public void updateVersion(String version){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.updateVersion(version);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public String appCheckVersion(){
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.appCheckVersion();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public UserDto appRetrieveUserInfo(UserDto userDto){
         UserDto userDto1 = new UserDto();
         try{

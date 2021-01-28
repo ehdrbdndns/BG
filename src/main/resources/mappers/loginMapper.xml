@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.BG.Mapper.LoginMapper">
-    <select id="appCheckUserState">
+    <select id="appCheckUserState" resultType="int">
         select User_State from user where User_No=${User_No}
     </select>
 
@@ -30,7 +30,7 @@
     </delete>
     <insert id="appRegister" parameterType="UserDto">
         insert into user(User_Email, User_PW, User_Name, User_Phone, User_ComNo, User_ComNm, User_Addr, User_Details, User_ComImg, User_RegDate, User_Lat, User_Lng, User_Alarm1, User_Alarm2, User_Alarm3, User_State)
-        VALUES (#{User_Email}, #{User_PW}, #{User_Name}, #{User_Phone}, #{User_ComNo}, #{User_ComNm}, #{User_Addr}, #{User_Details}, #{User_ComImg}, #{User_RegDate}, ${User_Lat}, ${User_Lng}, 'off', 'off', 'off', 1)
+        VALUES (#{User_Email}, #{User_PW}, #{User_Name}, #{User_Phone}, #{User_ComNo}, #{User_ComNm}, #{User_Addr}, #{User_Details}, #{User_ComImg}, #{User_RegDate}, ${User_Lat}, ${User_Lng}, 'on', 'off', 'off', 1)
         <selectKey keyProperty="User_No" resultType="Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>

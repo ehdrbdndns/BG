@@ -130,7 +130,7 @@ public class TestController {
     @RequestMapping(value = "/testSendNotification.do", method = RequestMethod.GET)
     public boolean testSendNotification(@RequestParam(value = "fcm") String token, HttpServletRequest request){
         try{
-            firebaseMessagingSnippets.test_send_FCM(token, "잘 가나용?", request);
+            firebaseMessagingSnippets.test_send_FCM(token, "테스트 알람","잘 가나용?", request);
             return true;
         } catch (Exception e){
             e.printStackTrace();

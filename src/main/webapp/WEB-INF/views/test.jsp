@@ -14,6 +14,10 @@
 </head>
 <body>
 <h2>잘 나오는 것이여</h2>
+<form action="/appCheckVersion.app">
+    <input type="text" name="version">
+    <button>제출</button>
+</form>
 <form action="/appRetrieveProposalDetailOfChangeEat.app">
     <input type="text" name="User_No">
     <input type="text" name="Proposal_No">
@@ -37,6 +41,7 @@
     <input type="text" name="User_No">
     <button>제출</button>
 </form>
+<label>요기 회원가입</label>
 <form action="/appSendCodeOfRegister.app" method="post">
     <input type="text" name="Register_Email">
     <button>제출</button>

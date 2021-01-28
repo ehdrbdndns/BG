@@ -149,4 +149,14 @@ public class UserServiceImp implements UserService {
     public void modifyUserState(UserDto userDto) {
         userDao.modifyUserState(userDto);
     }
+
+    @Override
+    public String appCheckVersion() {
+        return userDao.appCheckVersion();
+    }
+
+    @Override
+    public void updateVersion(String version) {
+        userDao.updateVersion(version);
+    }
 }

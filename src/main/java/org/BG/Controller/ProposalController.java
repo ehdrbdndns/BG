@@ -148,10 +148,10 @@ public class ProposalController {
     //채팅 알림 보내기
     @ResponseBody
     @RequestMapping(value = "/appSendChatAlarm.app")
-    public String appSendChatAlarm(@RequestParam("Recipient_No") Integer Recipient_No, @RequestParam("Content") String Content, HttpServletRequest request){
+    public String appSendChatAlarm(@RequestParam("Recipient_No") Integer Recipient_No, @RequestParam("Title") String title,  @RequestParam("Content") String Content, HttpServletRequest request){
         try{
             System.out.println("/appSendChatAlarm.app run");
-            return proposalService.appSendChatAlarm(Recipient_No, Content, request);
+            return proposalService.appSendChatAlarm(Recipient_No, title, Content, request);
         } catch (Exception e){
             e.printStackTrace();
             return null;

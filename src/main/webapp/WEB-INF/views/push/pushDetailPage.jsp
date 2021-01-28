@@ -47,7 +47,7 @@
                                 <h6 class="card-title">Push 내용 수정</h6>
                                 <div class="form-group">
                                     <label>푸쉬 내용</label>
-                                    <textarea class="form-control required" rows="10" name="Ap_Title">${pushInfo.ap_Title}</textarea>
+                                    <input type="text" class="form-control required" name="Ap_Title" value="${pushInfo.ap_Title}"/>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <div></div>

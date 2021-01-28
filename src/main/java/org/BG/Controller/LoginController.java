@@ -50,9 +50,9 @@ public class LoginController {
     public String appSendCodeOfRegister(@ModelAttribute RegisterDto registerDto){
         try{
             System.out.println("/appSendCodeOfRegister.app 호출");
+            System.out.println("email: " + registerDto.getRegister_Email());
             //User_No or err 반환
             String registerNo = loginService.appSendCodeOfRegister(registerDto);
-            System.out.println("registerNo: " + registerNo);
             return registerNo;
         } catch (Exception e){
             e.printStackTrace();
@@ -66,6 +66,8 @@ public class LoginController {
     public String appConfirmCodeOfRegister(@ModelAttribute RegisterDto registerDto){
         try{
             System.out.println("/appConfirmCode.app 호출");
+            System.out.println("code: " + registerDto.getRegister_Code());
+            System.out.println("email: " + registerDto.getRegister_Email());
             //true or false or err 반환
             return loginService.appConfirmCodeOfRegister(registerDto);
         } catch (Exception e){
@@ -120,6 +122,7 @@ public class LoginController {
     @RequestMapping(value = "/appSearchEmail.app")
     public String appSearchEmail(@ModelAttribute UserDto userDto){
         try{
+            System.out.println("/appSearchEmail.app");
             return loginService.appSearchEmail(userDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -132,6 +135,8 @@ public class LoginController {
     @RequestMapping(value = "/appSendCodeOfSearch.app")
     public String appSendCodeOfSearch(@ModelAttribute RegisterDto registerDto){
         try{
+            System.out.println("/appSendCodeOfSearch.app");
+            System.out.println("email: " + registerDto.getRegister_Email());
             return loginService.appSendCodeOfSearch(registerDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -144,6 +149,7 @@ public class LoginController {
     @RequestMapping(value = "appChangePwd.app")
     public String appChangePwd(@ModelAttribute UserDto userDto){
         try{
+            System.out.println("/appChangePwd.app");
             return loginService.appChangePwd(userDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -155,7 +161,6 @@ public class LoginController {
     public String loginPage() {
         return "login/login";
     }
-
 
     @GetMapping(value = "/adminLogout.do")
     public String logout(HttpSession session){

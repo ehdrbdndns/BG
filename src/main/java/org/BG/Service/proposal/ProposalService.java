@@ -19,5 +19,5 @@ public interface ProposalService {
     JSONObject appRetrieveProductFromUserNo(ProposalDto proposalDto);
     String appRegisterProposal(ProposalDto proposalDto);
     boolean appCheckChatRoom(Integer My_No, Integer Your_No);
-    String appSendChatAlarm(Integer Recipient_No, String Content, HttpServletRequest request);
+    String appSendChatAlarm(Integer Recipient_No, String title, String Content, HttpServletRequest request);
 }

@@ -46,7 +46,7 @@
                                 <h6 class="card-title">Push 작성</h6>
                                 <div class="form-group">
                                     <label>푸쉬 내용</label>
-                                    <textarea class="form-control" rows="10" name="Ap_Title"></textarea>
+                                    <input type="text" class="form-control" name="Ap_Title"/>
                                 </div>
 <%--                                <div class="form-group">--%>
 <%--                                    <label>연결 링크</label>--%>
