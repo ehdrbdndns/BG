@@ -148,6 +148,7 @@ public class AdvertiseController {
     @RequestMapping(value = "/appClickAdvertiseV2.app")
     public String appClickAdvertiseV2(@ModelAttribute AdvertiseV2Dto advertiseDto){
         try{
+            System.out.println("appClickAdvertiseV2 run");
             advertiseService.appClickAdvertiseV2(advertiseDto);
             return "true";
         } catch (Exception e){

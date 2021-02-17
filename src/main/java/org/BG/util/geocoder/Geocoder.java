@@ -17,8 +17,8 @@ import java.net.URLEncoder;
 public class Geocoder {
     public Double[] getLatitude(String location) {
         JSONParser jsonParser = new JSONParser();
-
-        String key = "AIzaSyBfBZB4jgWgkU6HUqk4XGMof8Zb1xZYoQ0";
+//        String key = "AIzaSyBfBZB4jgWgkU6HUqk4XGMof8Zb1xZYoQ0";
+        String key = "AIzaSyAA9m2kbA2IQWrfc3Nqf-7ERe9TaqmwZyE";
         BufferedReader in = null;
         try {
             String jsonString = new String();

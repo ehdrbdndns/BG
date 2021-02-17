@@ -152,7 +152,7 @@
         }
 
         var areaColor = new Array();
-        for(var i = 0; i<9; i++){
+        for(var i = 0; i<15; i++){
             areaColor.push("#" + Math.round(Math.random() * 0xffffff).toString(16));
         }
 
@@ -160,13 +160,15 @@
             new Chart($('#chartjsPie'), {
                 type: 'pie',
                 data: {
-                    labels: ["경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"],
+                    labels: ["경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도", "부산광역시", "대구광역시"
+                        , "인천광역시", "광주광역시", "대전광역시", "울산광역시"],
                     datasets: [{
                         label: "Population (millions)",
                         backgroundColor: areaColor,
-                        data: [${areaCount.get("경기도")}, ${areaCount.get("강원도")}, ${areaCount.get("충청북도")},
-                            ${areaCount.get("충청남도")}, ${areaCount.get("전라북도")}, ${areaCount.get("전라남도")}, ${areaCount.get("경상북도")},
-                            ${areaCount.get("경상남도")},${areaCount.get("제주도")}]
+                        data: [${areaCount.gyeonggi}, ${areaCount.gangwon}, ${areaCount.chungcheongbuk},
+                            ${areaCount.chungcheongnam}, ${areaCount.jeollabuk}, ${areaCount.jeollanam}, ${areaCount.gyeongsangbuk},
+                            ${areaCount.gyeongsangnam},${areaCount.jeju}, ${areaCount.busan}, ${areaCount.daegu}, ${areaCount.incheon},
+                            ${areaCount.gwangju}, ${areaCount.daejeon}, ${areaCount.ulsan}]
                     }]
                 }
             });

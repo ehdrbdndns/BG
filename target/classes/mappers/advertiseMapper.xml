@@ -76,7 +76,7 @@
         delete from admin_advertisev2 where Ad_No=${Ad_No}
     </delete>
     <update id="appClickAdvertiseV2">
-        update admin_advertisev2 set Ad_ClickCount = Ad_ClickCount+1
+        update admin_advertisev2 set Ad_ClickCount = Ad_ClickCount+1 where Ad_No=${Ad_No}
     </update>
 
     <select id="getAdvertiseV3" resultType="AdvertiseV3Dto">

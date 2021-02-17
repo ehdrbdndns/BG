@@ -16,6 +16,32 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //회원 탈퇴
+    @ResponseBody
+    @RequestMapping(value = "/appDeleteUserInfo.app")
+    public String appDeleteUserInfo(@ModelAttribute UserDto userDto){
+        try{
+            System.out.println("appDeleteUserInfo run");
+            return userService.appDeleteUserInfo(userDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return "err";
+        }
+    }
+
+    //회원 탈퇴
+    @ResponseBody
+    @RequestMapping(value = "/appTestDeleteUserInfo.app")
+    public String appTestDeleteUserInfo(@ModelAttribute UserDto userDto){
+        try{
+            System.out.println("appTestDeleteUserInfo run");
+            return userService.testDeleteUserInfo(userDto);
+        } catch (Exception e){
+            e.printStackTrace();
+            return "err";
+        }
+    }
+
     //내 정보 페이지(유저 정보 가져오기)
     @ResponseBody
     @RequestMapping(value = "/appRetrieveUserInfo.app")

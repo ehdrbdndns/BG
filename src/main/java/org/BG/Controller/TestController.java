@@ -1,13 +1,15 @@
 package org.BG.Controller;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import jdk.nashorn.internal.parser.JSONParser;
-import net.sf.json.JSON;
 import org.BG.DTO.TestDto;
+import org.BG.DTO.UserDto;
+import org.BG.Service.login.LoginService;
 import org.BG.Service.test.TestService;
-//import org.BG.util.CGPlacesAPI;
+import org.BG.Service.user.UserService;
+import org.BG.util.Pwd.PwdToByte;
 import org.BG.util.ScrapingTaxTypeFromNts;
 import org.BG.util.firebase.FirebaseMessagingSnippets;
+import org.BG.util.geocoder.GpsToAddress;
+import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,11 +27,65 @@ public class TestController {
     @Autowired
     TestService testService;
     @Autowired
+    UserService userService;
+    @Autowired
     ScrapingTaxTypeFromNts scrapingTaxTypeFromNts;
     @Autowired
     FirebaseMessagingSnippets firebaseMessagingSnippets;
+    @Autowired
+    SqlSession sqlSession;
+    @Autowired
+    LoginService loginService;
 //    @Autowired
 //    CGPlacesAPI cgPlacesAPI;
+
+    @ResponseBody
+    @RequestMapping(value = "countAllStore")
+    public String countAllStore(){
+        ArrayList<UserDto> userInfoList = userService.getAllUser();
+        for(int i = 0; i<userInfoList.size(); i++){
+            loginService.addStoreCount(userInfoList.get(i).getUser_Lat(), userInfoList.get(i).getUser_Lng());
+        }
+        return "true";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "changePwd")
+    public String changePwd() throws NoSuchAlgorithmException{
+       UserDto userDto = userService.searchUser(190);
+       userService.updateUserPwd(userDto);
+        return "true";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "changeAllPwd")
+    public String changeAllPwd() throws NoSuchAlgorithmException {
+        ArrayList<UserDto> userInfoList = userService.getAllUser();
+        for(int i = 0; i<userInfoList.size(); i++){
+            userService.updateUserPwd(userInfoList.get(i));
+        }
+        return "true";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "pwdToByte")
+    public String pwdToByte(@RequestParam("pwd") String pwd) throws NoSuchAlgorithmException {
+        PwdToByte pwdToByte = new PwdToByte();
+        return pwdToByte.encryptionSHA256(pwd);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "reversGeocode")
+    public String reversGeocode(@RequestParam("lat") Float lat, @RequestParam("lng") Float lng) throws Exception {
+        System.out.println("lat: " + lat);
+        System.out.println("lng: " + lng);
+        GpsToAddress gpsToAddress = new GpsToAddress(lat, lng);
+        System.out.println("address: " + gpsToAddress.getAddress());
+        System.out.println("address length: " + gpsToAddress.getAddress().split("대한민국").length);
+        System.out.println("address[0]: " + gpsToAddress.getAddress().split("대한민국")[0]);
+        System.out.println("address[1]: " + gpsToAddress.getAddress().split("대한민국")[1]);
+        return "true";
+    }
 
     @RequestMapping(value = "adminCheckLicenseNumber.admin")
     public String adminCheckLicenseNumber(@RequestParam("licenseNumber") String licenseNumber) {

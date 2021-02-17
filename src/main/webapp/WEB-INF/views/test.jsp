@@ -14,6 +14,40 @@
 </head>
 <body>
 <h2>잘 나오는 것이여</h2>
+<h3>지역 지점수 카운트</h3>
+<form action="/countAllStore">
+    <button>제출</button>
+</form>
+<h3>유저 회원가입</h3>
+<form action="/appRegister.app">
+    <input type="text" name="User_Email" placeholder="User_Email">
+    <input type="text" name="User_PW" placeholder="User_PW">
+    <input type="text" name="User_Name" placeholder="User_Name">
+    <input type="text" name="User_Phone" placeholder="User_Phone">
+    <input type="text" name="User_ComNo" placeholder="User_ComNo">
+    <input type="text" name="User_ComNm" placeholder="User_ComNm">
+    <input type="text" name="User_Addr" placeholder="User_Addr">
+    <button>제출</button>
+</form>
+<h3>유저 번호 190번 비밀번호 암호화</h3>
+<form action="/changePwd">
+    <button>제출</button>
+</form>
+<h3>모든 사용자 비밀번호 암호화</h3>
+<form action="/changeAllPwd">
+    <button>제출</button>
+</form>
+<h3>암호화 비밀번호</h3>
+<form action="/pwdToByte">
+    <input type="text" name="pwd" placeholder="pwd">
+    <button>제출</button>
+</form>
+<h3>역 지오코딩</h3>
+<form action="/reversGeocode">
+    <input type="text" name="lat" placeholder="lat">
+    <input type="text" name="lng" placeholder="lng">
+    <button>제출</button>
+</form>
 <form action="/appCheckVersion.app">
     <input type="text" name="version">
     <button>제출</button>
@@ -35,6 +69,7 @@
 <form action="/appLogin.app">
     <input type="text" name="User_Email">
     <input type="text" name="User_PW">
+    <input type="text" name="User_Fcm">
     <button>제출</button>
 </form>
 <form action="/appRetrieveUserInfo.app" method="post">
@@ -79,6 +114,7 @@
     <input type="text" name="Ad_Url">
     <button>제출</button>
 </form>
+<h3>appGetProposalItem</h3>
 <form action="/appGetProposalItem.app">
     <input type="text" name="My_No">
     <input type="text" name="Your_No">

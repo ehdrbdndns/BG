@@ -763,7 +763,7 @@
                             <label>메인 광고 이미지</label>
                             <input type="file" class="advertiseFile" name="Ad_MainFile">
                         </div>
-                        <h5>*주의* 권장 이미지 사이즈는 ?*? 입니다.</h5>
+                        <h5>*주의* 권장 이미지 사이즈는 200*200 입니다.</h5>
                         <div class="form-group mb-3">
                             <label>서브 광고 이미지</label>
                             <input type="file" class="advertiseFile" name="Ad_SubFile">

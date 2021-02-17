@@ -17,4 +17,5 @@ public interface LoginService {
     boolean adminLogin(String id, String pwd);
     String appCheckUserState(UserDto userDto);
     int isExistComNo(UserDto userDto);
+    void addStoreCount(Double lat, Double lng);
 }

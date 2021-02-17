@@ -1,9 +1,6 @@
 package org.BG.DAO;
 
-import org.BG.DTO.ProductDto;
-import org.BG.DTO.ShopinDto;
-import org.BG.DTO.StoreDto;
-import org.BG.DTO.UserDto;
+import org.BG.DTO.*;
 import org.BG.Mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,16 @@ import java.util.List;
 public class UserDao {
     @Autowired
     SqlSession sqlSession;
+
+    public void addStoreCount(String title){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.addStoreCount(title);
+    }
+
+    public void minusStoreCount(String title){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.minusStoreCount(title);
+    }
 
     public void updateVersion(String version){
         try{
@@ -155,4 +162,29 @@ public class UserDao {
             e.printStackTrace();
         }
     }
+
+    public void deleteUserInfo(UserDto userDto){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.deleteUserInfo(userDto);
+    }
+
+    public StoreCountDto getStoreCount(){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        return userMapper.getStoreCount();
+    }
+
+    //test
+    public void updateUserPwd(UserDto userDto){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.updateUserPwd(userDto);
+    }
+    public ArrayList<UserDto> getAllUser(){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        return userMapper.getAllUser();
+    }
+    public UserDto searchUser(int userNo){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        return userMapper.searchUser(userNo);
+    }
+
 }

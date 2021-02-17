@@ -127,7 +127,6 @@ public class HomeServiceImp implements HomeService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("요로쿰");
             return null;
         }
         return result;

@@ -342,7 +342,6 @@ public class ProposalServiceImp implements ProposalService {
                     }
                 }
             }
-
             result.put("yourCall", yourCallJSON);
 
             return result;
@@ -389,7 +388,11 @@ public class ProposalServiceImp implements ProposalService {
     public String appSendChatAlarm(Integer Recipient_No, String title, String Content, HttpServletRequest request) {
         try{
             String fcmToken = userDao.RetrieveUserFcm(Recipient_No);
-            firebaseMessagingSnippets.test_send_FCM(fcmToken, title, Content, request);
+            if(fcmToken != null){
+                firebaseMessagingSnippets.test_send_FCM(fcmToken, title, Content, request);
+            } else {
+                System.out.println("user Alarm is off");
+            }
             return "true";
         } catch (Exception e){
             e.printStackTrace();

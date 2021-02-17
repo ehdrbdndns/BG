@@ -64,7 +64,7 @@
         VALUES (#{Proposal_State}, #{Proposal_Addr}, #{Proposal_Ways}, #{My_ProductNo}, #{Proposal_Category}, #{Proposal_RegDate}, #{Your_No}, #{Store_No}, #{Your_ProductNo}, #{Proposal_Credit}, #{Proposal_Room}, #{Proposal_Id})
     </insert>
     <select id="appCheckChatRoom" resultType="boolean">
-        select EXISTS(select * from chatroom where My_No=${My_No} AND Your_No=${Your_No})
+        select EXISTS(select * from chatroom where (My_No=${My_No} AND Your_No=${Your_No}) OR (My_No=${Your_No} AND Your_No=${My_No}))
     </select>
     <insert id="appInsertChatRoom">
         insert into chatroom(My_No, Your_No) VALUES(${My_No}, ${Your_No})

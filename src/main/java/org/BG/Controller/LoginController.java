@@ -35,9 +35,14 @@ public class LoginController {
         try{
             System.out.println("/appLogin.app 호출");
             //User_No or err 반환
-            String User_No = loginService.appLogin(userDto);
-            System.out.println("/appLogin.app 리턴 값: " + User_No);
-            return User_No;
+            if(userDto.getUser_Fcm() != null){
+                String User_No = loginService.appLogin(userDto);
+                System.out.println("/appLogin.app 리턴 값: " + User_No);
+                return User_No;
+            } else{
+                System.out.println("user fcm token is null!!");
+                return "err";
+            }
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -88,7 +93,7 @@ public class LoginController {
                 return "false";
             } else {
                 //사업자 등록번호 중첩 여부 체크
-                if(loginService.isExistComNo(userDto) == 1){
+                if(loginService.isExistComNo(userDto) == 0){
                     return "true";
                 } else{
                     return "false";

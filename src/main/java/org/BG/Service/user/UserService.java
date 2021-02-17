@@ -1,11 +1,14 @@
 package org.BG.Service.user;
 
 import org.BG.DTO.ShopinDto;
+import org.BG.DTO.StoreCountDto;
 import org.BG.DTO.StoreDto;
 import org.BG.DTO.UserDto;
 import org.json.simple.JSONObject;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public interface UserService {
@@ -21,4 +24,10 @@ public interface UserService {
     void modifyUserState(UserDto userDto);
     String appCheckVersion();
     void updateVersion(String version);
+    StoreCountDto getStoreCount();
+    String appDeleteUserInfo(UserDto userDto) throws Exception;
+    String testDeleteUserInfo(UserDto userDto) throws Exception;
+    void updateUserPwd(UserDto userDto) throws NoSuchAlgorithmException;
+    ArrayList<UserDto> getAllUser();
+    UserDto searchUser(int userNo);
 }

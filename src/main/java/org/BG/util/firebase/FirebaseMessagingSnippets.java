@@ -20,11 +20,17 @@ public class FirebaseMessagingSnippets {
     //초기화
     public void initFirebase(HttpServletRequest request){
         try{
-            FileInputStream refreshToken = new FileInputStream(request.getSession().getServletContext().getRealPath("/")+"resources/firebase/testchatting-628bb-firebase-adminsdk-6g02q-cbb057057a.json");
+//            FileInputStream refreshToken = new FileInputStream(request.getSession().getServletContext().getRealPath("/")+"resources/firebase/testchatting-628bb-firebase-adminsdk-6g02q-cbb057057a.json");
+//            FirebaseOptions options = new FirebaseOptions.Builder()
+//                    .setCredentials(GoogleCredentials.fromStream(refreshToken))
+//                    .setDatabaseUrl("https://testchatting-628bb-default-rtdb.firebaseio.com")
+//                    .build();
+
+            FileInputStream refreshToken = new FileInputStream(request.getSession().getServletContext().getRealPath("/")+"resources/firebase/eatchange-e61d2-firebase-adminsdk-ct2ba-71fa74f196.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(refreshToken))
-                    .setDatabaseUrl("https://testchatting-628bb-default-rtdb.firebaseio.com")
                     .build();
+
             //Firebase 처음 호출시에만 initailizing 처리
             if(FirebaseApp.getApps().isEmpty())
                 FirebaseApp.initializeApp(options);
@@ -33,6 +39,7 @@ public class FirebaseMessagingSnippets {
             e.printStackTrace();
         }
     }
+
     public void test_sendAll_FCM(List<String> tokenId, String content, HttpServletRequest request){
         try{
             initFirebase(request);

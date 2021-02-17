@@ -27,7 +27,7 @@
     <select id="appRetrieveShopListVerStore" parameterType="HomeDto" resultType="HomeDto">
         select s.Store_No, s.Store_Img, u.User_ComNm, u.User_Addr, s.Store_Category, u.User_RegDate, s.Store_Desc, s.Store_MainMenu
         FROM user u, store s
-        WHERE u.User_No=${User_No} AND s.User_No=u.User_No AND s.Store_Category LIKE #{Ways} AND (u.User_ComNm LIKE #{Search} OR s.Store_MainMenu LIKE #{Search})
+        WHERE u.User_No=${User_No} AND u.User_State = 1 AND s.User_No=u.User_No AND s.Store_Category LIKE #{Ways} AND (u.User_ComNm LIKE #{Search} OR s.Store_MainMenu LIKE #{Search})
         AND EXISTS (select * from product p WHERE Product_Type=#{Category} AND s.Store_No=p.Store_No)
     </select>
 

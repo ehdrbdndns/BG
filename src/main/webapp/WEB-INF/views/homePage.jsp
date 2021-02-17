@@ -102,8 +102,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
                                         <c:forEach items="${userInfoList}" varStatus="i" var="item">
+                                        <tr>
                                             <td>${i.index + 1}</td>
                                             <td>${item.user_Email}</td>
                                             <td>${item.user_Name}</td>
@@ -117,8 +117,8 @@
                                                     이동
                                                 </div>
                                             </td>
+                                        </tr>
                                         </c:forEach>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

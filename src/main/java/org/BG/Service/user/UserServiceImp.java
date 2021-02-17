@@ -1,15 +1,19 @@
 package org.BG.Service.user;
 
 import org.BG.DAO.UserDao;
+import org.BG.DTO.StoreCountDto;
 import org.BG.DTO.UserDto;
 import org.BG.util.Aws_Cdn.Aws_Cdn_Service;
+import org.BG.util.Pwd.PwdToByte;
 import org.BG.util.geocoder.Geocoder;
+import org.BG.util.geocoder.GpsToAddress;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 @Service
@@ -54,12 +58,18 @@ public class UserServiceImp implements UserService {
             userDto.setUser_Lat(coords[0]);
             userDto.setUser_Lng(coords[1]);
 
+            UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
+            //사용자 주소 카운팅
+            //기존 주소
+            minusStoreCount(userInfo.getUser_Lat(), userInfo.getUser_Lng());
+            //새로운 주소
+            addStoreCount(userDto.getUser_Lat(), userDto.getUser_Lng());
+
             String store_Img;
             if (userDto.getStore_Img_File() != null) {
                 aws_cdn_service.FileDelete("user/" + userDto.getUser_No() + "/store/storeImg");
                 store_Img = aws_cdn_service.FileUpload("user/" + userDto.getUser_No() + "/store/storeImg/", userDto.getStore_Img_File());
             } else {
-                UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
                 store_Img = userInfo.getStore_Img();
             }
             userDto.setStore_Img(store_Img);
@@ -158,5 +168,164 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateVersion(String version) {
         userDao.updateVersion(version);
+    }
+
+    @Override
+    public StoreCountDto getStoreCount() {
+        return userDao.getStoreCount();
+    }
+
+    @Override
+    public String appDeleteUserInfo(UserDto userDto) throws Exception {
+        UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
+        PwdToByte pwdToByte = new PwdToByte();
+        userDto.setUser_PW(pwdToByte.encryptionSHA256(userDto.getUser_PW()));
+        if(userInfo.getUser_PW().equals(userDto.getUser_PW())){
+            System.out.println("회원탈퇴 : " + userDto.getUser_Name());
+            userDao.deleteUserInfo(userDto);
+            return "true";
+        } else{
+            System.out.println("회원탈퇴 실패 비밀번호 틀림");
+            return "false";
+        }
+    }
+
+    @Override
+    public String testDeleteUserInfo(UserDto userDto) throws Exception {
+        UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
+        PwdToByte pwdToByte = new PwdToByte();
+        userDto.setUser_PW(pwdToByte.encryptionSHA256(userDto.getUser_PW()));
+        if(userInfo.getUser_PW().equals(userDto.getUser_PW())){
+            System.out.println("회원탈퇴 : " + userDto.getUser_Name());
+            return "true";
+        } else{
+            System.out.println("회원탈퇴 실패 비밀번호 틀림");
+            return "false";
+        }
+    }
+
+    @Override
+    public void updateUserPwd(UserDto userDto) throws NoSuchAlgorithmException {
+        PwdToByte pwdToByte = new PwdToByte();
+        String pwd = pwdToByte.encryptionSHA256(userDto.getUser_PW());
+        System.out.println("기존 유저 번호: "+ userDto.getUser_No() + ", 이름: " + userDto.getUser_Name() + ", 기존 비밀번호: " + userDto.getUser_PW() + ", 변경된 비밀번호: " + pwd);
+        userDto.setUser_PW(pwd);
+        userDao.updateUserPwd(userDto);
+    }
+
+    @Override
+    public ArrayList<UserDto> getAllUser() {
+        return userDao.getAllUser();
+    }
+
+    @Override
+    public UserDto searchUser(int userNo) {
+        return userDao.searchUser(userNo);
+    }
+
+    public void addStoreCount(Double lat, Double lng){
+        try{
+            GpsToAddress gpsToAddress = new GpsToAddress(lat, lng);
+            String address = gpsToAddress.getAddress();
+
+            System.out.println("가입자 지역 카운트 주소: " + address);
+
+            String title = "none";
+            if(address.contains("서울")){
+                title = "Seoul";
+            } else if(address.contains("경기도")){
+                title = "Gyeonggi";
+            } else if(address.contains("강원도")){
+                title = "Gangwon";
+            } else if(address.contains("충청북도")){
+                title = "Chungcheongbuk";
+            }  else if(address.contains("충청남도")){
+                title = "Chungcheongnam";
+            } else if(address.contains("전라북도")){
+                title = "Jeollabuk";
+            } else if(address.contains("전라남도")){
+                title = "Jeollanam";
+            } else if(address.contains("경상북도")){
+                title = "Gyeongsangbuk";
+            } else if(address.contains("경상남도")){
+                title = "Gyeongsangnam";
+            } else if(address.contains("제주")){
+                title = "Jeju";
+            } else if(address.contains("부산")){
+                title = "Busan";
+            }else if(address.contains("대구")){
+                title = "Daegu";
+            }else if(address.contains("인천")){
+                title = "Incheon";
+            }else if(address.contains("광주")){
+                title = "Gwangju";
+            }else if(address.contains("대전")){
+                title = "Daejeon";
+            }else if(address.contains("울산")){
+                title = "Ulsan";
+            }else{
+                System.out.println("해당 지역이 없습니다 address: " + address);
+            }
+
+            if(!title.equals("none")){
+                userDao.addStoreCount(title);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("storeCount err");
+        }
+    }
+
+    public void minusStoreCount(Double lat, Double lng){
+        try{
+            GpsToAddress gpsToAddress = new GpsToAddress(lat, lng);
+            String address = gpsToAddress.getAddress();
+
+            System.out.println("가입자 지역 카운트 주소: " + address);
+
+            String title = "none";
+            if(address.contains("서울")){
+                title = "Seoul";
+            } else if(address.contains("경기도")){
+                title = "Gyeonggi";
+            } else if(address.contains("강원도")){
+                title = "Gangwon";
+            } else if(address.contains("충청북도")){
+                title = "Chungcheongbuk";
+            }  else if(address.contains("충청남도")){
+                title = "Chungcheongnam";
+            } else if(address.contains("전라북도")){
+                title = "Jeollabuk";
+            } else if(address.contains("전라남도")){
+                title = "Jeollanam";
+            } else if(address.contains("경상북도")){
+                title = "Gyeongsangbuk";
+            } else if(address.contains("경상남도")){
+                title = "Gyeongsangnam";
+            } else if(address.contains("제주")){
+                title = "Jeju";
+            } else if(address.contains("부산")){
+                title = "Busan";
+            }else if(address.contains("대구")){
+                title = "Daegu";
+            }else if(address.contains("인천")){
+                title = "Incheon";
+            }else if(address.contains("광주")){
+                title = "Gwangju";
+            }else if(address.contains("대전")){
+                title = "Daejeon";
+            }else if(address.contains("울산")){
+                title = "Ulsan";
+            }else{
+                System.out.println("해당 지역이 없습니다 address: " + address);
+            }
+
+            if(!title.equals("none")){
+                userDao.minusStoreCount(title);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("storeCount err");
+        }
     }
 }

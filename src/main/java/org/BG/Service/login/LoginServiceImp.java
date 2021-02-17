@@ -1,12 +1,15 @@
 package org.BG.Service.login;
 
 import org.BG.DAO.LoginDao;
+import org.BG.DAO.UserDao;
 import org.BG.DTO.AdminDto;
 import org.BG.DTO.RegisterDto;
 import org.BG.DTO.UserDto;
 import org.BG.util.Aws_Cdn.Aws_Cdn_Service;
+import org.BG.util.Pwd.PwdToByte;
 import org.BG.util.ScrapingTaxTypeFromNts;
 import org.BG.util.geocoder.Geocoder;
+import org.BG.util.geocoder.GpsToAddress;
 import org.BG.util.mail.Mail;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class LoginServiceImp implements LoginService {
     @Autowired
     LoginDao loginDao;
     @Autowired
+    UserDao userDao;
+    @Autowired
     Mail mail;
     @Autowired
     ScrapingTaxTypeFromNts scrapingTaxTypeFromNts;
@@ -34,6 +39,12 @@ public class LoginServiceImp implements LoginService {
     @Override
     public String appLogin(UserDto userDto) {
         try {
+            //사용자 비밀번호 암호화
+            PwdToByte pwdToByte = new PwdToByte();
+            String pwd = pwdToByte.encryptionSHA256(userDto.getUser_PW());
+            System.out.println("로그인 암호화 비밀번호: " + pwd);
+            userDto.setUser_PW(pwd);
+
             return loginDao.appLogin(userDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +63,7 @@ public class LoginServiceImp implements LoginService {
 
                 //인증코드 전송
                 //mail.mailSender(송신자의 아이디, 송신자의 비밀번호, 수신자 이메일, 메일 내용, 인증코드)
-                mail.MailSender("ehdrbdndns@naver.com", "100400sw@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
+                mail.MailSender("airlkh@naver.com", "19912096lkh!@)", registerDto.getRegister_Email(), "바꿔먹어 인증번호입니다.", registerDto.getRegister_Code());
 
                 //현재 날짜 셋팅
                 registerDto.setRegister_RegDate(getToday());
@@ -112,14 +123,25 @@ public class LoginServiceImp implements LoginService {
             userDto.setUser_Lat(coords[0]);
             userDto.setUser_Lng(coords[1]);
 
+            //사용자 주소 카운팅
+            addStoreCount(userDto.getUser_Lat(), userDto.getUser_Lng());
+
+            //사용자 비밀번호 암호화화
+            PwdToByte pwdToByte = new PwdToByte();
+            String pwd = pwdToByte.encryptionSHA256(userDto.getUser_PW());
+            System.out.println("가입자 암호화된 비밀번호: " + pwd);
+            userDto.setUser_PW(pwd);
+
             userDto.setUser_RegDate(getToday());
+
             //사용자 등록 후 key 반환
             String user_No = loginDao.appRegister(userDto);
             userDto.setUser_No(Integer.parseInt(user_No));
+
             //반환된 key를 사용해 고유 파일 경로를 만들고 사업자 등록증을 업로드
-            String user_ComImg = aws_cdn_service.FileUpload("user/"+user_No+"/comImg/", userDto.getUser_ComImg_File());
+//            String user_ComImg = aws_cdn_service.FileUpload("user/"+user_No+"/comImg/", userDto.getUser_ComImg_File());
             //사업자 등록증의 파일 경로를 db에 삽입입
-            userDto.setUser_ComImg(user_ComImg);
+            userDto.setUser_ComImg("default");
             return loginDao.appRegisterOfComImg(userDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -145,7 +167,7 @@ public class LoginServiceImp implements LoginService {
 
             //인증코드 전송
             //mail.mailSender(송신자의 아이디, 송신자의 비밀번호, 수신자 이메일, 메일 내용, 인증코드)
-            mail.MailSender("ehdrbdndns@naver.com", "100400sw@", registerDto.getRegister_Email(), "이메일 인증코드 테스트입니다.", registerDto.getRegister_Code());
+            mail.MailSender("airlkh@naver.com", "19912096lkh!@)", registerDto.getRegister_Email(), "바꿔먹어 인증번호입니다. ", registerDto.getRegister_Code());
 
             //현재 날짜 셋팅
             registerDto.setRegister_RegDate(getToday());
@@ -205,6 +227,59 @@ public class LoginServiceImp implements LoginService {
     @Override
     public int isExistComNo(UserDto userDto) {
         return loginDao.isExistComNo(userDto);
+    }
+
+    public void addStoreCount(Double lat, Double lng){
+        try{
+            GpsToAddress gpsToAddress = new GpsToAddress(lat, lng);
+            String address = gpsToAddress.getAddress();
+
+            System.out.println("가입자 지역 카운트 주소: " + address);
+
+            String title = "none";
+            if(address.contains("서울")){
+                title = "Seoul";
+            } else if(address.contains("경기도")){
+                title = "Gyeonggi";
+            } else if(address.contains("강원도")){
+                title = "Gangwon";
+            } else if(address.contains("충청북도")){
+                title = "Chungcheongbuk";
+            }  else if(address.contains("충청남도")){
+                title = "Chungcheongnam";
+            } else if(address.contains("전라북도")){
+                title = "Jeollabuk";
+            } else if(address.contains("전라남도")){
+                title = "Jeollanam";
+            } else if(address.contains("경상북도")){
+                title = "Gyeongsangbuk";
+            } else if(address.contains("경상남도")){
+                title = "Gyeongsangnam";
+            } else if(address.contains("제주")){
+                title = "Jeju";
+            } else if(address.contains("부산")){
+                title = "Busan";
+            }else if(address.contains("대구")){
+                title = "Daegu";
+            }else if(address.contains("인천")){
+                title = "Incheon";
+            }else if(address.contains("광주")){
+                title = "Gwangju";
+            }else if(address.contains("대전")){
+                title = "Daejeon";
+            }else if(address.contains("울산")){
+                title = "Ulsan";
+            }else{
+                System.out.println("해당 지역이 없습니다 address: " + address);
+            }
+
+            if(!title.equals("none")){
+                userDao.addStoreCount(title);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("storeCount err");
+        }
     }
 
     public String makeEmailCode() {

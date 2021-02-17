@@ -1,6 +1,7 @@
 package org.BG.Controller;
 
 import org.BG.DTO.ProposalDto;
+import org.BG.DTO.StoreCountDto;
 import org.BG.DTO.StoreDto;
 import org.BG.Service.advertise.AdvertiseService;
 import org.BG.Service.home.HomeService;
@@ -53,8 +54,8 @@ public class AnalyticsController {
         model.addAttribute("advertiseInfo", advertiseInfo);
 
         //지역 별 입점 수
-        JSONObject areaCount = userService.getUserAreaCount();
-        model.addAttribute("areaCount" ,areaCount);
+        StoreCountDto storeCountDto = userService.getStoreCount();
+        model.addAttribute("areaCount", storeCountDto);
 
         return "analytics/analyticsPage";
     }

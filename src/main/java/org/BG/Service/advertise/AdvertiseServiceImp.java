@@ -28,23 +28,23 @@ public class AdvertiseServiceImp implements AdvertiseService {
 
     @Override
     public void uploadAdvertiseV3(AdvertiseV3Dto advertiseV3Dto) {
-        try{
+        try {
             advertiseV3Dto.setAd_MainURL(aws_cdn_service.FileUpload("advertise/admin/", advertiseV3Dto.getAd_MainFile()));
             advertiseV3Dto.setAd_SubURL(aws_cdn_service.FileUpload("advertise/admin/", advertiseV3Dto.getAd_SubFile()));
             advertiseDao.uploadAdvertiseV3(advertiseV3Dto);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void deleteAdvertiseV3(AdvertiseV3Dto advertiseV3Dto) {
-        try{
+        try {
             AdvertiseV3Dto deleteAdvertiseInfo = advertiseDao.retrieveAdvertiseV3(advertiseV3Dto);
             aws_cdn_service.FileDelete(deleteAdvertiseInfo.getAd_MainURL());
             aws_cdn_service.FileDelete(deleteAdvertiseInfo.getAd_SubURL());
             advertiseDao.deleteAdvertiseV3(advertiseV3Dto);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -322,95 +322,143 @@ public class AdvertiseServiceImp implements AdvertiseService {
         try {
             ArrayList<AdvertiseDto> chatDto = new ArrayList<>();
             chatDto = advertiseDao.appGetAdvertiseOfChat();
-            JSONArray chatItem = new JSONArray();
-            for (int i = 0; i < chatDto.size(); i++) {
-                chatItem.add(chatDto.get(i).getAd_ChatList());
+            if (chatDto.isEmpty()) {
+                result.put("chat", "default");
+            } else {
+                JSONArray chatItem = new JSONArray();
+                for (int i = 0; i < chatDto.size(); i++) {
+                    chatItem.add(chatDto.get(i).getAd_ChatList());
+                }
+                result.put("chat", chatItem);
             }
-            result.put("chat", chatItem);
 
             ArrayList<AdvertiseDto> chatRoomDto = new ArrayList<>();
             chatRoomDto = advertiseDao.appGetAdvertiseOfChatRoom();
-            JSONArray chatRoomItem = new JSONArray();
-            for (int i = 0; i < chatRoomDto.size(); i++) {
-                chatRoomItem.add(chatRoomDto.get(i).getAd_ChatRoom());
+            if (chatRoomDto.isEmpty()) {
+                result.put("chatRoom", "default");
+            } else {
+                JSONArray chatRoomItem = new JSONArray();
+                for (int i = 0; i < chatRoomDto.size(); i++) {
+                    chatRoomItem.add(chatRoomDto.get(i).getAd_ChatRoom());
+                }
+                result.put("chatRoom", chatRoomItem);
             }
-            result.put("chatRoom", chatRoomItem);
 
             ArrayList<AdvertiseDto> mainBannerDto = new ArrayList<>();
             mainBannerDto = advertiseDao.appGetAdvertiseOfMainBanner();
-            JSONArray mainBannerItem = new JSONArray();
-            for (int i = 0; i < mainBannerDto.size(); i++) {
-                mainBannerItem.add(mainBannerDto.get(i).getAd_MainBanner());
+            if (mainBannerDto.isEmpty()) {
+                result.put("mainBanner", "default");
+            } else {
+                JSONArray mainBannerItem = new JSONArray();
+                for (int i = 0; i < mainBannerDto.size(); i++) {
+                    mainBannerItem.add(mainBannerDto.get(i).getAd_MainBanner());
+                }
+                result.put("mainBanner", mainBannerItem);
             }
-            result.put("mainBanner", mainBannerItem);
 
             ArrayList<AdvertiseDto> mainTop = new ArrayList<>();
             mainTop = advertiseDao.appGetAdvertiseOfMainTop();
-            JSONArray mainTopItem = new JSONArray();
-            for (int i = 0; i < mainTop.size(); i++) {
-                mainTopItem.add(mainTop.get(i).getAd_MainTop());
+            if (mainTop.isEmpty()) {
+                result.put("mainTop", "default");
+            } else {
+                JSONArray mainTopItem = new JSONArray();
+                for (int i = 0; i < mainTop.size(); i++) {
+                    mainTopItem.add(mainTop.get(i).getAd_MainTop());
+                }
+                result.put("mainTop", mainTopItem);
             }
-            result.put("mainTop", mainTopItem);
 
             ArrayList<AdvertiseDto> mainBottom = new ArrayList<>();
             mainBottom = advertiseDao.appGetAdvertiseOfMainBottom();
-            JSONArray mainBottomItem = new JSONArray();
-            for (int i = 0; i < mainBottom.size(); i++) {
-                mainBottomItem.add(mainBottom.get(i).getAd_MainBottom());
+            if (mainBottom.isEmpty()) {
+                result.put("mainBottom", "default");
+            } else {
+                JSONArray mainBottomItem = new JSONArray();
+                for (int i = 0; i < mainBottom.size(); i++) {
+                    mainBottomItem.add(mainBottom.get(i).getAd_MainBottom());
+                }
+                result.put("mainBottom", mainBottomItem);
             }
-            result.put("mainBottom", mainBottomItem);
 
             ArrayList<AdvertiseDto> changeEat = new ArrayList<>();
             changeEat = advertiseDao.appGetAdvertiseOfChangeEat();
-            JSONArray changeEatItem = new JSONArray();
-            for (int i = 0; i < changeEat.size(); i++) {
-                changeEatItem.add(changeEat.get(i).getAd_Change());
+            if (changeEat.isEmpty()) {
+                result.put("changeEat", "default");
+            } else {
+                JSONArray changeEatItem = new JSONArray();
+                for (int i = 0; i < changeEat.size(); i++) {
+                    changeEatItem.add(changeEat.get(i).getAd_Change());
+                }
+                result.put("changeEat", changeEatItem);
             }
-            result.put("changeEat", changeEatItem);
 
             ArrayList<AdvertiseDto> orderEat = new ArrayList<>();
             orderEat = advertiseDao.appGetAdvertiseOfOrderEat();
-            JSONArray orderEatItem = new JSONArray();
-            for (int i = 0; i < orderEat.size(); i++) {
-                orderEatItem.add(orderEat.get(i).getAd_Request());
+            if (orderEat.isEmpty()) {
+                result.put("orderEat", "default");
+            } else {
+
+                JSONArray orderEatItem = new JSONArray();
+                for (int i = 0; i < orderEat.size(); i++) {
+                    orderEatItem.add(orderEat.get(i).getAd_Request());
+                }
+                result.put("orderEat", orderEatItem);
             }
-            result.put("orderEat", orderEatItem);
 
             ArrayList<AdvertiseDto> shop = new ArrayList<>();
             shop = advertiseDao.appGetAdvertiseOfShop();
-            JSONArray shopItem = new JSONArray();
-            for (int i = 0; i < shop.size(); i++) {
-                shopItem.add(shop.get(i).getAd_Shopin());
+            if (shop.isEmpty()) {
+                result.put("shop", "default");
+            } else {
+
+                JSONArray shopItem = new JSONArray();
+                for (int i = 0; i < shop.size(); i++) {
+                    shopItem.add(shop.get(i).getAd_Shopin());
+                }
+                result.put("shop", shopItem);
             }
-            result.put("shop", shopItem);
 
             ArrayList<AdvertiseDto> detail = new ArrayList<>();
             detail = advertiseDao.appGetAdvertiseOfDetail();
-            JSONArray detailItem = new JSONArray();
-            for (int i = 0; i < detail.size(); i++) {
-                detailItem.add(detail.get(i).getAd_Details());
+            if (detail.isEmpty()) {
+                result.put("detail", "default");
+            } else {
+
+                JSONArray detailItem = new JSONArray();
+                for (int i = 0; i < detail.size(); i++) {
+                    detailItem.add(detail.get(i).getAd_Details());
+                }
+                result.put("detail", detailItem);
             }
-            result.put("detail", detailItem);
 
             ArrayList<AdvertiseDto> review = new ArrayList<>();
             review = advertiseDao.appGetAdvertiseOfReview();
-            JSONArray reviewItem = new JSONArray();
-            for (int i = 0; i < review.size(); i++) {
-                JSONObject object = (JSONObject) jsonParser.parse(review.get(i).getAd_Reviews());
-                object.put("no", review.get(i).getAd_No());
-                reviewItem.add(object);
+            if (review.isEmpty()) {
+                result.put("no", "default");
+            } else {
+                JSONArray reviewItem = new JSONArray();
+                for (int i = 0; i < review.size(); i++) {
+                    JSONObject object = (JSONObject) jsonParser.parse(review.get(i).getAd_Reviews());
+                    object.put("no", review.get(i).getAd_No());
+                    reviewItem.add(object);
+                }
+                result.put("review", reviewItem);
             }
-            result.put("review", reviewItem);
 
             ArrayList<AdvertiseDto> community = new ArrayList<>();
             community = advertiseDao.appGetAdvertiseOfCommunity();
-            JSONArray communityItem = new JSONArray();
-            for (int i = 0; i < community.size(); i++) {
-                JSONObject object = (JSONObject) jsonParser.parse(community.get(i).getAd_Community());
-                object.put("no", community.get(i).getAd_No());
-                communityItem.add(object);
+            if (community.isEmpty()) {
+                result.put("community", "default");
+            } else {
+
+                JSONArray communityItem = new JSONArray();
+                for (int i = 0; i < community.size(); i++) {
+                    JSONObject object = (JSONObject) jsonParser.parse(community.get(i).getAd_Community());
+                    object.put("no", community.get(i).getAd_No());
+                    communityItem.add(object);
+                }
+                result.put("community", communityItem);
             }
-            result.put("community", communityItem);
 
             return result;
         } catch (Exception e) {

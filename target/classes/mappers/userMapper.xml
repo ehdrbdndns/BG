@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.BG.Mapper.UserMapper">
+    <update id="addStoreCount">
+        update storeCount set ${title} = ${title} + 1 where scNo=1
+    </update>
+    <update id="minusStoreCount">
+        update storeCount set ${title} = ${title} - 1  where scNo=1
+    </update>
     <select id="appRetrieveUserInfo" parameterType="UserDto" resultType="UserDto">
         select Store_Img, u.User_ComNm, u.User_Addr, u.User_Phone, u.User_Name, u.User_Details
         from user u, store s
@@ -28,10 +34,10 @@
         select * from user where User_No=${User_No}
     </select>
     <select id="RetrieveUserFcm" resultType="String">
-        select User_Fcm from user where User_No=${user_No}
+        select User_Fcm from user where User_No=${user_No} AND User_Alarm1 = 'on'
     </select>
     <select id="getUserFcm" resultType="String">
-        select User_Fcm from user where User_Alarm1='on'
+        select User_Fcm from user where User_Alarm1='on' AND User_Fcm IS NOT NULL
     </select>
     <select id="getUserAreaCount" resultType="int">
         select count(User_No) from user where User_Addr LIKE #{area}
@@ -54,4 +60,21 @@
     <update id="updateVersion">
         update version set version=#{version}
     </update>
+    <select id="getStoreCount" resultType="StoreCountDto">
+        select * from storeCount
+    </select>
+    <delete id="deleteUserInfo">
+        delete from user where User_No=${User_No}
+    </delete>
+
+    <!--테스트-->
+    <update id="updateUserPwd">
+        update user set User_PW=#{User_PW} where User_No=${User_No}
+    </update>
+    <select id="getAllUser" resultType="UserDto">
+        select * from user
+    </select>
+    <select id="searchUser" resultType="UserDto">
+        select * from user where User_No=${userNo}
+    </select>
 </mapper>
