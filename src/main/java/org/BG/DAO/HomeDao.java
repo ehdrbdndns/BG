@@ -26,6 +26,16 @@ public class HomeDao {
         }
     }
 
+    public ArrayList<HomeDto> appRetrieveSISInfoOfLatitude(HomeDto homeDto) {
+        try {
+            HomeMapper homeMapper = sqlSession.getMapper(HomeMapper.class);
+            return homeMapper.appRetrieveSISInfoOfLatitude(homeDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public HomeDto appRetrieveShopListVerStore(HomeDto homeDto) {
         try {
             HomeMapper homeMapper = sqlSession.getMapper(HomeMapper.class);

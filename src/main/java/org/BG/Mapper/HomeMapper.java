@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public interface HomeMapper {
     ArrayList<HomeDto> appRetrieveStoreInfoOfLatitude(HomeDto homeDto);
+    ArrayList<HomeDto> appRetrieveSISInfoOfLatitude(HomeDto homeDto);
     HomeDto appRetrieveShopListVerStore(HomeDto homeDto);
     HomeDto appRetrieveShopListVerSIS(HomeDto homeDto);
     Integer getTodayVisitorCount(String date);

@@ -31,7 +31,7 @@ public class HomeServiceImp implements HomeService {
     ReplyDao replyDao;
 
     @Override
-    public JSONArray appRetrieveShopList(HomeDto homeDto){
+    public JSONArray appRetrieveShopList(HomeDto homeDto) {
         JSONArray result = new JSONArray();
         try {
             //리스트 index 변경
@@ -39,7 +39,7 @@ public class HomeServiceImp implements HomeService {
 
             //위도 경도 값 추출
             Double[] coords = geocoder.getLatitude(homeDto.getLocation());
-            if(coords == null){
+            if (coords == null) {
                 JSONArray err = new JSONArray();
                 err.add("geocoder_Err");
                 return err;
@@ -66,64 +66,29 @@ public class HomeServiceImp implements HomeService {
 
             System.out.println("FirstIndex: " + homeDto.getFirstIndex());
             System.out.println("LastIndex: " + homeDto.getLastIndex());
-            ArrayList<HomeDto> homeDtoArrayList = homeDao.appRetrieveStoreInfoOfLatitude(homeDto);
+            ArrayList<HomeDto> homeDtoArrayList = new ArrayList<>();
+            if(homeDto.getCategory().equals("shopin")){
+                homeDtoArrayList = homeDao.appRetrieveSISInfoOfLatitude(homeDto);
+            } else{
+                homeDtoArrayList = homeDao.appRetrieveStoreInfoOfLatitude(homeDto);
+            }
             System.out.println("size: " + homeDtoArrayList.size());
 
             result.add(homeDto.getLastIndex());
-            if (homeDto.getCategory().equals("change") || homeDto.getCategory().equals("call")) {
-                //바꿔머거
-                for (int i = 0; i < homeDtoArrayList.size(); i++) {
-                    JSONObject item = new JSONObject();
+            for (int i = 0; i < homeDtoArrayList.size(); i++) {
+                JSONObject item = new JSONObject();
 
-                    homeDto.setUser_No(homeDtoArrayList.get(i).getUser_No());
+                item.put("key", homeDtoArrayList.get(i).getStore_No());
+                item.put("img", homeDtoArrayList.get(i).getStore_Img());
+                item.put("name", homeDtoArrayList.get(i).getUser_ComNm());
+                item.put("distance", homeDtoArrayList.get(i).getDistance());
+                item.put("address", homeDtoArrayList.get(i).getUser_Addr());
+                item.put("foodCategory", homeDtoArrayList.get(i).getStore_Category());
+                item.put("regDate", homeDtoArrayList.get(i).getUser_RegDate());
+                item.put("foodName", homeDtoArrayList.get(i).getStore_Desc());
+                item.put("mainMenu", homeDtoArrayList.get(i).getStore_MainMenu());
 
-                    HomeDto homeItem = new HomeDto();
-                    homeItem = homeDao.appRetrieveShopListVerStore(homeDto);
-
-                    if (homeItem != null) {
-                        homeItem.setDistance(homeDtoArrayList.get(i).getDistance());
-                        item.put("key", homeItem.getStore_No());
-                        item.put("img", homeItem.getStore_Img());
-                        item.put("name", homeItem.getUser_ComNm());
-                        item.put("distance", homeItem.getDistance());
-                        item.put("address", homeItem.getUser_Addr());
-                        item.put("foodCategory", homeItem.getStore_Category());
-                        item.put("regDate", homeItem.getUser_RegDate());
-                        item.put("foodName", homeItem.getStore_Desc());
-                        item.put("mainMenu", homeItem.getStore_MainMenu());
-
-                        result.add(item);
-                    }
-                }
-            } else if (homeDto.getCategory().equals("shopin")) {
-                //샵인 샵
-                for (int i = 0; i < homeDtoArrayList.size(); i++) {
-                    JSONObject item = new JSONObject();
-
-                    homeDto.setUser_No(homeDtoArrayList.get(i).getUser_No());
-
-                    HomeDto homeItem = new HomeDto();
-
-                    homeItem = homeDao.appRetrieveShopListVerSIS(homeDto);
-
-                    if (homeItem != null) {
-                        homeItem.setDistance(homeDtoArrayList.get(i).getDistance());
-                        item.put("key", homeItem.getStore_No());
-                        item.put("img", homeItem.getShopin_Img());
-                        item.put("name", homeItem.getShopin_Name());
-                        item.put("distance", homeItem.getDistance());
-                        item.put("address", homeItem.getUser_Addr());
-                        item.put("foodCategory", homeItem.getShopin_Category());
-                        item.put("regDate", homeItem.getUser_RegDate());
-                        item.put("foodName", homeItem.getStore_Desc());
-                        item.put("mainMenu", homeItem.getStore_MainMenu());
-
-                        result.add(item);
-                    }
-                }
-            } else {
-                System.out.println("appRetrieveShopList err category: " + homeDto.getCategory());
-                return null;
+                result.add(item);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,7 +132,7 @@ public class HomeServiceImp implements HomeService {
             JSONArray reply = new JSONArray();
 
             reply.add(homeDto.getUser_No());
-            for(int i = 0; i<replyDtos.size(); i++){
+            for (int i = 0; i < replyDtos.size(); i++) {
                 replyDto.setReviews_No(replyDtos.get(i).getReviews_No());
                 ReplyDto reply_reply = replyDao.appRetrieveReviewsOfReviews(replyDto);
                 JSONObject item = new JSONObject();
@@ -176,12 +141,12 @@ public class HomeServiceImp implements HomeService {
                 item.put("regDate", replyDtos.get(i).getReviews_RegDate());
                 item.put("userName", replyDtos.get(i).getUser_Name());
                 item.put("userImg", replyDtos.get(i).getStore_Img());
-                if(reply_reply != null){
+                if (reply_reply != null) {
                     item.put("reply_userName", reply_reply.getRR_UserName());
                     item.put("reply_userImg", reply_reply.getRR_StoreImg());
                     item.put("reply_content", reply_reply.getRR_Comments());
                     item.put("reply_regDate", reply_reply.getRR_RegDate());
-                } else{
+                } else {
                     item.put("reply_userName", null);
                     item.put("reply_userImg", null);
                     item.put("reply_content", null);
@@ -254,10 +219,10 @@ public class HomeServiceImp implements HomeService {
 
     @Override
     public ArrayList<UserDto> getNewUserInfoList() {
-        try{
+        try {
             String date = getToday();
             return homeDao.getNewUserInfoList(date);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -265,26 +230,26 @@ public class HomeServiceImp implements HomeService {
 
     @Override
     public String appClickLikeBtn(LikeDto likeDto) {
-        try{
-            if (likeDto.getLike_Type().equals("community")){
+        try {
+            if (likeDto.getLike_Type().equals("community")) {
                 likeDto.setCommunity_No(likeDto.getBoard_No());
                 likeDto.setStore_No(0);
-                if(!homeDao.appIsClickLikeOfCommunity(likeDto)){
+                if (!homeDao.appIsClickLikeOfCommunity(likeDto)) {
                     //좋아요 버튼을 누르지 않은 경우
                     homeDao.appPlusLikeOfCommunity(likeDto);
                     return homeDao.appInsertLikeOfCommunity(likeDto);
-                } else{
+                } else {
                     //좋아요 버튼을 눌렀을 경우
                     return homeDao.appMinusLikeOfCommunity(likeDto);
                 }
-            } else if(likeDto.getLike_Type().equals("store")){
+            } else if (likeDto.getLike_Type().equals("store")) {
                 likeDto.setStore_No(likeDto.getBoard_No());
                 likeDto.setCommunity_No(0);
-                if(!homeDao.appIsClickLikeOfStore(likeDto)){
+                if (!homeDao.appIsClickLikeOfStore(likeDto)) {
                     //좋아요 버튼을 누르지 않은 경우
                     homeDao.appPlusLikeOfStore(likeDto);
                     return homeDao.appInsertLikeOfStore(likeDto);
-                } else{
+                } else {
                     //좋아요 버튼을 눌렀을 경우
                     return homeDao.appMinusLikeOfStore(likeDto);
                 }
@@ -292,7 +257,7 @@ public class HomeServiceImp implements HomeService {
                 System.out.println("appClickLikeBtn Category x: " + likeDto.getLike_Type());
                 return null;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -300,36 +265,36 @@ public class HomeServiceImp implements HomeService {
 
     @Override
     public String appIsClickLike(LikeDto likeDto) {
-        try{
-            if (likeDto.getLike_Type().equals("community")){
+        try {
+            if (likeDto.getLike_Type().equals("community")) {
                 likeDto.setCommunity_No(likeDto.getBoard_No());
                 System.out.println("Community_No: " + likeDto.getCommunity_No());
                 System.out.println("User_No: " + likeDto.getUser_No());
-                if(homeDao.appIsClickLikeOfCommunity(likeDto)){
+                if (homeDao.appIsClickLikeOfCommunity(likeDto)) {
                     System.out.println("gg");
                     return "true";
-                } else{
+                } else {
                     System.out.println("ll");
                     return "false";
                 }
-            } else if(likeDto.getLike_Type().equals("store")){
+            } else if (likeDto.getLike_Type().equals("store")) {
                 likeDto.setStore_No(likeDto.getBoard_No());
-                if(homeDao.appIsClickLikeOfStore(likeDto)){
+                if (homeDao.appIsClickLikeOfStore(likeDto)) {
                     return "true";
-                } else{
+                } else {
                     return "false";
                 }
             } else {
                 System.out.println("appClickLikeBtn Category x: " + likeDto.getLike_Type());
                 return null;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public String getToday(){
+    public String getToday() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(cal.getTime());
@@ -412,7 +377,7 @@ public class HomeServiceImp implements HomeService {
         for (int i = 0; i < 11; i++) {
             try {
                 cal.setTime(new Date());
-                cal.add(Calendar.MONTH, dateCount*i);
+                cal.add(Calendar.MONTH, dateCount * i);
                 String endDate = df.format(cal.getTime());
                 cal.add(Calendar.MONTH, dateCount);
                 String startDate = df.format(cal.getTime());

@@ -36,7 +36,7 @@
         </selectKey>
     </insert>
     <insert id="appRegisterOfStore">
-        insert into store(User_No, Store_Img, Store_Likes) VALUES (${User_No}, '', 0)
+        insert into store(User_No, Store_Img, Store_Likes, Store_MainMenu, Store_Desc, Store_Ways) VALUES (${User_No}, '', 0, '미등록', '미등록', 'consult')
     </insert>
     <update id="appRegisterOfComImg" parameterType="UserDto">
         update user set User_ComImg=#{User_ComImg} where User_No=${User_No}

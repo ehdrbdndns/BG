@@ -6,7 +6,7 @@
 <mapper namespace="org.BG.Mapper.HomeMapper">
     <select id="appRetrieveStoreInfoOfLatitude" parameterType="HomeDto" resultType="HomeDto">
         <![CDATA[
-        SELECT User_No,
+        SELECT u.User_No, s.Store_No, s.Store_Img, u.User_ComNm, u.User_Addr, s.Store_Category, u.User_RegDate, s.Store_Desc, s.Store_MainMenu,
 
         (6371*acos(cos(radians(${Lat}))*cos(radians(User_Lat))*cos(radians(User_Lng)
 
@@ -14,7 +14,33 @@
 
         AS distance
 
-        FROM user
+        FROM user u, store s
+
+        WHERE  u.User_State = 1 AND s.User_No=u.User_No AND s.Store_Category LIKE #{Ways} AND (u.User_ComNm LIKE #{Search} OR s.Store_MainMenu LIKE #{Search})
+         AND EXISTS (select * from product p WHERE Product_Type=#{Category} AND s.Store_No=p.Store_No)
+
+        HAVING distance <= ${Location_Range}
+
+        ORDER BY distance, User_No
+
+        LIMIT ${FirstIndex}, 10
+        ]]>
+    </select>
+
+    <select id="appRetrieveSISInfoOfLatitude" parameterType="HomeDto" resultType="HomeDto">
+        <![CDATA[
+        SELECT u.User_No, sp.Shopin_No, sp.Shopin_Img, sp.Shopin_Name, u.User_Addr, sp.Shopin_Category, u.User_RegDate, st.Store_Desc, st.Store_No, sp.Shopin_MainMenu,
+
+        (6371*acos(cos(radians(${Lat}))*cos(radians(User_Lat))*cos(radians(User_Lng)
+
+        -radians(${Lng}))+sin(radians(${Lat}))*sin(radians(User_Lat))))
+
+        AS distance
+
+        FROM user u, store st, shopin sp
+
+        WHERE st.User_No=u.User_No AND st.Store_No=sp.Store_No AND Shopin_Category LIKE #{Ways}
+        AND (sp.Shopin_Name LIKE #{Search} OR sp.Shopin_MainMenu LIKE #{Search})
 
         HAVING distance <= ${Location_Range}
 
