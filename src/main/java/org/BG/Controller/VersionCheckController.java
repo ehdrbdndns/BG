@@ -21,13 +21,15 @@ public class VersionCheckController {
             /* 현재 앱 버전 */
             String version = userService.appCheckVersion();
             System.out.println("나의 버전: " + version);
-            if(version.equals(userVersion) || userVersion.equals("0.0.1")){
-                System.out.println("버전 성공");
-                return "true";
-            } else{
-                System.out.println("버전 실패");
-                return "false";
-            }
+//            if(version.equals(userVersion) || userVersion.equals("0.0.1")){
+//                System.out.println("버전 성공");
+//                return "true";
+//            } else{
+//                System.out.println("버전 실패");
+//                return "false";
+//            }
+            System.out.println("not user versionCheck");
+            return "true";
         } catch (Exception e){
             e.printStackTrace();
             System.out.println("버전 에러");

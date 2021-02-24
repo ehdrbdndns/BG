@@ -14,9 +14,14 @@
 </head>
 <body>
 <h2>잘 나오는 것이여</h2>
+<h3>testDocument</h3>
+<form action="/testDocument">
+    <input type="number" name="userNo" placeholder="userNo">
+    <button>제출</button>
+</form>
 <h3>지역 지점수 카운트</h3>
 <form action="/countAllStore">
-    <button>제출</button>
+<%--    <button>제출</button>--%>
 </form>
 <h3>유저 회원가입</h3>
 <form action="/appRegister.app">
@@ -31,11 +36,11 @@
 </form>
 <h3>유저 번호 190번 비밀번호 암호화</h3>
 <form action="/changePwd">
-    <button>제출</button>
+<%--    <button>제출</button>--%>
 </form>
 <h3>모든 사용자 비밀번호 암호화</h3>
 <form action="/changeAllPwd">
-    <button>제출</button>
+<%--    <button>제출</button>--%>
 </form>
 <h3>암호화 비밀번호</h3>
 <form action="/pwdToByte">

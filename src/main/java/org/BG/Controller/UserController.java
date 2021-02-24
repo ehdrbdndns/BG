@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Controller
@@ -19,10 +20,10 @@ public class UserController {
     //회원 탈퇴
     @ResponseBody
     @RequestMapping(value = "/appDeleteUserInfo.app")
-    public String appDeleteUserInfo(@ModelAttribute UserDto userDto){
+    public String appDeleteUserInfo(@ModelAttribute UserDto userDto, HttpServletRequest request){
         try{
             System.out.println("appDeleteUserInfo run");
-            return userService.appDeleteUserInfo(userDto);
+            return userService.appDeleteUserInfo(userDto, request);
         } catch (Exception e){
             e.printStackTrace();
             return "err";
@@ -32,10 +33,10 @@ public class UserController {
     //회원 탈퇴
     @ResponseBody
     @RequestMapping(value = "/appTestDeleteUserInfo.app")
-    public String appTestDeleteUserInfo(@ModelAttribute UserDto userDto){
+    public String appTestDeleteUserInfo(@ModelAttribute UserDto userDto, HttpServletRequest request){
         try{
             System.out.println("appTestDeleteUserInfo run");
-            return userService.testDeleteUserInfo(userDto);
+            return userService.testDeleteUserInfo(userDto, request);
         } catch (Exception e){
             e.printStackTrace();
             return "err";

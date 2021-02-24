@@ -11,7 +11,7 @@
         update storeCount set ${title} = ${title} - 1  where scNo=1
     </update>
     <select id="appRetrieveUserInfo" parameterType="UserDto" resultType="UserDto">
-        select Store_Img, u.User_ComNm, u.User_Addr, u.User_Phone, u.User_Name, u.User_Details
+        select Store_Img, u.User_ComNm, u.User_Addr, u.User_Phone, u.User_Name, u.User_Details, u.User_PW
         from user u, store s
         where u.User_No=${User_No} AND s.User_No = u.User_No
     </select>

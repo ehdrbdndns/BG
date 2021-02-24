@@ -27,6 +27,7 @@
             <mvc:mapping path="/*.do"/>
             <mvc:mapping path="/changeUserInfo.ajax"/>
             <mvc:exclude-mapping path="/adminLogin.do"/>
+            <mvc:exclude-mapping path="/policy.do"/>
             <mvc:exclude-mapping path="/login.do"/>
             <mvc:exclude-mapping path="/*.app"/>
             <mvc:exclude-mapping path="/testSendNotification.do"/>

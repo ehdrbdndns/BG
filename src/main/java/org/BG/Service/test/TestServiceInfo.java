@@ -1,9 +1,16 @@
 package org.BG.Service.test;
 
+import org.BG.util.firebase.FirebaseStoreDelete;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class TestServiceInfo implements TestService {
+
+    @Autowired
+    FirebaseStoreDelete firebaseStoreDelete;
 
     //사업자 등록 번호 유효성 체크
     private final static int[] LOGIC_NUM = {1, 3, 7, 1, 3, 7, 1, 3, 5, 1};
@@ -14,6 +21,11 @@ public class TestServiceInfo implements TestService {
         boolean result = isValid(licenseNumber);
         System.out.println("유효성 검사 : " + result);
         return result;
+    }
+
+    @Override
+    public void testDocutment(HttpServletRequest req, int userNo) throws Exception {
+        firebaseStoreDelete.deleteFireStore(req, userNo);
     }
 
     public boolean isValid(String regNum) {

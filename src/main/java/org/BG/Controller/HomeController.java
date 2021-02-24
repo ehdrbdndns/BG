@@ -33,6 +33,11 @@ public class HomeController {
     @Autowired
     Geocoder geocoder;
 
+    @GetMapping("/policy.do")
+    public String policy(){
+        return "policy";
+    }
+
     @GetMapping("/")
     public String main() {
         return "redirect:/homePage.do";

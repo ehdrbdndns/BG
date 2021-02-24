@@ -5,6 +5,7 @@ import org.BG.DTO.StoreCountDto;
 import org.BG.DTO.UserDto;
 import org.BG.util.Aws_Cdn.Aws_Cdn_Service;
 import org.BG.util.Pwd.PwdToByte;
+import org.BG.util.firebase.FirebaseStoreDelete;
 import org.BG.util.geocoder.Geocoder;
 import org.BG.util.geocoder.GpsToAddress;
 import org.json.simple.JSONArray;
@@ -12,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ public class UserServiceImp implements UserService {
     Aws_Cdn_Service aws_cdn_service;
     @Autowired
     Geocoder geocoder;
+    @Autowired
+    FirebaseStoreDelete firebaseStoreDelete;
 
     @Override
     public JSONObject appRetrieveUserInfo(UserDto userDto) {
@@ -176,12 +180,20 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public String appDeleteUserInfo(UserDto userDto) throws Exception {
+    public String appDeleteUserInfo(UserDto userDto, HttpServletRequest request) throws Exception {
         UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
         PwdToByte pwdToByte = new PwdToByte();
         userDto.setUser_PW(pwdToByte.encryptionSHA256(userDto.getUser_PW()));
+
+        System.out.println("UserNo: " + userDto.getUser_No());
+        System.out.println("UserPw:" + userDto.getUser_PW());
+        System.out.println("myUserPw: " + userInfo.getUser_PW());
+
         if(userInfo.getUser_PW().equals(userDto.getUser_PW())){
             System.out.println("회원탈퇴 : " + userDto.getUser_Name());
+            //firebase에서 Chat 삭제
+            firebaseStoreDelete.deleteFireStore(request, userDto.getUser_No());
+            //db에서 정보 삭제
             userDao.deleteUserInfo(userDto);
             return "true";
         } else{
@@ -191,12 +203,19 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public String testDeleteUserInfo(UserDto userDto) throws Exception {
+    public String testDeleteUserInfo(UserDto userDto, HttpServletRequest request) throws Exception {
         UserDto userInfo = userDao.appRetrieveUserInfo(userDto);
         PwdToByte pwdToByte = new PwdToByte();
         userDto.setUser_PW(pwdToByte.encryptionSHA256(userDto.getUser_PW()));
+
+        System.out.println("UserNo: " + userDto.getUser_No());
+        System.out.println("UserPw:" + userDto.getUser_PW());
+        System.out.println("myUserPw: " + userInfo.getUser_PW());
+
         if(userInfo.getUser_PW().equals(userDto.getUser_PW())){
             System.out.println("회원탈퇴 : " + userDto.getUser_Name());
+            //firebase에서 Chat 삭제
+            firebaseStoreDelete.deleteFireStore(request, userDto.getUser_No());
             return "true";
         } else{
             System.out.println("회원탈퇴 실패 비밀번호 틀림");

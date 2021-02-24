@@ -40,6 +40,18 @@ public class TestController {
 //    CGPlacesAPI cgPlacesAPI;
 
     @ResponseBody
+    @RequestMapping(value = "testDocument")
+    public String testDocument(HttpServletRequest req, @RequestParam("userNo") int userNo){
+        try{
+            testService.testDocutment(req, userNo);
+            return "true";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "err";
+        }
+    }
+
+    @ResponseBody
     @RequestMapping(value = "countAllStore")
     public String countAllStore(){
         ArrayList<UserDto> userInfoList = userService.getAllUser();

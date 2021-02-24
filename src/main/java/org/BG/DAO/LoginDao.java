@@ -7,12 +7,14 @@ import org.BG.Mapper.LoginMapper;
 import org.BG.Mapper.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+@EnableScheduling
 @Repository
 public class LoginDao {
     @Autowired
