@@ -134,6 +134,10 @@ public class LoginServiceImp implements LoginService {
 
             userDto.setUser_RegDate(getToday());
 
+            //사업자 등록번호 재조정
+            String comNo = userDto.getUser_ComNo().replaceAll("-", "");
+            userDto.setUser_ComNo(comNo);
+
             //사용자 등록 후 key 반환
             String user_No = loginDao.appRegister(userDto);
             userDto.setUser_No(Integer.parseInt(user_No));
@@ -152,6 +156,8 @@ public class LoginServiceImp implements LoginService {
     @Override
     public String appSearchEmail(UserDto userDto) {
         try{
+            String comNo = userDto.getUser_ComNo().replaceAll("-", "");
+            userDto.setUser_ComNo(comNo);
             return loginDao.appSearchEmail(userDto);
         } catch (Exception e){
             e.printStackTrace();
@@ -182,6 +188,9 @@ public class LoginServiceImp implements LoginService {
     @Override
     public String appChangePwd(UserDto userDto) {
         try{
+            PwdToByte pwdToByte = new PwdToByte();
+            String pwd = pwdToByte.encryptionSHA256(userDto.getUser_PW());
+            userDto.setUser_PW(pwd);
             return loginDao.appChangePwd(userDto);
         } catch (Exception e){
             e.printStackTrace();

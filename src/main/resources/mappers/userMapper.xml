@@ -77,4 +77,7 @@
     <select id="searchUser" resultType="UserDto">
         select * from user where User_No=${userNo}
     </select>
+    <update id="changeComNo">
+        update user set User_ComNo=#{User_ComNo} where User_No=${User_No}
+    </update>
 </mapper>

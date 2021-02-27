@@ -86,7 +86,9 @@ public class LoginController {
     @RequestMapping(value = "/appConfirmBusinessNumberOfRegister.app")
     public String appConfirmBusinessNumberOfRegister(@ModelAttribute UserDto userDto){
         try{
-            System.out.println("/appConfirmBusinessNumberOfRegister.app 호출");
+            System.out.println("/appConfirmBusinessNumberOfRegister.app run");
+            String comNo = userDto.getUser_ComNo().replaceAll("-", "");
+            userDto.setUser_ComNo(comNo);
             String result = loginService.appConfirmBusinessNumberOfRegister(userDto);
             //사업자 등록번호 유효성
             if(result.equals("사업을 하지 않고 있습니다.")){

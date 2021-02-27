@@ -13,6 +13,16 @@
     <title>Title</title>
 </head>
 <body>
+<h3>changeComNo</h3>
+<form action="/changeComNo">
+    <button>제출</button>
+</form>
+<h2>appChangePwd.app</h2>
+<form action="/appChangePwd.app">
+    <input type="text" name="User_Email" placeholder="User_Email">
+    <input type="text" name="User_PW" placeholder="User_PW">
+    <button>제출</button>
+</form>
 <h2>잘 나오는 것이여</h2>
 <h3>testDocument</h3>
 <form action="/testDocument">
@@ -34,9 +44,10 @@
     <input type="text" name="User_Addr" placeholder="User_Addr">
     <button>제출</button>
 </form>
-<h3>유저 번호 190번 비밀번호 암호화</h3>
+<h3>유저 번호 비밀번호 암호화</h3>
 <form action="/changePwd">
-<%--    <button>제출</button>--%>
+    <input type="text" name="userNo" placeholder="userNo">
+    <button>제출</button>
 </form>
 <h3>모든 사용자 비밀번호 암호화</h3>
 <form action="/changeAllPwd">

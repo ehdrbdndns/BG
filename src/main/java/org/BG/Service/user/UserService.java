@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public interface UserService {
+    void changeComNo(UserDto userDto);
     JSONObject appRetrieveUserInfo(UserDto userDto);
     String appModifyUserInfo(UserDto userDto) throws IOException;
     String appModifyUserAlarm(UserDto userDto);

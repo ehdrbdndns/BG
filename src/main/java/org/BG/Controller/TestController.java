@@ -40,6 +40,29 @@ public class TestController {
 //    CGPlacesAPI cgPlacesAPI;
 
     @ResponseBody
+    @RequestMapping(value = "changeComNo")
+    public String changeComNo(){
+        try{
+            ArrayList<UserDto> userInfoList = userService.getUserList();
+            for(int i = 0; i<userInfoList.size(); i++){
+                String comNo = userInfoList.get(i).getUser_ComNo();
+                if(comNo.length() > 11){
+                    System.out.print("사용자 이름: " + userInfoList.get(i).getUser_No() + " " + userInfoList.get(i).getUser_Name() + "  변경전 등록번호: " + comNo);
+                    comNo = comNo.replaceAll("-", "");
+                    userInfoList.get(i).setUser_ComNo(comNo);
+                    System.out.println("  변경된 등록번호: " + userInfoList.get(i).getUser_ComNo());
+                    //변경
+                    userService.changeComNo(userInfoList.get(i));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "err";
+        }
+        return "true";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "testDocument")
     public String testDocument(HttpServletRequest req, @RequestParam("userNo") int userNo){
         try{
@@ -63,8 +86,9 @@ public class TestController {
 
     @ResponseBody
     @RequestMapping(value = "changePwd")
-    public String changePwd() throws NoSuchAlgorithmException{
-       UserDto userDto = userService.searchUser(190);
+    public String changePwd(@RequestParam("userNo") String userNo) throws NoSuchAlgorithmException{
+        int no = Integer.parseInt(userNo);
+       UserDto userDto = userService.searchUser(no);
        userService.updateUserPwd(userDto);
         return "true";
     }

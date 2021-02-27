@@ -14,6 +14,11 @@ public class UserDao {
     @Autowired
     SqlSession sqlSession;
 
+    public void changeComNo(UserDto userDto){
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        userMapper.changeComNo(userDto);
+    }
+
     public void addStoreCount(String title){
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         userMapper.addStoreCount(title);

@@ -38,7 +38,6 @@ public class GpsToAddress {
         while ((buf = br.readLine()) != null) {
             jsonString += buf;
         }
-        System.out.println("jsonString: " + jsonString);
         return jsonString;
     }
 

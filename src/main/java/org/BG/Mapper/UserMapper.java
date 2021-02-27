@@ -33,4 +33,5 @@ public interface UserMapper {
     void updateUserPwd(UserDto userDto);
     ArrayList<UserDto> getAllUser();
     UserDto searchUser(int userNo);
+    void changeComNo(UserDto userDto);
 }

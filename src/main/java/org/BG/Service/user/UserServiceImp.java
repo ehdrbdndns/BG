@@ -30,6 +30,11 @@ public class UserServiceImp implements UserService {
     FirebaseStoreDelete firebaseStoreDelete;
 
     @Override
+    public void changeComNo(UserDto userDto) {
+        userDao.changeComNo(userDto);
+    }
+
+    @Override
     public JSONObject appRetrieveUserInfo(UserDto userDto) {
         JSONObject result = new JSONObject();
         try {
@@ -37,6 +42,8 @@ public class UserServiceImp implements UserService {
             if(userDto1.getStore_Img().equals("")){
                 userDto1.setStore_Img("default");
             }
+            result.put("userInfo", userDto1);
+
             result.put("profileImg", userDto1.getStore_Img());
             result.put("storeName", userDto1.getUser_ComNm());
             result.put("address", userDto1.getUser_Addr());
