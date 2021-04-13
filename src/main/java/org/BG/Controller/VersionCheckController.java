@@ -17,10 +17,15 @@ public class VersionCheckController {
     @RequestMapping(value = "/appCheckVersion.app")
     public String appCheckVersion(@RequestParam("version") String userVersion){
         try{
-            System.out.println("userVersion: " + userVersion);
             /* 현재 앱 버전 */
             String version = userService.appCheckVersion();
-            System.out.println("나의 버전: " + version);
+            System.out.println("app version: " + version);
+            System.out.println("user version: " + userVersion);
+
+            if(version.equals("0.0.1234")){
+                return "false";
+            }
+
 //            if(version.equals(userVersion) || userVersion.equals("0.0.1")){
 //                System.out.println("버전 성공");
 //                return "true";
@@ -28,6 +33,7 @@ public class VersionCheckController {
 //                System.out.println("버전 실패");
 //                return "false";
 //            }
+
             System.out.println("not user versionCheck");
             return "true";
         } catch (Exception e){
